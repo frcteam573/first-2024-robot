@@ -10,6 +10,10 @@ import typing
 
 from robotcontainer import RobotContainer
 
+from robot_systems import Robot, Sensors
+from sensors import FieldOdometry
+import commands
+
 
 class MyRobot(commands2.TimedCommandRobot):
     """
@@ -24,10 +28,32 @@ class MyRobot(commands2.TimedCommandRobot):
         This function is run when the robot is first started up and should be used for any
         initialization code.
         """
+        
+        Robot.drivetrain.init()
+        
+        Sensors.odometry = FieldOdometry(Robot.drivetrain, None)
+        Sensors.gyro = Robot.drivetrain.gyro
+        
+        for i in range(15):
+            Robot.drivetrain.n_front_left.initial_zero()
+            Robot.drivetrain.n_front_right.initial_zero()
+            Robot.drivetrain.n_back_left.initial_zero()
+            Robot.drivetrain.n_back_right.initial_zero()
 
         # Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         # autonomous chooser on the dashboard.
         self.container = RobotContainer()
+
+    def robotPeriodic(self) -> None:
+        Sensors.odometry.update()
+        pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
+        
+        try:
+            commands2.CommandScheduler.getInstance().run()
+        except Exception as e:
+            print(e)
+
+        
 
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""
@@ -53,6 +79,10 @@ class MyRobot(commands2.TimedCommandRobot):
         # teleop starts running. If you want the autonomous to
         # continue until interrupted by another command, remove
         # this line or comment it out.
+        commands2.CommandScheduler.getInstance().schedule(
+            commands.DriveSwerveCustom(Robot.drivetrain)
+        )
+        
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
@@ -63,3 +93,6 @@ class MyRobot(commands2.TimedCommandRobot):
     def testInit(self) -> None:
         # Cancels all running commands at the start of test mode
         commands2.CommandScheduler.getInstance().cancelAll()
+        
+if __name__ == "__main__":
+    wpilib.run(Robot)

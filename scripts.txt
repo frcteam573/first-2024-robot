@@ -1,0 +1,9 @@
+run code
+python robot.py run
+
+deploy code
+python robot.py deploy
+python robot.py deploy --nc
+
+sim code
+python robot.py sim

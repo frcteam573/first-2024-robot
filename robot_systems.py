@@ -5,11 +5,11 @@ import subsytems
 from sensors import FieldOdometry
 
 class Robot:
-    arm = subsytems.Arm()
+    # arm = subsytems.Arm()
     drivetrain = subsytems.Drivetrain()
-    climber = subsytems.Climber()
-    intake = subsytems.Intake()
-    grabber = subsytems.Grabber()
+    # climber = subsytems.Climber()
+    # intake = subsytems.Intake()
+    # grabber = subsytems.Grabber()
 
 class Sensors:
     odometry: FieldOdometry = FieldOdometry(Robot.drivetrain, None)
