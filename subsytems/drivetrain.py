@@ -2,7 +2,7 @@ import math
 from dataclasses import dataclass
 
 import rev
-from ctre.sensors import CANCoder
+from phoenix6.hardware.cancoder import CANcoder as CANCoder
 from robotpy_toolkit_7407.motors.rev_motors import SparkMax, SparkMaxConfig
 from robotpy_toolkit_7407.sensors.gyro import PigeonIMUGyro_Wrapper
 from robotpy_toolkit_7407.subsystem_templates.drivetrain import (

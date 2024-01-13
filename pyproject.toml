@@ -18,13 +18,14 @@ robotpy_extras = [
     # "navx"
     # "pathplannerlib"
     # "phoenix5"
-    # "phoenix6"
+    "phoenix6",
     # "playingwithfusion"
-    # "rev"
+    "rev"
     # "romi"
     # "sim"
     # "xrp"
 ]
 
 # Other pip packages to install
-requires = ["robotpy-commands-v2==2024.0.0b4", "robotpy-toolkit-7407 @ file:///C:/Users/brian/OneDrive/Desktop/Robotics/7407-RobotPy-Toolkit-573"]
+requires = ["robotpy-commands-v2==2024.0.0b4","robotpy-rev"]
+

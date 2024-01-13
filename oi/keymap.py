@@ -34,18 +34,19 @@ class Keymap:
         RESET_ODOMETRY = commands2.button.JoystickButton(
             Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.Y
         )
-        # SLOW_REVERSE = commands2.button.Button(
+        # SLOW_REVERSE = commands2.button.JoystickButton(
         #     lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
         # )
-        SLOW_FORWARD = commands2.button.Button(
-            lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.RT) > 0.5
+        SLOW_FORWARD = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
         X_MODE = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.X
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
-        AUTO_ROUTE = commands2.button.Button(
-            lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
+        AUTO_ROUTE = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
+        
         )
 
     class Claw:
@@ -61,18 +62,17 @@ class Keymap:
             Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.B
         )
 
-        RUN_CLAW_UP = commands2.button.Button(
-            lambda: Controllers.OPERATOR_CONTROLLER.getPOV() == 0
+        RUN_CLAW_UP = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
-        RUN_CLAW_DOWN = commands2.button.Button(
-            lambda: Controllers.OPERATOR_CONTROLLER.getPOV() == 180
+        RUN_CLAW_DOWN = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
     class Targeting:
-        TARGETING_PICKUP = commands2.button.Button(
-            lambda: Controllers.OPERATOR_CONTROLLER.getRawAxis(-controllerOPERATOR.LT)
-            > 0.5
+        TARGETING_PICKUP = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
         TARGETING_DOUBLE_STATION = commands2.button.JoystickButton(
@@ -83,9 +83,8 @@ class Keymap:
             Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.START
         )
 
-        TARGETING_MIDDLE = commands2.button.Button(
-            lambda: Controllers.OPERATOR_CONTROLLER.getRawAxis(-controllerOPERATOR.RT)
-            > 0.5
+        TARGETING_MIDDLE = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
         TARGETING_HIGH = commands2.button.JoystickButton(
@@ -117,17 +116,17 @@ class Keymap:
             Controllers.DRIVER_CONTROLLER, controllerDRIVER.START
         )
 
-        UNCLIMB = commands2.button.Button(
-            lambda: Controllers.OPERATOR_CONTROLLER.getPOV() == 90
+        UNCLIMB = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
-        CLIMB = commands2.button.Button(
-            lambda: Controllers.OPERATOR_CONTROLLER.getPOV() == 270
+        CLIMB = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
     class Debug:
-        INVERT_ELEVATOR = commands2.button.Button(
-            lambda: Controllers.DRIVER_CONTROLLER.getPOV() == 180
+        INVERT_ELEVATOR = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
         )
 
     class Scoring:
