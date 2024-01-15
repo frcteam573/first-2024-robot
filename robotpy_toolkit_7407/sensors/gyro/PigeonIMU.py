@@ -29,7 +29,7 @@ class PigeonIMUGyro_Wrapper(BaseGyro):
         Returns the angle of the robot's heading in radians (yaw)
         :return: Robot heading (radians)
         """
-        return math.radians(self._gyro.getYaw())
+        return math.radians(self._gyro.get_yaw().value)
 
     def get_robot_pitch(self) -> radians:
         """
@@ -50,4 +50,4 @@ class PigeonIMUGyro_Wrapper(BaseGyro):
         """
         Resets the gyro's yaw.
         """
-        self._gyro.setYaw(math.degrees(angle))
+        self._gyro.set_yaw(math.degrees(angle))

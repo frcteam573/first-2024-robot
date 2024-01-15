@@ -44,7 +44,7 @@ class SparkMaxSwerveNode(SwerveNode):
 
     def initial_zero(self):
         current_pos_rad = (
-            math.radians(self.encoder.getAbsolutePosition())
+            math.radians(self.encoder.get_absolute_position().value)
             - self.absolute_encoder_zeroed_pos
         )
 
@@ -59,7 +59,7 @@ class SparkMaxSwerveNode(SwerveNode):
         current_angle = self.get_current_motor_angle()
 
         current_pos_rad = (
-            math.radians(self.encoder.getAbsolutePosition())
+            math.radians(self.encoder.get_absolute_position())
             - self.absolute_encoder_zeroed_pos
         )
 
