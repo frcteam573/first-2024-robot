@@ -116,7 +116,7 @@ class SparkMaxSwerveNode(SwerveNode):
 
 class Drivetrain(SwerveDrivetrain):
     n_front_left = SparkMaxSwerveNode(
-        SparkMax(1, config=MOVE_CONFIG),
+        SparkMax(1, config=MOVE_CONFIG, inverted=False),
         SparkMax(2, config=TURN_CONFIG),
         CANCoder(3),
         absolute_encoder_zeroed_pos=math.radians(0),
@@ -130,7 +130,7 @@ class Drivetrain(SwerveDrivetrain):
         name="n_front_right",
     )
     n_back_left = SparkMaxSwerveNode(
-        SparkMax(7, config=MOVE_CONFIG),
+        SparkMax(7, config=MOVE_CONFIG, inverted=False),
         SparkMax(8, config=TURN_CONFIG),
         CANCoder(9),
         absolute_encoder_zeroed_pos=math.radians(0),
