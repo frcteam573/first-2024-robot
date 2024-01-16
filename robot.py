@@ -5,6 +5,7 @@
 # the WPILib BSD license file in the root directory of this project.
 
 import wpilib
+# from wpilib import SmartDashboard, Field2d
 import commands2
 import typing
 
@@ -13,6 +14,7 @@ from robotcontainer import RobotContainer
 from robot_systems import Robot, Sensors
 from sensors import FieldOdometry
 import commands
+# from sensors.field_odometry import FieldOdometry
 
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -31,6 +33,9 @@ class MyRobot(commands2.TimedCommandRobot):
         
         Robot.drivetrain.init()
         
+        self.field = wpilib.Field2d() 
+        wpilib.SmartDashboard.putData("Field", self.field)
+        
         Sensors.odometry = FieldOdometry(Robot.drivetrain, None)
         Sensors.gyro = Robot.drivetrain.gyro
         
@@ -47,6 +52,7 @@ class MyRobot(commands2.TimedCommandRobot):
     def robotPeriodic(self) -> None:
         Sensors.odometry.update()
         pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
+        self.field.setRobotPose(pose)
         
         try:
             commands2.CommandScheduler.getInstance().run()

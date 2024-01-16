@@ -131,6 +131,9 @@ class FieldOdometry:
 
                         self.last_update_time = current_time
 
+        print(self.getPose())
+        
+        
         return self.getPose()
 
     def getPose(self) -> Pose2d:
