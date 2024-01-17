@@ -1,5 +1,5 @@
 import math
-from ntcore import NetworkTable
+from ntcore import NetworkTableInstance
 from wpimath.geometry import Pose3d, Translation3d, Rotation3d
 
 from robotpy_toolkit_7407.utils.units import m, deg, rad, radians
@@ -22,8 +22,8 @@ class Limelight:
             target_height (float, optional): Height of the target from the ground in meters. Defaults to camera height.
         """
 
-        NetworkTables.initialize(server=robot_ip)
-        self.table = NetworkTables.getTable("limelight")
+        inst = NetworkTableInstance.initialize(server=robot_ip)
+        self.table = inst.getTable("limelight")
         self.tx = 0
         self.ty = 0
         self.refs = 0
