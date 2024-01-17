@@ -7,6 +7,7 @@ from sensors import FieldOdometry
 class Robot:
     # arm = subsytems.Arm()
     drivetrain = subsytems.Drivetrain()
+    appendage = subsytems.Appendage()
     # climber = subsytems.Climber()
     # intake = subsytems.Intake()
     # grabber = subsytems.Grabber()

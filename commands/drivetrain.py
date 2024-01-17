@@ -58,7 +58,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
             d_theta = 0
             
 
-        print("dx", dx)
+        # print("dx", dx)
         dx = curve(dx)
         dy = curve(dy)
         d_theta = curve(d_theta)

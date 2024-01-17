@@ -11,6 +11,8 @@ import typing
 
 from robotcontainer import RobotContainer
 
+from oi.OI import OI
+
 from robot_systems import Robot, Sensors
 from sensors import FieldOdometry
 import commands
@@ -36,6 +38,9 @@ class MyRobot(commands2.TimedCommandRobot):
         self.field = wpilib.Field2d() 
         wpilib.SmartDashboard.putData("Field", self.field)
         
+        OI.init()
+        OI.map_controls()
+        
         Sensors.odometry = FieldOdometry(Robot.drivetrain, None)
         Sensors.gyro = Robot.drivetrain.gyro
         
@@ -47,7 +52,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
         # Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         # autonomous chooser on the dashboard.
-        self.container = RobotContainer()
+        # self.container = RobotContainer()
 
     def robotPeriodic(self) -> None:
         Sensors.odometry.update()
@@ -71,10 +76,10 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def autonomousInit(self) -> None:
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
-        self.autonomousCommand = self.container.getAutonomousCommand()
+        # self.autonomousCommand = self.container.getAutonomousCommand()
 
-        if self.autonomousCommand:
-            self.autonomousCommand.schedule()
+        # if self.autonomousCommand:
+        #     self.autonomousCommand.schedule()
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
@@ -89,8 +94,8 @@ class MyRobot(commands2.TimedCommandRobot):
             commands.DriveSwerveCustom(Robot.drivetrain)
         )
         
-        if self.autonomousCommand:
-            self.autonomousCommand.cancel()
+        # if self.autonomousCommand:
+        #     self.autonomousCommand.cancel()
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""

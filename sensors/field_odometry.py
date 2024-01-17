@@ -3,6 +3,7 @@ import time
 
 from robotpy_toolkit_7407.sensors.odometry import VisionEstimator
 from wpimath.geometry import Pose2d, Pose3d, Rotation2d, Translation2d
+from robotpy_toolkit_7407.sensors.limelight.limelight import Limelight
 
 from subsytems import Drivetrain
 from units.SI import seconds
@@ -65,6 +66,8 @@ class FieldOdometry:
         self.robot_pose_weight: float = 1 - self.vision_estimator_pose_weight
 
         self.vision_on = True
+        
+        self.limelight = Limelight(0, 0,  robot_ip="10.5.73.2")
 
     def update(self) -> Pose2d:
         """
@@ -130,9 +133,8 @@ class FieldOdometry:
                             )
 
                         self.last_update_time = current_time
-
-        print(self.getPose())
-        
+                        
+        print(self.limelight.get_bot_pose())
         
         return self.getPose()
 

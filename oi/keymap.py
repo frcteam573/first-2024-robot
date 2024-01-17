@@ -22,6 +22,11 @@ class Controllers:
 
 
 class Keymap:
+    class Intake:
+        INTAKE = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.X
+        )
+    
     class Drivetrain:
         DRIVE_X_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[0])
         DRIVE_Y_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[1])

@@ -1,5 +1,5 @@
 import math
-from networktables import NetworkTables
+from ntcore import NetworkTable
 from wpimath.geometry import Pose3d, Translation3d, Rotation3d
 
 from robotpy_toolkit_7407.utils.units import m, deg, rad, radians
