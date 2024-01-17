@@ -22,7 +22,7 @@ class Limelight:
             target_height (float, optional): Height of the target from the ground in meters. Defaults to camera height.
         """
 
-        inst = NetworkTableInstance.initialize(server=robot_ip)
+        inst = NetworkTableInstance.getDefault() #initialize(server=robot_ip)
         self.table = inst.getTable("limelight")
         self.tx = 0
         self.ty = 0
