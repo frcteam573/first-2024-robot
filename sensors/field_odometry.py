@@ -134,7 +134,10 @@ class FieldOdometry:
 
                         self.last_update_time = current_time
                         
-        print(self.limelight.get_bot_pose())
+        limelightPose = self.limelight.get_bot_pose()
+        
+        if limelightPose is not None:
+            print("Bot Pose according to Limelight:", limelightPose[0], limelightPose[1])
         
         return self.getPose()
 

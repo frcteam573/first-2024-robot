@@ -21,9 +21,19 @@ class Limelight:
             cam_angle (float): Camera angle from the horizontal in degrees.
             target_height (float, optional): Height of the target from the ground in meters. Defaults to camera height.
         """
-
+        
         inst = NetworkTableInstance.getDefault() #initialize(server=robot_ip)
         self.table = inst.getTable("limelight")
+        # print("\n\n\n============network table stuff============")
+        # print(inst.isConnected())
+        # print(self.table.getPath())
+        # print(self.table)
+        # print(self.table.getKeys())
+        # print(self.table.getValue("botpose", None))
+        # print()
+        # print(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1234))
+        # print("============network table stuff============\n\n\n")
+        
         self.tx = 0
         self.ty = 0
         self.refs = 0
@@ -94,6 +104,14 @@ class Limelight:
         """
         Get the robot's pose from the limelight's perspective.
         """
+        # print("\n\n\n============network table stuff============")
+        # print(self.table.getPath())
+        # print(self.table)
+        # print(self.table.getKeys())
+        # print(self.table.getValue("botpose", None))
+        # print()
+        # print(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1234))
+        # print("============network table stuff============\n\n\n")
         bot_pose = self.table.getValue("botpose", None)
         if round_to is not None and bot_pose is not None:
             bot_pose = [round(i, round_to) for i in bot_pose]
