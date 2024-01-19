@@ -5,11 +5,11 @@
 # the WPILib BSD license file in the root directory of this project.
 
 import wpilib
-# from wpilib import SmartDashboard, Field2d
+from wpilib import SmartDashboard, FieldObject2d
+from wpilib.shuffleboard import Shuffleboard
 import commands2
 import typing
-
-from robotcontainer import RobotContainer
+from ntcore import Value
 
 from oi.OI import OI
 
@@ -32,6 +32,11 @@ class MyRobot(commands2.TimedCommandRobot):
         This function is run when the robot is first started up and should be used for any
         initialization code.
         """
+        self.tab = Shuffleboard.getTab("PID")
+        self.kP = self.tab.add("Shooter P", 0.5).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(1)}).withPosition(0,0).getEntry()
+        self.kI = self.tab.add("Shooter I", 0.5).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(1)}).withPosition(0,1).getEntry()
+        self.kD = self.tab.add("Shooter D", 0.0).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(1)}).withPosition(0,2).getEntry()
+        self.RPM = self.tab.add("Shooter RPM", 5000.0).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(8000)}).withPosition(0,3).getEntry()
         
         Robot.drivetrain.init()
         
@@ -58,6 +63,20 @@ class MyRobot(commands2.TimedCommandRobot):
         Sensors.odometry.update()
         pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
         self.field.setRobotPose(pose)
+        
+        # kp = SmartDashboard.getNumber("Shooter P", 0.0)/10000
+        # ki = SmartDashboard.getNumber("Shooter I", 0.0)/1000000
+        # kd = SmartDashboard.getNumber("Shooter D", 0.0)/10000
+        
+        
+        print(self.kP.getDouble(0.0)/10000, self.kI.getDouble(0.0)/1000000, self.kD.getDouble(0.0)/10000)
+        
+        Robot.appendage.shooterPID.setP(self.kP.getDouble(0.0)/10000)
+        Robot.appendage.shooterPID.setI(self.kI.getDouble(0.0)/1000000)
+        Robot.appendage.shooterPID.setD(self.kD.getDouble(0.0)/10000)
+        Robot.appendage.RPM = self.RPM.getDouble(0.0)
+        
+        
         
         try:
             commands2.CommandScheduler.getInstance().run()

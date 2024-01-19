@@ -25,7 +25,14 @@ class Appendage(commands2.SubsystemBase):
         self.wristMax = 7.5
 
         self.m_roller1 = rev.CANSparkMax(14, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_roller2 = rev.CANSparkMax(15, rev.CANSparkMax.MotorType.kBrushless)
+        self.m_shooter = rev.CANSparkMax(15, rev.CANSparkMax.MotorType.kBrushless)
+        self.shooterEncoder = self.m_shooter.getEncoder()
+        self.shooterPID = self.m_shooter.getPIDController()
+        self.shooterPID.setP(0.00005)
+        self.shooterPID.setI(0.0000005)
+        self.shooterPID.setD(0.0)
+        
+        self.RPM = 5000
         
         self.m_wrist = rev.CANSparkMax(18, rev.CANSparkMax.MotorType.kBrushless)
         
@@ -33,10 +40,18 @@ class Appendage(commands2.SubsystemBase):
         
         self.p_rollerCylinder = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 1, 0)
         
-        
     def setIntake(self, speed: float) -> None:
         self.m_roller1.set(speed)
-        self.m_roller2.set(-1*speed)
+        
+    def setTransfer(self, speed: float) -> None:
+        print("setting transfer speed to", speed)
+        
+    def setShooter(self, speed: float) -> None:
+        if self.RPM == 0:
+            self.m_shooter.set(0)
+        else:
+            self.shooterPID.setReference(self.RPM, rev.CANSparkMax.ControlType.kVelocity)
+        print("setting shooter speed to", self.RPM)
         
     def setWrist(self, speed: float) -> None:
         out = remap(speed, .85)
@@ -50,8 +65,6 @@ class Appendage(commands2.SubsystemBase):
         if ((cur < self.wristMin and out < 0) or (cur > self.wristMax and out > 0)):
             out = 0
             print3 = "stopped"
-
-        
         
         self.m_wrist.set(out)
         
@@ -62,3 +75,5 @@ class Appendage(commands2.SubsystemBase):
         
     def pneumaticsOut(self) -> None:
         self.p_rollerCylinder.set(wpilib.DoubleSolenoid.Value.kReverse)
+        
+    

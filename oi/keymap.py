@@ -23,154 +23,23 @@ class Controllers:
 
 class Keymap:
     class Intake:
-        INTAKE = commands2.button.JoystickButton(
+        INTAKE_IN = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
+        )
+        INTAKE_OUT = commands2.button.JoystickButton(
             Controllers.DRIVER_CONTROLLER, controllerDRIVER.X
         )
+        SHOOTER = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.LB
+        )
+        TRANSFER = commands2.button.JoystickButton(
+            Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB
+        )
+        
     
     class Drivetrain:
         DRIVE_X_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[0])
         DRIVE_Y_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[1])
         DRIVE_ROTATION_AXIS = JoystickAxis(
             Controllers.DRIVER, controllerDRIVER.R_JOY[0]
-        )
-        RESET_GYRO = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.B
-        )
-        RESET_ODOMETRY = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.Y
-        )
-        # SLOW_REVERSE = commands2.button.JoystickButton(
-        #     lambda: Controllers.DRIVER_CONTROLLER.getRawAxis(-controllerDRIVER.LT) > 0.5
-        # )
-        SLOW_FORWARD = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-        X_MODE = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-        AUTO_ROUTE = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        
-        )
-
-    class Claw:
-        OPEN_CLAW_DRIVER = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-        OPEN_CLAW_OPERATOR = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.A
-        )
-
-        DROP_CLAW = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.B
-        )
-
-        RUN_CLAW_UP = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-        RUN_CLAW_DOWN = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-    class Targeting:
-        TARGETING_PICKUP = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-        TARGETING_DOUBLE_STATION = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.LB
-        )
-
-        TARGETING_LOW = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.START
-        )
-
-        TARGETING_MIDDLE = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-        TARGETING_HIGH = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.RB
-        )
-
-        TARGETING_CUBE_INTAKE_CLAW = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.X
-        )
-
-        TARGETING_CUBE_INTAKE = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.Y
-        )
-
-        TARGETING_EJECT_INTAKE = commands2.button.JoystickButton(
-            Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.SELECT
-        )
-
-        # ZERO_ARM = commands2.button.JoystickButton(
-        #     Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.SELECT
-        # )
-
-    class Climber:
-        DEPLOY = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.SELECT
-        )
-
-        RESET = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.START
-        )
-
-        UNCLIMB = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-        CLIMB = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-    class Debug:
-        INVERT_ELEVATOR = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-
-    class Scoring:
-        ONE = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.A
-        )
-
-        TWO = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.B
-        )
-
-        THREE = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.X
-        )
-
-        FOUR = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.Y
-        )
-
-        FIVE = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.LB
-        )
-
-        SIX = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.RB
-        )
-
-        SEVEN = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.SELECT
-        )
-
-        EIGHT = commands2.button.JoystickButton(
-            Controllers.NUMPAD_CONTROLLER, controllerNUMPAD.START
-        )
-
-        NINE = commands2.button.JoystickButton(Controllers.NUMPAD_CONTROLLER, 9)
-
-        DEL = commands2.button.JoystickButton(Controllers.NUMPAD_CONTROLLER, 10)
-
-        DEL_DRIVER = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.LB
         )
