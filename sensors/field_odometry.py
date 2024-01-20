@@ -68,7 +68,7 @@ class FieldOdometry:
         self.vision_on = True
         
         self.limelight_field = Limelight(0, 0, limelight_name="limelight-field")
-        self.limelight_intake = Limelight(0, 0, limelight_name="limelight-intake")
+        self.limelight_intake = Limelight(0, 0, limelight_name="limelight-intake", pipeline=1)
 
     def update(self) -> Pose2d:
         """

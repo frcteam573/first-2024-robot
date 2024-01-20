@@ -164,14 +164,14 @@ robot_length: meters = 0.635
 
 # TODO Maybe change these
 drivetrain_accel = True
-drivetrain_max_vel: meters_per_second = (10 * mile / hour).asNumber(m / s)  # 15 11
+drivetrain_max_vel: meters_per_second = (50 * mile / hour).asNumber(m / s)  # 15 11
 drivetrain_max_accel_tele: meters_per_second_squared = (45 * mile / hour).asNumber(m / s)
 drivetrain_max_target_accel: meters_per_second_squared = (
     1.5 * mile / hour
 ).asNumber(  # 10
     m / s
 )
-drivetrain_target_max_vel: meters_per_second = (10 * mile / hour).asNumber(m / s)  # 3
+drivetrain_target_max_vel: meters_per_second = (50 * mile / hour).asNumber(m / s)  # 3
 drivetrain_max_angular_vel: radians_per_second = (1 * rev / s).asNumber(rad / s)  # 5
 drivetrain_max_correction_vel: radians_per_second = (2 * rev / s).asNumber(rad / s)
 drivetrain_max_climb_vel: meters_per_second = (5 * mile / hour).asNumber(m / s)

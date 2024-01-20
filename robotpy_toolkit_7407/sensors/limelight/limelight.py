@@ -27,6 +27,7 @@ class Limelight:
         self.table.putNumber("pipeline", pipeline)
         self.tx = 0
         self.ty = 0
+        self.tv = 0
         self.refs = 0
         self.k_cam_height = (cam_height * m).asNumber(m)  # Height from ground
         self.k_cam_angle: radians = (cam_angle * deg).asNumber(rad)  # Angle from horizontal
@@ -70,6 +71,7 @@ class Limelight:
             return "No target found."
         self.tx = c_tx
         self.ty = c_ty
+        self.tv = self.table.getNumber('tv', None)
         
     def change_pipeline(self, pipeline):
         """Changes the pipeline that the limelight uses.
@@ -115,6 +117,9 @@ class Limelight:
     
     def get_tx(self):
         return self.tx
+    
+    def get_tv(self):
+        return self.tv
 
 
 class LimelightController(VisionEstimator):

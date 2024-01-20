@@ -47,8 +47,6 @@ class SparkMaxSwerveNode(SwerveNode):
             math.radians(self.encoder.get_absolute_position().value)
             - self.absolute_encoder_zeroed_pos
         )
-        
-        print(math.radians(self.encoder.get_absolute_position().value))
 
         self.m_turn.set_sensor_position(
             current_pos_rad * constants.drivetrain_turn_gear_ratio / (2 * math.pi)
@@ -56,8 +54,6 @@ class SparkMaxSwerveNode(SwerveNode):
 
         self.m_move.set_sensor_position(0)
         self.m_move.set_target_position(0)
-        
-        print(current_pos_rad)
 
     def zero(self):
         current_angle = self.get_current_motor_angle()
@@ -149,6 +145,7 @@ class Drivetrain(SwerveDrivetrain):
     )
 
     gyro: PigeonIMUGyro_Wrapper = PigeonIMUGyro_Wrapper(13)
+    note_align_button = Keymap.Drivetrain.DRIVE_ALIGN_NOTE
     axis_dx = Keymap.Drivetrain.DRIVE_X_AXIS
     axis_dy = Keymap.Drivetrain.DRIVE_Y_AXIS
     axis_rotation = Keymap.Drivetrain.DRIVE_ROTATION_AXIS
@@ -160,8 +157,8 @@ class Drivetrain(SwerveDrivetrain):
     deadzone_angular_velocity: radians_per_second = math.radians(5)
     start_angle: degrees = 0
     start_pose: Pose2d = Pose2d(
-        0,
-        0,
+        5,
+        5,
         math.radians(start_angle),
     )
     gyro_start_angle: radians = math.radians(start_angle)

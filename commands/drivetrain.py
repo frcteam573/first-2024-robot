@@ -31,7 +31,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     driver_centric = True
     driver_centric_reversed = False
     period = constants.period
-    angular_pid: PIDController = PIDController(4, 0.5, 0.05)
+    angular_pid: PIDController = PIDController(1, 0.5, 0.05)
     target_angle = None
 
     def initialize(self) -> None:
@@ -63,10 +63,20 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         )
 
         
-        if abs(d_theta) < 0.11:
+        if self.subsystem.note_align_button.getAsBoolean() and Sensors.odometry.limelight_intake.get_tv():
+            # tx = Rotation2d.fromDegrees(Sensors.odometry.limelight_intake.get_tx())
+            # current_angle -= tx
+            tx = Sensors.odometry.limelight_intake.get_tx()
+            if tx is not None:
+                d_theta = -0.1 * tx      
+            print("tx", tx)
+            self.target_angle = current_angle
+        elif abs(d_theta) < 0.11:
             d_theta = angular_vel
         else:
             self.target_angle = current_angle
+            
+        
             
 
         # print("dx", dx)

@@ -10,6 +10,8 @@ from commands2 import (
 )
 from robotpy_toolkit_7407.utils import logger
 
+from paths import red
+
 import commands
 import config
 from oi.keymap import Controllers, Keymap
@@ -30,6 +32,8 @@ class OI:
         Keymap.Intake.INTAKE_IN.whileTrue(commands.IntakeIn(Robot.appendage))
         Keymap.Intake.INTAKE_OUT.whileTrue(commands.IntakeOut(Robot.appendage))
         Keymap.Intake.TRANSFER.whileTrue(commands.TransferNote(Robot.appendage))
-        Keymap.Intake.SHOOTER.whileTrue(commands.ShooterActivate(Robot.appendage, 5000))
+        Keymap.Intake.SHOOTER.whileTrue(commands.ShooterActivate(Robot.appendage, 10000))
         
         Keymap.Drivetrain.DRIVE_ALIGN_STRAIGHT.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
+        
+        Keymap.Drivetrain.DRIVE_PATH.whileTrue(red.path_1)
