@@ -349,3 +349,21 @@ class DrivetrainRegular(SubsystemCommand[Drivetrain]):
 
     def end(self, interrupted: bool) -> None:
         ...
+        
+
+class DrivetrainAlignStraight(SubsystemCommand[Drivetrain]):
+    def __init__(self, subsystem: Drivetrain):
+        super().__init__(subsystem)
+        self.subsystem = subsystem
+
+    def initialize(self) -> None:
+        self.subsystem.n_front_left.set_motor_angle(0)
+        self.subsystem.n_front_right.set_motor_angle(0)
+        self.subsystem.n_back_left.set_motor_angle(0)
+        self.subsystem.n_back_right.set_motor_angle(0)
+
+    def isFinished(self) -> bool:
+        return True
+
+    def end(self, interrupted: bool) -> None:
+        ...
