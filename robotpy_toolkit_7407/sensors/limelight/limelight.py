@@ -14,7 +14,7 @@ class Limelight:
     Connect, get, and modify limelight values and settings through the NetworkTables interface.
     """
 
-    def __init__(self, cam_height: float, cam_angle: float, target_height: float = None, robot_ip: str = "10.74.07.2"):
+    def __init__(self, cam_height: float, cam_angle: float, target_height: float = None, limelight_name: str = "limelight", pipeline: int = 0):
         """
         Args:
             cam_height (float): Height of the limelight camera from the ground in meters.
@@ -23,17 +23,8 @@ class Limelight:
         """
         
         inst = NetworkTableInstance.getDefault() #initialize(server=robot_ip)
-        self.table = inst.getTable("limelight")
-        # print("\n\n\n============network table stuff============")
-        # print(inst.isConnected())
-        # print(self.table.getPath())
-        # print(self.table)
-        # print(self.table.getKeys())
-        # print(self.table.getValue("botpose", None))
-        # print()
-        # print(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1234))
-        # print("============network table stuff============\n\n\n")
-        
+        self.table = inst.getTable(limelight_name)
+        self.table.putNumber("pipeline", pipeline)
         self.tx = 0
         self.ty = 0
         self.refs = 0
@@ -79,6 +70,11 @@ class Limelight:
             return "No target found."
         self.tx = c_tx
         self.ty = c_ty
+        
+    def change_pipeline(self, pipeline):
+        """Changes the pipeline that the limelight uses.
+        """
+        self.table.putNumber("pipeline", pipeline)
 
     def calculate_distance(self) -> float:
         """
@@ -116,6 +112,9 @@ class Limelight:
         if round_to is not None and bot_pose is not None:
             bot_pose = [round(i, round_to) for i in bot_pose]
         return bot_pose
+    
+    def get_tx(self):
+        return self.tx
 
 
 class LimelightController(VisionEstimator):

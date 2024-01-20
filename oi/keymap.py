@@ -23,23 +23,14 @@ class Controllers:
 
 class Keymap:
     class Intake:
-        INTAKE_IN = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.A
-        )
-        INTAKE_OUT = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.X
-        )
-        SHOOTER = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.LB
-        )
-        TRANSFER = commands2.button.JoystickButton(
-            Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB
-        )
+        INTAKE_IN = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.A)
+        INTAKE_OUT = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.X)
+        SHOOTER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.LB)
+        TRANSFER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB)
         
     
     class Drivetrain:
         DRIVE_X_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[0])
         DRIVE_Y_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[1])
-        DRIVE_ROTATION_AXIS = JoystickAxis(
-            Controllers.DRIVER, controllerDRIVER.R_JOY[0]
-        )
+        DRIVE_ROTATION_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.R_JOY[0])
+        DRIVE_ALIGN_NOTE = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RT)

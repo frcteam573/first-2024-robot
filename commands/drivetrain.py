@@ -31,7 +31,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     driver_centric = True
     driver_centric_reversed = False
     period = constants.period
-    angular_pid: PIDController = PIDController(4, 0, 0.05)
+    angular_pid: PIDController = PIDController(4, 0.5, 0.05)
     target_angle = None
 
     def initialize(self) -> None:
@@ -47,15 +47,26 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     def execute(self) -> None:
         
         #might be better to add acceleration after scaling if its non-linear
+        
+        current_angle = Sensors.odometry.getPose().rotation()
+        relative = Pose2d(0, 0, self.target_angle).relativeTo(
+            Pose2d(0, 0, current_angle)
+        )
+        angular_vel = self.angular_pid.calculate(abs(relative.rotation().radians())) * (
+            -1 if relative.rotation().radians() > 0 else 1
+        )
                 
         dx, dy, d_theta = (
             self.subsystem.axis_dx.value * (-1 if config.drivetrain_reversed else 1),
             self.subsystem.axis_dy.value * (-1 if config.drivetrain_reversed else 1),
             -self.subsystem.axis_rotation.value,
         )
+
         
         if abs(d_theta) < 0.11:
-            d_theta = 0
+            d_theta = angular_vel
+        else:
+            self.target_angle = current_angle
             
 
         # print("dx", dx)

@@ -20,7 +20,7 @@ class ShooterActivate(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         self.app.setShooter(self.speed)
-        print("shooter velocity:", self.app.shooterEncoder.getVelocity())
+        print("shooter velocity:", self.app.s_shooterEncoder1.getVelocity())
         
     def end(self, interrupted=False) -> None:
         self.app.setShooter(0)

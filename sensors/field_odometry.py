@@ -67,12 +67,15 @@ class FieldOdometry:
 
         self.vision_on = True
         
-        self.limelight = Limelight(0, 0,  robot_ip="10.5.73.2")
+        self.limelight_field = Limelight(0, 0, limelight_name="limelight-field")
+        self.limelight_intake = Limelight(0, 0, limelight_name="limelight-intake")
 
     def update(self) -> Pose2d:
         """
         Updates the robot's pose relative to the field. This should be called periodically.
         """
+        self.limelight_field.update()
+        self.limelight_intake.update()
 
         self.drivetrain.odometry.update(
             self.drivetrain.get_heading(), self.drivetrain.node_positions
@@ -134,7 +137,7 @@ class FieldOdometry:
 
                         self.last_update_time = current_time
                         
-        limelightPose = self.limelight.get_bot_pose()
+        limelightPose = self.limelight_field.get_bot_pose()
         
         # if limelightPose is not None:
         #     print("Bot Pose according to Limelight:", limelightPose[0], limelightPose[1])

@@ -29,5 +29,5 @@ class OI:
         
         Keymap.Intake.INTAKE_IN.whileTrue(commands.IntakeIn(Robot.appendage))
         Keymap.Intake.INTAKE_OUT.whileTrue(commands.IntakeOut(Robot.appendage))
-        Keymap.Intake.SHOOTER.whileTrue(commands.ShooterActivate(Robot.appendage, 5000))
         Keymap.Intake.TRANSFER.whileTrue(commands.TransferNote(Robot.appendage))
+        Keymap.Intake.SHOOTER.whileTrue(commands.ShooterActivate(Robot.appendage, 5000))
