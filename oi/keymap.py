@@ -26,8 +26,7 @@ class Keymap:
         INTAKE_IN = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.A)
         INTAKE_OUT = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.X)
         SHOOTER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.LB)
-        TRANSFER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB)
-        
+        TRANSFER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB) 
     
     class Drivetrain:
         DRIVE_X_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[0])
@@ -37,3 +36,4 @@ class Keymap:
         DRIVE_ALIGN_STRAIGHT = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.START)
         
         DRIVE_PATH = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.B)
+        SHOW_DRIVE_PATH = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.SELECT)

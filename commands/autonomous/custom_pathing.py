@@ -315,6 +315,7 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         self.finished: bool = False
 
     def initialize(self) -> None:
+        print("duration:", self.duration)
         self.start_time = time.perf_counter()
         self.theta_i = Sensors.odometry.getPose().rotation().radians()
         self.theta_f = self.end_pose.rotation().radians()
@@ -669,3 +670,4 @@ class CustomRoutingAuto(SubsystemCommand[SwerveDrivetrain]):
 
     def runsWhenDisabled(self) -> bool:
         return False
+    

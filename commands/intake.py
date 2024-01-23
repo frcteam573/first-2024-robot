@@ -70,7 +70,7 @@ class TransferNote(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setTransfer(1)
+        self.app.setTransfer(.7)
         
     def end(self, interrupted=False) -> None:
         self.app.setTransfer(0)

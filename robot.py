@@ -41,6 +41,7 @@ class MyRobot(commands2.TimedCommandRobot):
         
         self.field = wpilib.Field2d() 
         wpilib.SmartDashboard.putData("Field", self.field)
+        # self.field.getObject("traj").setTrajectory()
         
         OI.init()
         OI.map_controls()
@@ -62,15 +63,6 @@ class MyRobot(commands2.TimedCommandRobot):
         Sensors.odometry.update()
         pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
         self.field.setRobotPose(pose)
-        
-        # kp = SmartDashboard.getNumber("Shooter P", 0.0)/10000
-        # ki = SmartDashboard.getNumber("Shooter I", 0.0)/1000000
-        # kd = SmartDashboard.getNumber("Shooter D", 0.0)/10000
-        
-        Robot.appendage.shooterPID.setP(self.kP.getDouble(0.0)/10000)
-        Robot.appendage.shooterPID.setI(self.kI.getDouble(0.0)/1000000)
-        Robot.appendage.shooterPID.setD(self.kD.getDouble(0.0)/10000)
-        
         
         try:
             commands2.CommandScheduler.getInstance().run()

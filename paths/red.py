@@ -13,6 +13,7 @@ from commands2 import (
     WaitCommand,
 )
 from wpimath.geometry import Pose2d, Translation2d
+from wpilib import SmartDashboard, Field2d
 
 import commands
 import config
@@ -22,8 +23,8 @@ from commands.autonomous.trajectory import CustomTrajectory
 from robot_systems import Robot, Sensors
 from units.SI import meters_per_second, meters_per_second_squared
 
-max_vel: meters_per_second = 4.5
-max_accel: meters_per_second_squared = 3.3
+max_vel: meters_per_second = 4
+max_accel: meters_per_second_squared = 3
 
 path_1 = FollowPathCustom(
     subsystem=Robot.drivetrain,
@@ -38,3 +39,11 @@ path_1 = FollowPathCustom(
     ),
     period=constants.period,
 )
+
+def show_field():
+    field = Field2d()
+    field.getObject("traj").setTrajectory(path_1.trajectory)
+    SmartDashboard.putData("Field", field)
+    print("called show_field")
+
+show_field_command = InstantCommand(show_field)

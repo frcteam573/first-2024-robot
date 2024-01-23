@@ -282,6 +282,7 @@ class SwerveDrivetrain(Subsystem):
             self.get_heading(),
             self.node_positions
         )
+        
 
         self.odometry_estimator.update(
             self.get_heading(),
@@ -289,6 +290,8 @@ class SwerveDrivetrain(Subsystem):
         )
 
         self.chassis_speeds = self.kinematics.toChassisSpeeds(self.node_states)
+        
+        
 
     def stop(self):
         """

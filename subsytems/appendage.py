@@ -44,8 +44,8 @@ class Appendage(commands2.SubsystemBase):
         if speed == 0:
             self.m_shooter1.set(0)
         else:
-            self.shooterPID.setReference(-speed, rev.CANSparkMax.ControlType.kVelocity)
-        self.m_shooter2.set(1)
+            self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
+        # self.m_shooter2.set(1)
         # self.m_shooter1.set(1)
         
     

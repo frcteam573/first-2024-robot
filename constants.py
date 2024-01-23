@@ -167,7 +167,7 @@ drivetrain_accel = True
 drivetrain_max_vel: meters_per_second = (50 * mile / hour).asNumber(m / s)  # 15 11
 drivetrain_max_accel_tele: meters_per_second_squared = (45 * mile / hour).asNumber(m / s)
 drivetrain_max_target_accel: meters_per_second_squared = (
-    1.5 * mile / hour
+    45 * mile / hour
 ).asNumber(  # 10
     m / s
 )
