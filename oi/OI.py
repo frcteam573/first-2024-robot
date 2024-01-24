@@ -19,7 +19,6 @@ from robot_systems import Robot, Sensors
 
 logger.info("Hi, I'm OI!")
 
-
 class OI:
     @staticmethod
     def init() -> None:
@@ -41,7 +40,7 @@ class OI:
             InstantCommand(lambda: Robot.appendage.setIntake(0))
         )
         Keymap.Intake.TRANSFER.whileTrue(
-            InstantCommand(lambda: Robot.appendage.setTransfer(.7))
+            InstantCommand(lambda: Robot.appendage.setTransfer(1))
         ).onFalse(
             InstantCommand(lambda: Robot.appendage.setTransfer(0))
         )
@@ -53,5 +52,5 @@ class OI:
         
         Keymap.Drivetrain.DRIVE_ALIGN_STRAIGHT.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
         
-        # Keymap.Drivetrain.DRIVE_PATH.whileTrue(red.path_1)
-        # Keymap.Drivetrain.SHOW_DRIVE_PATH.onTrue(red.show_field_command)
+        Keymap.Drivetrain.DRIVE_PATH.whileTrue(red.path_1)
+        Keymap.Drivetrain.SHOW_DRIVE_PATH.onTrue(red.show_field_command)

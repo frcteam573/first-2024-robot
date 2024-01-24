@@ -39,13 +39,12 @@ class Appendage(commands2.SubsystemBase):
         
     def setTransfer(self, speed: float) -> None:
         self.m_transfer.set(speed)
+        self.m_intake1.set(-speed)
         
     def setShooter(self, speed: float) -> None:
         if speed == 0:
             self.m_shooter1.set(0)
         else:
             self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
-        # self.m_shooter2.set(1)
-        # self.m_shooter1.set(1)
         
     

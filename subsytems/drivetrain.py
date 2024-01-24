@@ -51,6 +51,8 @@ class SparkMaxSwerveNode(SwerveNode):
         self.m_turn.set_sensor_position(
             current_pos_rad * constants.drivetrain_turn_gear_ratio / (2 * math.pi)
         )
+        
+        
 
         self.m_move.set_sensor_position(0)
         self.m_move.set_target_position(0)

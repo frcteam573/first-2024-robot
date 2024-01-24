@@ -1,4 +1,5 @@
 from units.SI import meters, radians
+import math
 
 coord = (meters, meters, radians)
 waypoints = [(meters, meters)]
@@ -11,5 +12,5 @@ initial: coord = (5, 5, 0)
 go_back_2m: path = (
     initial,
     [],
-    (initial[0] + 2, initial[1], 0),
+    (initial[0] + 2, initial[1] + 2, math.pi / 2),
 )
