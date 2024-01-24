@@ -338,7 +338,8 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         ):
             self.t = self.duration
             self.finished = True
-
+        
+        print('t: '+ str(self.t) +'| dX: ' + str(relative.x) + ' | dY: '+ str(relative.y))
         goal = self.trajectory.sample(self.t)
         goal_theta = self.theta_i + self.omega * self.t
         speeds = self.controller.calculate(
