@@ -33,7 +33,6 @@ class OI:
         ).onFalse(
             InstantCommand(lambda: Robot.appendage.setIntake(0))
         )
-        
         Keymap.Intake.INTAKE_OUT.whileTrue(
             InstantCommand(lambda: Robot.appendage.setIntake(.3))
         ).onFalse(
