@@ -77,6 +77,7 @@ class Limelight:
         """Changes the pipeline that the limelight uses.
         """
         self.table.putNumber("pipeline", pipeline)
+        print("Pipeline changed to", pipeline)
 
     def calculate_distance(self) -> float:
         """
