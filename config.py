@@ -36,7 +36,7 @@ drivetrain_reversed: bool = False
 driver_centric: bool = True
 
 field_length = 651.25 * inches_to_meters
-field_width = 315.5 * inches_to_meters
+field_width = 323.25 * inches_to_meters
 scoring_width = 216.2 * inches_to_meters  # 5.44
 
 drivetrain_scoring_velocity = 0.5

@@ -53,3 +53,15 @@ class OI:
         
         Keymap.Drivetrain.DRIVE_PATH.whileTrue(red.path_1)
         Keymap.Drivetrain.SHOW_DRIVE_PATH.onTrue(red.show_field_command)
+        
+        Keymap.Drivetrain.DRIVE_ALIGN_NOTE.onTrue(
+            InstantCommand(lambda: Sensors.odometry.limelight_intake.change_pipeline(1))
+        ).onFalse(
+            InstantCommand(lambda: Sensors.odometry.limelight_intake.change_pipeline(0))
+        )
+        
+        commands2.Trigger(lambda: Keymap.Drivetrain.DRIVE_ALIGN_TARGET.value > .05).onTrue(
+            InstantCommand(lambda: Sensors.odometry.limelight_intake.change_pipeline(2))
+        ).onFalse(
+            InstantCommand(lambda: Sensors.odometry.limelight_intake.change_pipeline(0))
+        )

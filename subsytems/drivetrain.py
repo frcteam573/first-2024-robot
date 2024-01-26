@@ -148,6 +148,7 @@ class Drivetrain(SwerveDrivetrain):
 
     gyro: PigeonIMUGyro_Wrapper = PigeonIMUGyro_Wrapper(13)
     note_align_button = Keymap.Drivetrain.DRIVE_ALIGN_NOTE
+    target_align_button = Keymap.Drivetrain.DRIVE_ALIGN_TARGET
     axis_dx = Keymap.Drivetrain.DRIVE_X_AXIS
     axis_dy = Keymap.Drivetrain.DRIVE_Y_AXIS
     axis_rotation = Keymap.Drivetrain.DRIVE_ROTATION_AXIS
@@ -159,8 +160,8 @@ class Drivetrain(SwerveDrivetrain):
     deadzone_angular_velocity: radians_per_second = math.radians(5)
     start_angle: degrees = 0
     start_pose: Pose2d = Pose2d(
-        5,
-        5,
+        constants.ApriltagPositionDictRed[4].X() - 0.56007,
+        constants.ApriltagPositionDictRed[4].Y(),
         math.radians(start_angle),
     )
     gyro_start_angle: radians = math.radians(start_angle)

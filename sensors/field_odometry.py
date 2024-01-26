@@ -161,3 +161,15 @@ class FieldOdometry:
         :type pose: Pose2d
         """
         self.drivetrain.reset_odometry(pose)
+        
+    def getDistance(self, pose: Pose2d) -> float:
+        """
+        Returns the distance between the robot's current pose and a given pose.
+
+        :param pose: Pose to calculate distance to.
+        :type pose: Pose2d
+        :return: Distance between the two poses.
+        :rtype: float
+        """
+        relative = self.getPose().relativeTo(pose)
+        return math.sqrt(relative.X()**2 + relative.Y()**2)

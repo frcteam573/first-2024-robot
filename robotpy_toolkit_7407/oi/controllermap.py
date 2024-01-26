@@ -8,8 +8,8 @@ class XBoxController:
     Y = 4
     LB = 5
     RB = 6
-    LT = -2
-    RT = -3
+    LT = 2
+    RT = 3
     SELECT = 7
     START = 8
     L_JOY = (0, 1)  # (x, y)

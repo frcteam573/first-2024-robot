@@ -199,9 +199,9 @@ ApriltagPositionDictRed = {
         Rotation3d(0.0, 0.0, 0),
     ),
     4: Pose3d(
-        (field_length - inches_to_meters * 636.96),
-        (field_width - inches_to_meters * 265.74),
-        (inches_to_meters * 27.38),
+        (field_length / 2 + 8.308467),
+        (field_width / 2 + 1.442593),
+        (1.451102),
         Rotation3d(0.0, 0.0, 0),
     ),
     5: Pose3d(

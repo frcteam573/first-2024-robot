@@ -12,12 +12,13 @@ import typing
 from ntcore import Value
 
 from oi.OI import OI
+from oi.keymap import Keymap
 
 from robot_systems import Robot, Sensors
 from sensors import FieldOdometry
 import commands
-# from sensors.field_odometry import FieldOdometry
 
+from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 
 class MyRobot(commands2.TimedCommandRobot):
     """
@@ -32,14 +33,11 @@ class MyRobot(commands2.TimedCommandRobot):
         This function is run when the robot is first started up and should be used for any
         initialization code.
         """
-        self.tab = Shuffleboard.getTab("PID")
-        self.kP = self.tab.add("Shooter P", 0.5).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(1)}).withPosition(0,0).getEntry()
-        self.kI = self.tab.add("Shooter I", 0.5).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(1)}).withPosition(0,1).getEntry()
-        self.kD = self.tab.add("Shooter D", 0.0).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(1)}).withPosition(0,2).getEntry()
         
         Robot.drivetrain.init()
+        self.alliance = wpilib.DriverStation.getAlliance()
         
-        self.field = wpilib.Field2d() 
+        self.field = wpilib.Field2d()
         wpilib.SmartDashboard.putData("Field", self.field)
         # self.field.getObject("traj").setTrajectory()
         
@@ -63,6 +61,7 @@ class MyRobot(commands2.TimedCommandRobot):
         Sensors.odometry.update()
         pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
         self.field.setRobotPose(pose)
+        self.alliance = wpilib.DriverStation.getAlliance()
         
         try:
             commands2.CommandScheduler.getInstance().run()
