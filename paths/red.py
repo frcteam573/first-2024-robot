@@ -3,7 +3,7 @@ import math
 from paths.coords.move_back_2m import (
     blue_team,
     go_back_1m,
-    # go_forward_1m,
+    go_forward_1m,
     initial,
 )
 from commands2 import (
@@ -37,23 +37,24 @@ path_1 = FollowPathCustom(
         max_accel=max_accel,
         start_velocity=0,
         end_velocity=0,
+        rev=True,
     ),
     period=constants.period,
 )
 
-# path_2 = FollowPathCustom(
-#     subsystem=Robot.drivetrain,
-#     trajectory=CustomTrajectory(
-#         start_pose=Pose2d(*go_forward_1m[0]),
-#         waypoints=[Translation2d(*x) for x in go_forward_1m[1]],
-#         end_pose=Pose2d(*go_forward_1m[2]),
-#         max_velocity=max_vel,
-#         max_accel=max_accel,
-#         start_velocity=0,
-#         end_velocity=0,
-#     ),
-#     period=constants.period,
-# )
+path_2 = FollowPathCustom(
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*go_forward_1m[0]),
+        waypoints=[Translation2d(*x) for x in go_forward_1m[1]],
+        end_pose=Pose2d(*go_forward_1m[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+    ),
+    period=constants.period,
+)
 
 
 

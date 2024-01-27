@@ -52,7 +52,7 @@ class OI:
         Keymap.Drivetrain.DRIVE_ALIGN_STRAIGHT.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
         
         Keymap.Drivetrain.DRIVE_BACK_PATH.whileTrue(red.path_1)
-        # Keymap.Drivetrain.DRIVE_FORWARD_PATH.whileTrue(red.path_2)
+        Keymap.Drivetrain.DRIVE_FORWARD_PATH.whileTrue(red.path_2)
         Keymap.Drivetrain.SHOW_DRIVE_PATH.onTrue(red.show_field_command)
         
         Keymap.Drivetrain.DRIVE_ALIGN_NOTE.onTrue(

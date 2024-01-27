@@ -8,16 +8,16 @@ path = (coord, waypoints, coord)
 
 blue_team = False
 
-initial: coord = (5, 5, 0)
+initial: coord = ()
 
 go_back_1m: path = (
     initial,
     [],
-    (initial[0] - 10, initial[1], 0),
+    (constants.ApriltagPositionDictRed[4].X() - 0.56007, constants.ApriltagPositionDictRed[4].Y(), 0),
 )
 
-# go_forward_1m: path = (
-#     (initial[0] - 1, initial[1], 0),
-#     [],
-#     initial,
-# )
+go_forward_1m: path = (
+    (initial[0] - 1, initial[1] + 1, math.pi / -2),
+    [],
+    (initial[0], initial[1], 0),
+)
