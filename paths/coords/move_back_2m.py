@@ -1,4 +1,5 @@
 from units.SI import meters, radians
+import constants
 import math
 
 coord = (meters, meters, radians)
@@ -9,8 +10,14 @@ blue_team = False
 
 initial: coord = (5, 5, 0)
 
-go_back_2m: path = (
+go_back_1m: path = (
     initial,
     [],
-    (initial[0] + 2, initial[1] + 2, math.pi / 2),
+    (initial[0] - 10, initial[1], 0),
 )
+
+# go_forward_1m: path = (
+#     (initial[0] - 1, initial[1], 0),
+#     [],
+#     initial,
+# )

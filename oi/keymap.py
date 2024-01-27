@@ -36,5 +36,6 @@ class Keymap:
         DRIVE_ALIGN_TARGET = JoystickAxis(Controllers.DRIVER, controllerDRIVER.RT)
         DRIVE_ALIGN_STRAIGHT = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.START)
         
-        DRIVE_PATH = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.B)
+        DRIVE_BACK_PATH = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.A)
+        DRIVE_FORWARD_PATH = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.B)
         SHOW_DRIVE_PATH = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.SELECT)

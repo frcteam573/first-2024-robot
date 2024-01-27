@@ -2,8 +2,9 @@ import math
 import time
 
 from robotpy_toolkit_7407.sensors.odometry import VisionEstimator
-from wpimath.geometry import Pose2d, Pose3d, Rotation2d, Translation2d
+from wpimath.geometry import Pose2d, Pose3d, Rotation2d, Translation2d, Rotation3d, Transform3d
 from robotpy_toolkit_7407.sensors.limelight.limelight import Limelight
+from config import field_length, field_width
 
 from subsytems import Drivetrain
 from units.SI import seconds
@@ -62,20 +63,22 @@ class FieldOdometry:
         )
 
         self.vision_estimator: VisionEstimator = vision_estimator
-        self.vision_estimator_pose_weight: float = 0.4
+        self.vision_estimator_pose_weight: float = .2
         self.robot_pose_weight: float = 1 - self.vision_estimator_pose_weight
 
         self.vision_on = True
         
-        self.limelight_field = Limelight(0, 0, limelight_name="limelight-field")
-        self.limelight_intake = Limelight(0, 0, limelight_name="limelight-intake", pipeline=1)
+        # self.limelight_field = Limelight(0, 0, limelight_name="limelight-field")
+        # self.limelight_intake = Limelight(0, 0, limelight_name="limelight-intake")
+    
 
     def update(self) -> Pose2d:
         """
         Updates the robot's pose relative to the field. This should be called periodically.
         """
-        self.limelight_field.update()
-        self.limelight_intake.update()
+        
+        for limelight in self.vision_estimator.limelights:
+            limelight.update()
 
         self.drivetrain.odometry.update(
             self.drivetrain.get_heading(), self.drivetrain.node_positions
@@ -102,11 +105,15 @@ class FieldOdometry:
                 except:
                     vision_robot_pose_list = None
 
+                if not self.vision_estimator.limelights[0].get_tv():
+                    vision_robot_pose_list = None
+                
             if vision_robot_pose_list:
                 for vision_robot_pose in vision_robot_pose_list:
                     if vision_robot_pose[0] and vision_robot_pose[1]:
                         vision_time = vision_robot_pose[1]
-                        vision_robot_pose = vision_robot_pose[0]
+                        vision_robot_pose: Pose3d = vision_robot_pose[0]
+                        vision_robot_pose = vision_robot_pose.transformBy(Transform3d(field_length/2, field_width/2, 0, Rotation3d()))
 
                         angle_diff = (
                             math.degrees(
@@ -116,11 +123,14 @@ class FieldOdometry:
                             % 360
                         )
                         angle_diff_rev = 360 - angle_diff
+                        
+                        print(vision_robot_pose.toPose2d().rotation().degrees(), math.degrees(self.drivetrain.gyro.get_robot_heading()))
 
                         if (5 > angle_diff > -5) or (5 > angle_diff_rev > -5):
-                            self.drivetrain.odometry_estimator.addVisionMeasurement(
-                                vision_robot_pose.toPose2d(), vision_time
-                            )
+                            print("satisfied")
+                            # self.drivetrain.odometry_estimator.addVisionMeasurement(
+                            #     vision_robot_pose.toPose2d(), vision_time
+                            # )
 
                             weighted_pose = weighted_pose_average(
                                 self.drivetrain.odometry.getPose(),
@@ -131,16 +141,11 @@ class FieldOdometry:
 
                             self.drivetrain.odometry.resetPosition(
                                 self.drivetrain.get_heading(),
+                                self.drivetrain.node_positions,
                                 weighted_pose,
-                                *self.drivetrain.node_positions
                             )
 
                         self.last_update_time = current_time
-                        
-        limelightPose = self.limelight_field.get_bot_pose()
-        
-        # if limelightPose is not None:
-        #     print("Bot Pose according to Limelight:", limelightPose[0], limelightPose[1])
         
         return self.getPose()
 

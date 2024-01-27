@@ -143,10 +143,11 @@ class LimelightController(VisionEstimator):
                 (
                     Pose3d(
                         Translation3d(est_pose[0], est_pose[1], est_pose[2]),
-                        Rotation3d(est_pose[3], est_pose[4], est_pose[5])
+                        Rotation3d(math.radians(est_pose[3]), math.radians(est_pose[4]), math.radians(est_pose[5]))
                     ),
                     Timer.getFPGATimestamp()
                 ) if est_pose else (None, None)
             )
 
+        
         return pose_list if pose_list else None

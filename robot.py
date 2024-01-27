@@ -16,6 +16,7 @@ from oi.keymap import Keymap
 
 from robot_systems import Robot, Sensors
 from sensors import FieldOdometry
+from robotpy_toolkit_7407.sensors.limelight.limelight import LimelightController, Limelight
 import commands
 
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
@@ -44,7 +45,11 @@ class MyRobot(commands2.TimedCommandRobot):
         OI.init()
         OI.map_controls()
         
-        Sensors.odometry = FieldOdometry(Robot.drivetrain, None)
+        
+        Sensors.odometry = FieldOdometry(Robot.drivetrain, LimelightController([
+            Limelight(0, 0, limelight_name="limelight-intake"),
+            # Limelight(0, 0, limelight_name="limelight-target")
+        ]))
         Sensors.gyro = Robot.drivetrain.gyro
         
         for i in range(15):
