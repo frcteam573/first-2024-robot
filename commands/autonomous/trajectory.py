@@ -1,5 +1,6 @@
 from wpimath.geometry import Pose2d, Translation2d
 from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator
+from robot_systems import Robot, Sensors
 
 
 class CustomTrajectory:
@@ -32,6 +33,7 @@ class CustomTrajectory:
         start_velocity: float = 0,
         end_velocity: float = 0,
         rev: bool = False,
+        # use_robot: bool = True,
     ):
         self.start_pose = start_pose
         self.waypoints = waypoints
@@ -49,6 +51,10 @@ class CustomTrajectory:
         config.setStartVelocity(self.start_velocity)
         config.setEndVelocity(self.end_velocity)
         config.setReversed(self.rev)
+        
+        # if use_robot:
+        #     self.start_pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
+            # self.start_velocity = 
 
         self.trajectory = TrajectoryGenerator.generateTrajectory(
             start=self.start_pose,

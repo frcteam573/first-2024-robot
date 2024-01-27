@@ -38,6 +38,7 @@ path_1 = FollowPathCustom(
         start_velocity=0,
         end_velocity=0,
         rev=True,
+        # use_robot=True,
     ),
     period=constants.period,
 )
