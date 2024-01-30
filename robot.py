@@ -67,7 +67,7 @@ class MyRobot(commands2.TimedCommandRobot):
         pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
         self.field.setRobotPose(pose)
         self.alliance = wpilib.DriverStation.getAlliance()
-        print(Robot.drivetrain.chassis_speeds)
+        # print(Robot.drivetrain.chassis_speeds)
         try:
             commands2.CommandScheduler.getInstance().run()
         except Exception as e:

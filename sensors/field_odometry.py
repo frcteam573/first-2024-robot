@@ -124,13 +124,7 @@ class FieldOdometry:
                         )
                         angle_diff_rev = 360 - angle_diff
                         
-                        print(vision_robot_pose.toPose2d().rotation().degrees(), math.degrees(self.drivetrain.gyro.get_robot_heading()))
-
                         if (5 > angle_diff > -5) or (5 > angle_diff_rev > -5):
-                            print("satisfied")
-                            # self.drivetrain.odometry_estimator.addVisionMeasurement(
-                            #     vision_robot_pose.toPose2d(), vision_time
-                            # )
 
                             weighted_pose = weighted_pose_average(
                                 self.drivetrain.odometry.getPose(),

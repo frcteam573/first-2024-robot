@@ -19,6 +19,8 @@ from robot_systems import Sensors
 from subsytems import Drivetrain
 from units.SI import meters, meters_per_second, radians_per_second
 
+from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator
+
 
 def curve_abs(x):
     return x**2
@@ -290,6 +292,7 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         period: float = 0.02,
     ):
         super().__init__(subsystem)
+        self.custom_trajectory = trajectory
         self.trajectory: Trajectory = trajectory.trajectory
         self.controller = HolonomicDriveController(
             PIDController(95, 0, 0, period),
@@ -316,6 +319,22 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
 
     def initialize(self) -> None:
         print("duration:", self.duration)
+        if self.custom_trajectory.use_robot:
+            config = TrajectoryConfig(
+                self.custom_trajectory.max_velocity,
+                self.custom_trajectory.max_accel,
+            )
+            config.setStartVelocity(self.custom_trajectory.start_velocity)
+            config.setEndVelocity(self.custom_trajectory.end_velocity)
+            config.setReversed(self.custom_trajectory.rev)
+            self.trajectory = TrajectoryGenerator.generateTrajectory(
+                start=self.subsystem.odometry_estimator.getEstimatedPosition(),
+                interiorWaypoints=self.custom_trajectory.waypoints,
+                end=self.end_pose,
+                config=config
+            )
+            self.duration = self.trajectory.totalTime()   
+            
         self.start_time = time.perf_counter()
         self.theta_i = Sensors.odometry.getPose().rotation().radians()
         self.theta_f = self.end_pose.rotation().radians()

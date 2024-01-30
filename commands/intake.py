@@ -19,10 +19,10 @@ class Intake(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setIntake(self.speed())
+        self.app.setIntakeSpeed(self.speed())
         
     def end(self, interrupted=False) -> None:
-        self.app.setIntake(0)
+        self.app.setIntakeSpeed(0)
         
 class IntakeIn(commands2.CommandBase):
     def __init__(
@@ -36,10 +36,10 @@ class IntakeIn(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setIntake(-.5)
+        self.app.setIntakeSpeed(-.5)
         
     def end(self, interrupted=False) -> None:
-        self.app.setIntake(0)
+        self.app.setIntakeSpeed(0)
         
 class IntakeOut(commands2.CommandBase):
     def __init__(
@@ -53,10 +53,10 @@ class IntakeOut(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setIntake(.5)
+        self.app.setIntakeSpeed(.5)
         
     def end(self, interrupted=False) -> None:
-        self.app.setIntake(0)
+        self.app.setIntakeSpeed(0)
         
 class TransferNote(commands2.CommandBase):
     def __init__(
