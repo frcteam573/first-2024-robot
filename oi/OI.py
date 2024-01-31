@@ -10,8 +10,6 @@ from commands2 import (
 )
 from robotpy_toolkit_7407.utils import logger
 
-from autonomous.routines.TWO_DISC import red
-
 import commands
 import config
 from oi.keymap import Controllers, Keymap
