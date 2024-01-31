@@ -16,6 +16,6 @@ class Robot:
 class Sensors:
     odometry: FieldOdometry = FieldOdometry(Robot.drivetrain, LimelightController([
         Limelight(0, 0, limelight_name="limelight-intake"),
-        # Limelight(0, 0, limelight_name="limelight-target")
+        # Limelight(0, 0, limelight_name="limelight-target"),
     ]))
     gyro: SwerveGyro

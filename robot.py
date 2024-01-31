@@ -14,6 +14,7 @@ from ntcore import Value
 from oi.OI import OI
 from oi.keymap import Keymap
 
+import autonomous
 from robot_systems import Robot, Sensors
 from sensors import FieldOdometry
 from robotpy_toolkit_7407.sensors.limelight.limelight import LimelightController, Limelight
@@ -27,7 +28,11 @@ class MyRobot(commands2.TimedCommandRobot):
     has an implementation of robotPeriodic which runs the scheduler for you
     """
 
-    autonomousCommand: typing.Optional[commands2.Command] = None
+    def __init__(self) -> None:
+        super().__init__()
+        self.teleop_zero: wpilib.SendableChooser | None = None
+        self.pv_selection: wpilib.SendableChooser | None = None
+        self.auto_selection: wpilib.SendableChooser | None = None
 
     def robotInit(self) -> None:
         """
@@ -51,16 +56,19 @@ class MyRobot(commands2.TimedCommandRobot):
             # Limelight(0, 0, limelight_name="limelight-target")
         ]))
         Sensors.gyro = Robot.drivetrain.gyro
+
+        self.auto_selection = wpilib.SendableChooser()
         
+        self.auto_selection.setDefaultOption("TWO DISC", autonomous.two_disc_red)
+        
+        wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
+        
+        # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):
             Robot.drivetrain.n_front_left.initial_zero()
             Robot.drivetrain.n_front_right.initial_zero()
             Robot.drivetrain.n_back_left.initial_zero()
             Robot.drivetrain.n_back_right.initial_zero()
-
-        # Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        # autonomous chooser on the dashboard.
-        # self.container = RobotContainer()
 
     def robotPeriodic(self) -> None:
         Sensors.odometry.update()
@@ -85,10 +93,8 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def autonomousInit(self) -> None:
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
-        # self.autonomousCommand = self.container.getAutonomousCommand()
-
-        # if self.autonomousCommand:
-        #     self.autonomousCommand.schedule()
+        
+        self.auto_selection.getSelected().run()
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""

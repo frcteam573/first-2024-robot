@@ -10,7 +10,7 @@ from commands2 import (
 )
 from robotpy_toolkit_7407.utils import logger
 
-from paths import red
+from autonomous.routines.TWO_DISC import red
 
 import commands
 import config
@@ -43,28 +43,10 @@ class OI:
         ).onFalse(
             InstantCommand(lambda: Robot.appendage.setTransferSpeed(0))
         )
-        Keymap.Intake.SHOOTER.whileTrue(
+        commands2.Trigger(lambda: Keymap.Intake.SHOOTER.value < .95).whileTrue(
             InstantCommand(lambda: Robot.appendage.setShooterRPM(11000))
         ).onFalse(
             InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
-        )
-        
-        Keymap.Drivetrain.DRIVE_ALIGN_STRAIGHT.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
-        
-        Keymap.Drivetrain.DRIVE_BACK_PATH.whileTrue(red.path_1)
-        Keymap.Drivetrain.DRIVE_FORWARD_PATH.whileTrue(red.path_2)
-        Keymap.Drivetrain.SHOW_DRIVE_PATH.onTrue(red.show_field_command)
-        
-        Keymap.Drivetrain.DRIVE_ALIGN_NOTE.onTrue(
-            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(1))
-        ).onFalse(
-            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0))
-        )
-        
-        commands2.Trigger(lambda: Keymap.Drivetrain.DRIVE_ALIGN_TARGET.value > .05).onTrue(
-            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2))
-        ).onFalse(
-            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0))
         )
         
         Keymap.Climber.CLIMBER_UP.whileTrue(
@@ -77,3 +59,18 @@ class OI:
         ).onFalse(
             InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
         )
+        
+        Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
+        
+        Keymap.Drivetrain.DRIVE_ALIGN_NOTE.onTrue(
+            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(1))
+        ).onFalse(
+            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0))
+        )
+        
+        Keymap.Drivetrain.DRIVE_ALIGN_SPEAKER.onTrue(
+            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2))
+        ).onFalse(
+            InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0))
+        )
+        

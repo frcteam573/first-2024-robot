@@ -35,22 +35,22 @@ class Appendage(commands2.SubsystemBase):
         self.shooterPID.setI(0.0000005) # find these values when built
         self.shooterPID.setD(0.0) # find these values when built
         
-        self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_climber2.follow(self.m_climber1, invert=True)
-        self.s_climberEncoder = self.m_climber1.getAbsoluteEncoder()
-        self.climbermin = 0 # find these values when built
-        self.climbermax = 100 # find these values when built
+        # self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
+        # self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
+        # self.m_climber2.follow(self.m_climber1, invert=True)
+        # self.s_climberEncoder = self.m_climber1.getEncoder()
+        # self.climbermin = 0 # find these values when built
+        # self.climbermax = 100 # find these values when built
         
-        self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_shoulder2.follow(self.m_shoulder1, invert=True)
-        self.shoulderPID = self.m_shoulder1.getPIDController()
-        self.shoulderPID.setP(0.00005) # find these values when built
-        self.shoulderPID.setI(0.0000005) # find these values when built
-        self.shoulderPID.setD(0.0) # find these values when built
-        self.minShoulderAngle = 0 # find these values when built
-        self.maxShoulderAngle = 100 # find these values when built
+        # self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
+        # self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
+        # self.m_shoulder2.follow(self.m_shoulder1, invert=True)
+        # self.shoulderPID = self.m_shoulder1.getPIDController()
+        # self.shoulderPID.setP(0.00005) # find these values when built
+        # self.shoulderPID.setI(0.0000005) # find these values when built
+        # self.shoulderPID.setD(0.0) # find these values when built
+        # self.minShoulderAngle = 0 # find these values when built
+        # self.maxShoulderAngle = 100 # find these values when built
         
         
     def setIntakeSpeed(self, speed: float) -> None:
@@ -88,9 +88,9 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motors to, -1 to 1.
         '''
-        if self.s_climberEncoder.getAbsolutePosition() < self.climbermin and speed < 0:
+        if self.s_climberEncoder.getPosition() < self.climbermin and speed < 0:
             self.m_climber1.set(0)
-        elif self.s_climberEncoder.getAbsolutePosition() > self.climbermax and speed > 0:
+        elif self.s_climberEncoder.getPosition() > self.climbermax and speed > 0:
             self.m_climber1.set(0)
         else:
             self.m_climber1.set(speed)
