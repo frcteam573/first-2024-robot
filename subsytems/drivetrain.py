@@ -148,7 +148,10 @@ class Drivetrain(SwerveDrivetrain):
 
     gyro: PigeonIMUGyro_Wrapper = PigeonIMUGyro_Wrapper(13)
     note_align_button = Keymap.Drivetrain.DRIVE_ALIGN_NOTE
-    target_align_button = Keymap.Drivetrain.DRIVE_ALIGN_SPEAKER
+    speaker_align_button = Keymap.Drivetrain.DRIVE_ALIGN_SPEAKER
+    human_align_button = Keymap.Drivetrain.DRIVE_ALIGN_HUMAN
+    amp_align_button = Keymap.Drivetrain.DRIVE_ALIGN_AMP
+    trap_align_button = Keymap.Drivetrain.DRIVE_ALIGN_TRAP
     axis_dx = Keymap.Drivetrain.DRIVE_X_AXIS
     axis_dy = Keymap.Drivetrain.DRIVE_Y_AXIS
     axis_rotation = Keymap.Drivetrain.DRIVE_ROTATION_AXIS

@@ -5,7 +5,6 @@ import wpilib
 import wpilib.drive
 import rev
 
-
 def remap(value: float, threshold: float) -> float:
     if abs(value) > threshold:
         value = value / abs(value) * threshold
@@ -109,3 +108,13 @@ class Appendage(commands2.SubsystemBase):
         
         rotations = angle / 360
         self.shoulderPID.setReference(rotations, rev.CANSparkMax.ControlType.kPosition)
+        
+    def calculateShoulderAngle(self, distance_to_speaker: float) -> float:
+        '''Calculates the angle of the shoulder motors.
+        
+        Args:
+            distance_to_speaker: The distance to the speaker in meters.
+            blue_team: Whether the robot is on the blue team.
+        '''
+        ...
+        # implement this

@@ -3,7 +3,7 @@ import time
 
 from robotpy_toolkit_7407.sensors.odometry import VisionEstimator
 from wpimath.geometry import Pose2d, Pose3d, Rotation2d, Translation2d, Rotation3d, Transform3d
-from robotpy_toolkit_7407.sensors.limelight.limelight import Limelight
+from robotpy_toolkit_7407.sensors.limelight.limelight import Limelight, LimelightController
 from config import field_length, field_width
 
 from subsytems import Drivetrain
@@ -53,7 +53,7 @@ class FieldOdometry:
     """
 
     def __init__(
-        self, drivetrain: Drivetrain, vision_estimator: VisionEstimator | None
+        self, drivetrain: Drivetrain, vision_estimator: LimelightController | None
     ):
         self.drivetrain: Drivetrain = drivetrain
 
@@ -62,14 +62,11 @@ class FieldOdometry:
             0.05  # time to wait before checking for pose update
         )
 
-        self.vision_estimator: VisionEstimator = vision_estimator
+        self.vision_estimator: LimelightController = vision_estimator
         self.vision_estimator_pose_weight: float = .2
         self.robot_pose_weight: float = 1 - self.vision_estimator_pose_weight
 
         self.vision_on = True
-        
-        # self.limelight_field = Limelight(0, 0, limelight_name="limelight-field")
-        # self.limelight_intake = Limelight(0, 0, limelight_name="limelight-intake")
     
 
     def update(self) -> Pose2d:

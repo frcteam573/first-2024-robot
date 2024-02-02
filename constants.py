@@ -180,104 +180,104 @@ climber_out = False
 # this sets up the operator controller to determine which state the climber is in at the start of the match :)
 
 ApriltagPositionDictRed = {
-    1: Pose3d(
-        (field_length - inches_to_meters * 610.77),
-        (field_width - inches_to_meters * 42.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, 0),
-    ),
-    2: Pose3d(
-        (field_length - inches_to_meters * 610.77),
-        (field_width - inches_to_meters * 108.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, 0),
-    ),
     3: Pose3d(
-        (field_length - inches_to_meters * 610.77),
-        (field_width - inches_to_meters * 174.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, 0),
+        (field_length / 2 + 8.308467),
+        (field_width / 2 + 0.877443),
+        (1.451102),
+        Rotation3d(0.0, 0.0, math.pi),
     ),
     4: Pose3d(
         (field_length / 2 + 8.308467),
         (field_width / 2 + 1.442593),
         (1.451102),
-        Rotation3d(0.0, 0.0, 0),
+        Rotation3d(0.0, 0.0, math.pi),
     ),
     5: Pose3d(
-        (field_length - inches_to_meters * 14.25),
-        (field_width - inches_to_meters * 265.74),
-        (inches_to_meters * 27.38),
-        Rotation3d(0.0, 0.0, math.pi),
+        (field_length / 2 + 6.429883),
+        (field_width / 2 + 4.098925),
+        (1.355852),
+        Rotation3d(0.0, 0.0, 3 * math.pi / 2),
     ),
-    6: Pose3d(
-        (field_length - inches_to_meters * 40.45),
-        (field_width - inches_to_meters * 174.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, math.pi),
+    9: Pose3d(
+        (field_length / 2 + -7.914767),
+        (field_width / 2 + -3.221609),
+        (1.355852),
+        Rotation3d(0.0, 0.0, math.pi / 3),
     ),
-    7: Pose3d(
-        (field_length - inches_to_meters * 40.45),
-        (field_width - inches_to_meters * 108.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, math.pi),
+    10: Pose3d(
+        (field_length / 2 + -6.809359),
+        (field_width / 2 + -3.859403),
+        (1.355852),
+        Rotation3d(0.0, 0.0, math.pi / 3),
     ),
-    8: Pose3d(
-        (field_length - inches_to_meters * 40.45),
-        (field_width - inches_to_meters * 42.19),
-        (inches_to_meters * 18.22),
+    11: Pose3d(
+        (field_length / 2 + 3.633851),
+        (field_width / 2 + -0.392049),
+        (1.3208),
+        Rotation3d(0.0, 0.0, -math.pi / 6),
+    ),
+    12: Pose3d(
+        (field_length / 2 + 3.633851),
+        (field_width / 2 + 0.393065),
+        (1.3208),
+        Rotation3d(0.0, 0.0, math.pi / 6),
+    ),
+    13: Pose3d(
+        (field_length / 2 + 2.949321),
+        (field_width / 2 + -0.000127),
+        (1.3208),
         Rotation3d(0.0, 0.0, math.pi),
     ),
 }
 
 ApriltagPositionDictBlue = {
     1: Pose3d(
-        (inches_to_meters * 610.77),
-        (inches_to_meters * 42.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, math.pi),
+        (field_length / 2 + 6.808597),
+        (field_width / 2 + -3.859403),
+        (1.355852),
+        Rotation3d(0.0, 0.0, 2 * math.pi / 3),
     ),
     2: Pose3d(
-        (inches_to_meters * 610.77),
-        (inches_to_meters * 108.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, math.pi),
-    ),
-    3: Pose3d(
-        (inches_to_meters * 610.77),
-        (inches_to_meters * 174.19),  # FIRST's diagram has a typo (it says 147.19)
-        (inches_to_meters * 18.22),
-        Rotation3d(0.0, 0.0, math.pi),
-    ),
-    4: Pose3d(
-        (inches_to_meters * 636.96),
-        (inches_to_meters * 265.74),
-        (inches_to_meters * 27.38),
-        Rotation3d(0.0, 0.0, math.pi),
-    ),
-    5: Pose3d(
-        (inches_to_meters * 14.25),
-        (inches_to_meters * 265.74),
-        (inches_to_meters * 27.38),
-        Rotation3d(),
+        (field_length / 2 + 7.914259),
+        (field_width / 2 + -3.221609),
+        (1.355852),
+        Rotation3d(0.0, 0.0, 2 * math.pi / 3),
     ),
     6: Pose3d(
-        (inches_to_meters * 40.45),
-        (inches_to_meters * 174.19),  # FIRST's diagram has a typo (it says 147.19)
-        (inches_to_meters * 18.22),
-        Rotation3d(),
+        (field_length / 2 + -6.429375),
+        (field_width / 2 + 4.098925),
+        (1.355852),
+        Rotation3d(0.0, 0.0, math.pi),
     ),
     7: Pose3d(
-        (inches_to_meters * 40.45),
-        (inches_to_meters * 108.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(),
+        (field_length / 2 + -8.308975),
+        (field_width / 2 + 1.442593),
+        (1.451102),
+        Rotation3d(0.0, 0.0, 0),
     ),
     8: Pose3d(
-        (inches_to_meters * 40.45),
-        (inches_to_meters * 42.19),
-        (inches_to_meters * 18.22),
-        Rotation3d(),
+        (field_length / 2 + -8.308975),
+        (field_width / 2 + 0.877443),
+        (1.451102),
+        Rotation3d(0.0, 0.0, 0),
+    ),
+    14: Pose3d(
+        (field_length / 2 + -2.950083),
+        (field_width / 2 + -0.000127),
+        (1.3208),
+        Rotation3d(0.0, 0.0, 0),
+    ),
+    15: Pose3d(
+        (field_length / 2 + -3.629533),
+        (field_width / 2 + 0.393065),
+        (1.3208),
+        Rotation3d(0.0, 0.0,  2 * math.pi / 3),
+    ),
+    16: Pose3d(
+        (field_length / 2 + -3.629533),
+        (field_width / 2 + -0.392049),
+        (1.3208),
+        Rotation3d(0.0, 0.0,  -2 * math.pi / 3),
     ),
 }
 

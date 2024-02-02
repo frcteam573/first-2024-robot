@@ -65,13 +65,13 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         )
 
         
-        if Sensors.odometry.vision_estimator.limelights[0].get_tv():
+        if Sensors.odometry.vision_estimator.limelights[0].get_tv() and False:
             # tx = Rotation2d.fromDegrees(Sensors.odometry.limelight_intake.get_tx())
             # current_angle -= tx
             tx = None
             if self.subsystem.note_align_button.getAsBoolean():
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
-            elif self.subsystem.target_align_button.value > .05:
+            elif self.subsystem.speaker_align_button.getAsBoolean():
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
             if tx is not None:
                 d_theta = self.target_pid.calculate(tx)

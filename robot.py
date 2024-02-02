@@ -21,18 +21,13 @@ from robotpy_toolkit_7407.sensors.limelight.limelight import LimelightController
 import commands
 
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
+import config
 
 class MyRobot(commands2.TimedCommandRobot):
     """
     Command v2 robots are encouraged to inherit from TimedCommandRobot, which
     has an implementation of robotPeriodic which runs the scheduler for you
     """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.teleop_zero: wpilib.SendableChooser | None = None
-        self.pv_selection: wpilib.SendableChooser | None = None
-        self.auto_selection: wpilib.SendableChooser | None = None
 
     def robotInit(self) -> None:
         """
@@ -42,6 +37,7 @@ class MyRobot(commands2.TimedCommandRobot):
         
         Robot.drivetrain.init()
         self.alliance = wpilib.DriverStation.getAlliance()
+        config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         
         self.field = wpilib.Field2d()
         wpilib.SmartDashboard.putData("Field", self.field)
@@ -72,9 +68,8 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def robotPeriodic(self) -> None:
         Sensors.odometry.update()
-        pose = Robot.drivetrain.odometry_estimator.getEstimatedPosition()
+        pose = Sensors.odometry.getPose()
         self.field.setRobotPose(pose)
-        self.alliance = wpilib.DriverStation.getAlliance()
         # print(Robot.drivetrain.chassis_speeds)
         try:
             commands2.CommandScheduler.getInstance().run()
@@ -93,7 +88,8 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def autonomousInit(self) -> None:
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
-        
+        self.alliance = wpilib.DriverStation.getAlliance()
+        config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         self.auto_selection.getSelected().run()
 
     def autonomousPeriodic(self) -> None:
@@ -101,16 +97,12 @@ class MyRobot(commands2.TimedCommandRobot):
         pass
 
     def teleopInit(self) -> None:
-        # This makes sure that the autonomous stops running when
-        # teleop starts running. If you want the autonomous to
-        # continue until interrupted by another command, remove
-        # this line or comment it out.
+        """This function is called when the robot enters operator control."""
+        self.alliance = wpilib.DriverStation.getAlliance()
+        config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         commands2.CommandScheduler.getInstance().schedule(
             commands.DriveSwerveCustom(Robot.drivetrain)
         )
-        
-        # if self.autonomousCommand:
-        #     self.autonomousCommand.cancel()
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""
