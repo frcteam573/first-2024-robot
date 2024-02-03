@@ -125,6 +125,14 @@ kRobotVisionPoseWeight = 0.1
 # Dummy data
 claw_motor_extend_id = 0
 
+# shoulder positions
+shoulder_floor = 0
+shoulder_amp = 0
+shoulder_human = 0
+shoulder_trap = 0
+shoulder_home = 0
+
+
 # speed/alignment thresholds
 vision_threshold = 3    # degrees
 shooter_threshold = .05 # percent
