@@ -1,7 +1,7 @@
 import math
 from dataclasses import dataclass
 
-from wpimath.geometry import Pose2d, Translation2d
+from wpimath.geometry import Pose2d,Rotation2d, Translation2d, Transform2d
 
 import units.SI
 from units.SI import (
@@ -11,6 +11,30 @@ from units.SI import (
     meters_per_second_squared,
     radians,
 )
+from constants import ApriltagPositionDictBlue as ATPosesBlue, ApriltagPositionDictRed as ATPosesRed
+from constants import field_length, field_width
+
+def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
+    new_pose = Pose2d(
+        Translation2d(
+            pose.X() + (distance * math.cos(pose.rotation().radians())),
+            pose.Y() + (distance * math.sin(pose.rotation().radians())),
+        ),
+        Rotation2d(new_angle),
+    )
+
+    return new_pose
+
+def get_average_pose(pose1: Pose2d, pose2: Pose2d) -> Pose2d:
+    return Pose2d(
+        Translation2d(
+            (pose1.X() + pose2.X()) / 2,
+            (pose1.Y() + pose2.Y()) / 2,
+        ),
+        Rotation2d(
+            (pose1.rotation().radians() + pose2.rotation().radians()) / 2
+        ),
+    )
 
 # Climber Configurations:
 # Needs to be verified
@@ -35,8 +59,6 @@ blue_team: bool = False
 drivetrain_reversed: bool = False
 driver_centric: bool = True
 
-field_length = 651.25 * inches_to_meters
-field_width = 323.25 * inches_to_meters
 scoring_width = 216.2 * inches_to_meters  # 5.44
 
 drivetrain_scoring_velocity = 0.5
@@ -103,29 +125,44 @@ kRobotVisionPoseWeight = 0.1
 # Dummy data
 claw_motor_extend_id = 0
 
-blue_scoring_positions = [
-    Pose2d(1.46, 4.99, 0),  # Cone
-    Pose2d(1.46, 4.43, 0),  # Cube
-    Pose2d(1.46, 3.87, 0),  # Cone
-    Pose2d(1.46, 3.31, 0),  # Cone
-    Pose2d(1.46, 2.75, 0),  # Cube
-    Pose2d(1.46, 2.19, 0),  # Cone
-    Pose2d(1.46, 1.63, 0),  # Cone
-    Pose2d(1.46, 1.07, 0),  # Cube
-    Pose2d(1.46, 0.51, 0),  # Cone
-]
+# speed/alignment thresholds
+vision_threshold = 3    # degrees
+shooter_threshold = .05 # percent
+shoulder_threshold = 3  # degrees
 
-red_scoring_positions = [
-    Pose2d(1.46, field_width - 0.54, 0),  # Cone
-    Pose2d(1.46, field_width - 1.66, 0),  # Cube
-    Pose2d(1.46, field_width - 1.10, 0),  # Cone
-    Pose2d(1.46, field_width - 2.22, 0),  # Cone
-    Pose2d(1.46, field_width - 2.78, 0),  # Cube
-    Pose2d(1.46, field_width - 3.34, 0),  # Cone
-    Pose2d(1.46, field_width - 3.90, 0),  # Cone
-    Pose2d(1.46, field_width - 4.46, 0),  # Cube
-    Pose2d(1.46, field_width - 5.02, 0),  # Cone
-]
+blue_scoring_positions = {
+    'amp': Pose2d(ATPosesBlue[6].X(), ATPosesBlue[6].Y() + 0.7, -math.pi / 2),
+    'human1': get_perpendicular_pose(ATPosesBlue[1].toPose2d(), .7, ATPosesBlue[1].rotation().Z() + math.pi),
+    'human2': get_perpendicular_pose(get_average_pose(ATPosesBlue[1].toPose2d(), ATPosesBlue[2].toPose2d()), .7, ATPosesBlue[1].rotation().Z() + math.pi),
+    'human3': get_perpendicular_pose(ATPosesBlue[2].toPose2d(), .7, ATPosesBlue[2].rotation().Z() + math.pi),
+    'trap1': get_perpendicular_pose(ATPosesBlue[14].toPose2d(), 2, ATPosesBlue[14].rotation().Z() + math.pi),
+    'trap2': get_perpendicular_pose(ATPosesBlue[15].toPose2d(), 2, ATPosesBlue[15].rotation().Z() + math.pi),
+    'trap3': get_perpendicular_pose(ATPosesBlue[16].toPose2d(), 2, ATPosesBlue[16].rotation().Z() + math.pi)
+}
+
+red_scoring_positions = {
+    'amp': Pose2d(ATPosesRed[5].X(), ATPosesRed[5].Y() - 0.7, -math.pi / 2),
+    'human1': get_perpendicular_pose(ATPosesRed[10].toPose2d(), .7, ATPosesRed[10].rotation().Z() + math.pi),
+    'human2': get_perpendicular_pose(get_average_pose(ATPosesRed[10].toPose2d(), ATPosesRed[9].toPose2d()), .7, ATPosesRed[10].rotation().Z() + math.pi),
+    'human3': get_perpendicular_pose(ATPosesRed[9].toPose2d(), .7, ATPosesRed[9].rotation().Z() + math.pi),
+    'trap1': get_perpendicular_pose(ATPosesRed[13].toPose2d(), 2, ATPosesRed[13].rotation().Z() + math.pi),
+    'trap2': get_perpendicular_pose(ATPosesRed[12].toPose2d(), 2, ATPosesRed[12].rotation().Z() + math.pi),
+    'trap3': get_perpendicular_pose(ATPosesRed[11].toPose2d(), 2, ATPosesRed[11].rotation().Z() + math.pi)
+}
+
+note_positions = {
+    'blue_1': Pose2d(120 * inches_to_meters, field_width / 2 + 114 * inches_to_meters, 0),
+    'blue_2': Pose2d(120 * inches_to_meters, field_width / 2 + 57 * inches_to_meters, 0),
+    'blue_3': Pose2d(120 * inches_to_meters, field_width / 2, 0),
+    'center_1': Pose2d(field_length / 2, field_width / 2 + 132 * inches_to_meters, 0),
+    'center_2': Pose2d(field_length / 2, field_width / 2 + 66 * inches_to_meters, 0),
+    'center_3': Pose2d(field_length / 2, field_width / 2, 0),
+    'center_4': Pose2d(field_length / 2, field_width / 2 - 66 * inches_to_meters, 0),
+    'center_5': Pose2d(field_length / 2, field_width / 2 - 132 * inches_to_meters, 0),
+    'red_1': Pose2d(field_length - 120 * inches_to_meters, field_width / 2 + 114 * inches_to_meters, 0),
+    'red_2': Pose2d(field_length - 120 * inches_to_meters, field_width / 2 + 57 * inches_to_meters, 0),
+    'red_3': Pose2d(field_length - 120 * inches_to_meters, field_width / 2, 0),
+}
 
 # SCORING LOCATIONS
 scoring_locations: dict[str, TargetData] = {

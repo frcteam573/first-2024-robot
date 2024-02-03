@@ -7,6 +7,7 @@
 import wpilib
 from wpilib import SmartDashboard, FieldObject2d
 from wpilib.shuffleboard import Shuffleboard
+from wpimath.geometry import Pose2d
 import commands2
 import typing
 from ntcore import Value
@@ -42,6 +43,7 @@ class MyRobot(commands2.TimedCommandRobot):
         self.field = wpilib.Field2d()
         wpilib.SmartDashboard.putData("Field", self.field)
         # self.field.getObject("traj").setTrajectory()
+        print(config.red_scoring_positions['human1'])
         
         OI.init()
         OI.map_controls()
@@ -71,6 +73,7 @@ class MyRobot(commands2.TimedCommandRobot):
         pose = Sensors.odometry.getPose()
         self.field.setRobotPose(pose)
         # print(Robot.drivetrain.chassis_speeds)
+        SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag Aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
         try:
             commands2.CommandScheduler.getInstance().run()
         except Exception as e:

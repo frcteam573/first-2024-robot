@@ -28,10 +28,11 @@ class Keymap:
         SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerDRIVER.RT)
         TRANSFER = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.RB)
         
-        FLOOR_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.Y)
-        TRAP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.B)
-        AMP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.A)
-        SPEAKER_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.X)
+        FLOOR_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.A)
+        SPEAKER_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.Y)
+        HUMAN_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.B)
+        AMP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.X)
+        TRAP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.SELECT)
         
     class Climber:
         CLIMBER_UP = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB)
@@ -44,8 +45,8 @@ class Keymap:
         DRIVE_Y_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.L_JOY[1])
         DRIVE_ROTATION_AXIS = JoystickAxis(Controllers.DRIVER, controllerDRIVER.R_JOY[0])
         
-        DRIVE_ALIGN_NOTE = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.Y)
-        DRIVE_ALIGN_SPEAKER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.X)
+        DRIVE_ALIGN_NOTE = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.A)
+        DRIVE_ALIGN_SPEAKER = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.Y)
         DRIVE_ALIGN_HUMAN = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.B)
-        DRIVE_ALIGN_AMP = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.A)
+        DRIVE_ALIGN_AMP = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.X)
         DRIVE_ALIGN_TRAP = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.START)

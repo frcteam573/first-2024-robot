@@ -4,7 +4,7 @@ import time
 from robotpy_toolkit_7407.sensors.odometry import VisionEstimator
 from wpimath.geometry import Pose2d, Pose3d, Rotation2d, Translation2d, Rotation3d, Transform3d
 from robotpy_toolkit_7407.sensors.limelight.limelight import Limelight, LimelightController
-from config import field_length, field_width
+from constants import field_length, field_width
 
 from subsytems import Drivetrain
 from units.SI import seconds

@@ -4,6 +4,7 @@ import commands2
 import wpilib
 import wpilib.drive
 import rev
+from config import shooter_threshold, shoulder_threshold
 
 def remap(value: float, threshold: float) -> float:
     if abs(value) > threshold:
@@ -33,6 +34,8 @@ class Appendage(commands2.SubsystemBase):
         self.shooterPID.setP(0.00005) # find these values when built
         self.shooterPID.setI(0.0000005) # find these values when built
         self.shooterPID.setD(0.0) # find these values when built
+        self.s_shooterEncoder1 = self.m_shooter1.getEncoder()
+        self.s_shooterEncoder2 = self.m_shooter2.getEncoder()
         
         # self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
         # self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
@@ -41,15 +44,16 @@ class Appendage(commands2.SubsystemBase):
         # self.climbermin = 0 # find these values when built
         # self.climbermax = 100 # find these values when built
         
-        # self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
-        # self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
-        # self.m_shoulder2.follow(self.m_shoulder1, invert=True)
-        # self.shoulderPID = self.m_shoulder1.getPIDController()
-        # self.shoulderPID.setP(0.00005) # find these values when built
-        # self.shoulderPID.setI(0.0000005) # find these values when built
-        # self.shoulderPID.setD(0.0) # find these values when built
-        # self.minShoulderAngle = 0 # find these values when built
-        # self.maxShoulderAngle = 100 # find these values when built
+        self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
+        self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
+        self.m_shoulder2.follow(self.m_shoulder1, invert=True)
+        self.shoulderPID = self.m_shoulder1.getPIDController()
+        self.shoulderPID.setP(0.00005) # find these values when built
+        self.shoulderPID.setI(0.0000005) # find these values when built
+        self.shoulderPID.setD(0.0) # find these values when built
+        self.minShoulderAngle = 0 # find these values when built
+        self.maxShoulderAngle = 100 # find these values when built
+        self.s_shoulderAlternateEncoder = self.m_shoulder1.getAlternateEncoder(8192)
         
         
     def setIntakeSpeed(self, speed: float) -> None:
@@ -67,8 +71,12 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motor to, -1 to 1.
         '''
-        self.m_transfer.set(speed)
-        self.m_intake1.set(-speed)
+        if wpilib.SmartDashboard.getBoolean("Ready to shoot", False):
+            self.m_transfer.set(speed)
+            self.m_intake1.set(-speed)
+        else:
+            self.m_transfer.set(0)
+            self.m_intake1.set(0)
         
     def setShooterRPM(self, speed: float) -> None:
         '''Sets the RPM of the shooter motors.
@@ -80,6 +88,15 @@ class Appendage(commands2.SubsystemBase):
             self.m_shooter1.set(0)
         else:
             self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
+        
+        ratio_1 = self.s_shooterEncoder1.getVelocity() / speed
+        ratio_2 = self.s_shooterEncoder2.getVelocity() / speed
+        min = 1 - shooter_threshold
+        max = 1 + shooter_threshold
+        if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
+            wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
+        else:
+            wpilib.SmartDashboard.putBoolean("Shooter at speed", False)
         
     def setClimberSpeed(self, speed: float) -> None:
         '''Sets the speed of the climber motors.
@@ -108,6 +125,10 @@ class Appendage(commands2.SubsystemBase):
         
         rotations = angle / 360
         self.shoulderPID.setReference(rotations, rev.CANSparkMax.ControlType.kPosition)
+        if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
+            wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
+        else:
+            wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
         
     def calculateShoulderAngle(self, distance_to_speaker: float) -> float:
         '''Calculates the angle of the shoulder motors.

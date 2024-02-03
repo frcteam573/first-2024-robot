@@ -64,8 +64,8 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
             -self.subsystem.axis_rotation.value,
         )
 
-        
-        if Sensors.odometry.vision_estimator.limelights[0].get_tv() and False:
+        tag_aligned = False
+        if Sensors.odometry.vision_estimator.limelights[0].get_tv():
             # tx = Rotation2d.fromDegrees(Sensors.odometry.limelight_intake.get_tx())
             # current_angle -= tx
             tx = None
@@ -75,12 +75,14 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
             if tx is not None:
                 d_theta = self.target_pid.calculate(tx)
+                tag_aligned = abs(tx) < config.vision_threshold
             self.target_angle = current_angle
         elif abs(d_theta) < 0.11:
             d_theta = angular_vel
         else:
             self.target_angle = current_angle
-            
+        wpilib.SmartDashboard.putBoolean("Tag aligned", tag_aligned)
+        
         
             
 
@@ -230,63 +232,6 @@ class DriveSwerveSlowed(SubsystemCommand[Drivetrain]):
 
     def runsWhenDisabled(self) -> bool:
         return False
-
-
-# class DrivetrainRoute(SubsystemCommand[Drivetrain]):
-#     def __init__(self, subsystem: Drivetrain, odometry: FieldOdometry):
-#         super().__init__(subsystem)
-#         self.subsystem = subsystem
-#         self.odometry = odometry
-#         self.drive_on = True
-
-#     def initialize(self) -> None:
-#         self.odometry.vision_on = False
-#         current_pose = self.odometry.getPose()
-#         if self.drive_on and config.current_scoring_location != "":
-#             try:
-#                 desired_target = config.scoring_locations[
-#                     config.current_scoring_location
-#                 ]
-#                 current_pose = Pose2d(
-#                     current_pose.x,
-#                     current_pose.y,
-#                     desired_target.target_pose.rotation().radians(),
-#                 )
-#                 trajectory = CustomTrajectory(
-#                     current_pose,
-#                     desired_target.target_waypoints
-#                     if desired_target.target_waypoints is not None
-#                     else [],
-#                     desired_target.target_pose,
-#                     max_velocity=config.drivetrain_routing_velocity,
-#                     max_accel=config.drivetrain_routing_acceleration,
-#                     start_velocity=0,
-#                     end_velocity=0,
-#                 )
-
-#                 commands2.CommandScheduler.getInstance().schedule(
-#                     command.autonomous.custom_pathing.RotateInPlace(
-#                         self.subsystem,
-#                         desired_target.target_pose.rotation().radians(),
-#                         threshold=math.radians(4),
-#                         max_angular_vel=config.drivetrain_routing_angular_velocity,
-#                     ).andThen(
-#                         command.autonomous.custom_pathing.FollowPathCustom(
-#                             self.subsystem, trajectory
-#                         ).andThen(DrivetrainScoreSlow(self.subsystem, self.odometry))
-#                     )
-#                 )
-#             except:
-#                 print("COULD NOT GENERATE TRAJECTORY")
-#                 commands2.CommandScheduler.getInstance().schedule(
-#                     DrivetrainScoreSlow(self.subsystem, self.odometry)
-#                 )
-
-#     def isFinished(self) -> bool:
-#         return True
-
-#     def end(self, interrupted: bool) -> None:
-#         ...
 
 
 class DrivetrainScoreSlow(SubsystemCommand[Drivetrain]):

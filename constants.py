@@ -6,7 +6,6 @@ import math
 from robotpy_toolkit_7407.utils.units import hour, m, mile, rad, rev, s
 from wpimath.geometry import Pose3d, Rotation3d, Transform3d
 
-from config import field_length, field_width
 from units.SI import (
     inches_to_meters,
     meters,
@@ -18,6 +17,9 @@ from units.SI import (
     rotations_per_minute,
     rotations_per_minute_per_second,
 )
+
+field_length = 651.25 * inches_to_meters
+field_width = 323.25 * inches_to_meters
 
 # boundary dimension constants
 # --------------------------------------------------------------
@@ -196,7 +198,7 @@ ApriltagPositionDictRed = {
         (field_length / 2 + 6.429883),
         (field_width / 2 + 4.098925),
         (1.355852),
-        Rotation3d(0.0, 0.0, 3 * math.pi / 2),
+        Rotation3d(0.0, 0.0, -math.pi / 2),
     ),
     9: Pose3d(
         (field_length / 2 + -7.914767),
@@ -247,7 +249,7 @@ ApriltagPositionDictBlue = {
         (field_length / 2 + -6.429375),
         (field_width / 2 + 4.098925),
         (1.355852),
-        Rotation3d(0.0, 0.0, math.pi),
+        Rotation3d(0.0, 0.0, -math.pi / 2),
     ),
     7: Pose3d(
         (field_length / 2 + -8.308975),
