@@ -320,13 +320,13 @@ class SwerveDrivetrain(Subsystem):
         """
         self.odometry.resetPosition(
             self.get_heading(),
+            self.node_positions,
             pose,
-            *self.node_positions
         )
         self.odometry_estimator.resetPosition(
             gyroAngle=self.get_heading(),
+            modulePositions=self.node_positions,
             pose=pose,
-            modulePositions=self.node_positions
         )
 
     @staticmethod

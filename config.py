@@ -125,7 +125,7 @@ kRobotVisionPoseWeight = 0.1
 # Dummy data
 claw_motor_extend_id = 0
 
-# shoulder positions
+# shoulder positions (degrees)
 shoulder_floor = 0
 shoulder_amp = 0
 shoulder_human = 0
@@ -139,7 +139,7 @@ shooter_threshold = .05 # percent
 shoulder_threshold = 3  # degrees
 
 blue_scoring_positions = {
-    'amp': Pose2d(ATPosesBlue[6].X(), ATPosesBlue[6].Y() + 0.7, -math.pi / 2),
+    'amp': Pose2d(ATPosesBlue[6].X(), ATPosesBlue[6].Y() - 0.7, -math.pi / 2),
     'human1': get_perpendicular_pose(ATPosesBlue[1].toPose2d(), .7, ATPosesBlue[1].rotation().Z() + math.pi),
     'human2': get_perpendicular_pose(get_average_pose(ATPosesBlue[1].toPose2d(), ATPosesBlue[2].toPose2d()), .7, ATPosesBlue[1].rotation().Z() + math.pi),
     'human3': get_perpendicular_pose(ATPosesBlue[2].toPose2d(), .7, ATPosesBlue[2].rotation().Z() + math.pi),

@@ -37,6 +37,7 @@ class MyRobot(commands2.TimedCommandRobot):
         """
         
         Robot.drivetrain.init()
+        Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         

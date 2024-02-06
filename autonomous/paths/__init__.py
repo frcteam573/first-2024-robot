@@ -1,0 +1,14 @@
+from autonomous.paths.AMP.blue import routine as amp_blue
+from autonomous.paths.AMP.red import routine as amp_red
+from autonomous.paths.HUMAN_1.blue import routine as human_1_blue
+from autonomous.paths.HUMAN_1.red import routine as human_1_red
+from autonomous.paths.HUMAN_2.blue import routine as human_2_blue
+from autonomous.paths.HUMAN_2.red import routine as human_2_red
+from autonomous.paths.HUMAN_3.blue import routine as human_3_blue
+from autonomous.paths.HUMAN_3.red import routine as human_3_red
+from autonomous.paths.TRAP_1.blue import routine as trap_1_blue
+from autonomous.paths.TRAP_1.red import routine as trap_1_red
+from autonomous.paths.TRAP_2.blue import routine as trap_2_blue
+from autonomous.paths.TRAP_2.red import routine as trap_2_red
+from autonomous.paths.TRAP_3.blue import routine as trap_3_blue
+from autonomous.paths.TRAP_3.red import routine as trap_3_red
