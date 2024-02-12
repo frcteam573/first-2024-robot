@@ -4,6 +4,7 @@ import commands2
 import wpilib
 import wpilib.drive
 import rev
+from phoenix6.hardware.cancoder import CANcoder as CANCoder
 from config import shooter_threshold, shoulder_threshold
 
 def remap(value: float, threshold: float) -> float:
@@ -20,7 +21,15 @@ class Appendage(commands2.SubsystemBase):
 
     def __init__(self) -> None:
         super().__init__()
-
+        
+        #double solenoid, pcm (pnematic control module)
+        self.p_shoulderlock = wpilib.DoubleSolenoid(19, 4, 5)
+        self.p_climberlock = wpilib.DoubleSolenoid(19, 0, 1)
+        self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+        self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
+        
+        self.s_claw_lightgate = wpilib.AnalogInput(0)
+        
         self.m_intake1 = rev.CANSparkMax(41, rev.CANSparkMax.MotorType.kBrushless)
         self.m_intake2 = rev.CANSparkMax(42, rev.CANSparkMax.MotorType.kBrushless)
         self.m_intake2.follow(self.m_intake1, invert=True)
@@ -106,10 +115,17 @@ class Appendage(commands2.SubsystemBase):
         '''
         if self.s_climberEncoder.getPosition() < self.climbermin and speed < 0:
             self.m_climber1.set(0)
+            self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
         elif self.s_climberEncoder.getPosition() > self.climbermax and speed > 0:
             self.m_climber1.set(0)
+            self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.m_climber1.set(speed)
+            if speed > 0:
+                self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kReverse)
+            else:
+                self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+                
     
     def setShoulderAngle(self, angle: float) -> None:
         '''Sets the angle of the shoulder motors.
@@ -129,7 +145,12 @@ class Appendage(commands2.SubsystemBase):
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
         else:
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
-        
+            
+        if self.m_shoulder1.get() == 0:
+            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)  
+        else:
+            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
+            
     def calculateShoulderAngle(self, distance_to_speaker: float) -> float:
         '''Calculates the angle of the shoulder motors.
         
