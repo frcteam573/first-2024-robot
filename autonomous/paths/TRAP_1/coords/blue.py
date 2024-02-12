@@ -14,5 +14,5 @@ initial: coord = (0, 0, 0) # will override to robot pose
 go_to_trap_1: path = (
     initial,
     [],
-    (bsp['trap1'].X(), bsp['trap1'].Y(), bsp['trap'].rotation().radians()),
+    (bsp['trap1'].X(), bsp['trap1'].Y(), bsp['trap1'].rotation().radians()),
 )

@@ -14,5 +14,5 @@ initial: coord = (0, 0, 0) # will override to robot pose
 go_to_human_3: path = (
     initial,
     [],
-    (rsp['human3'].X(), rsp['human3'].Y(), rsp['humab3'].rotation().radians()),
+    (rsp['human3'].X(), rsp['human3'].Y(), rsp['human3'].rotation().radians()),
 )
