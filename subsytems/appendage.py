@@ -23,8 +23,8 @@ class Appendage(commands2.SubsystemBase):
         super().__init__()
         
         #double solenoid, pcm (pnematic control module)
-        self.p_shoulderlock = wpilib.DoubleSolenoid(19, 4, 5)
-        self.p_climberlock = wpilib.DoubleSolenoid(19, 0, 1)
+        self.p_shoulderlock = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 4, 5)
+        self.p_climberlock = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 0, 1)
         self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
         self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
         

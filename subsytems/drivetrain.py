@@ -161,10 +161,10 @@ class Drivetrain(SwerveDrivetrain):
     max_angular_vel: radians_per_second = constants.drivetrain_max_angular_vel
     deadzone_velocity: meters_per_second = 0.02
     deadzone_angular_velocity: radians_per_second = math.radians(5)
-    start_angle: degrees = 0
+    start_angle: degrees = math.pi
     start_pose: Pose2d = Pose2d(
-        constants.ApriltagPositionDictRed[4].X() - 0.56007,
-        constants.ApriltagPositionDictRed[4].Y(),
+        constants.ApriltagPositionDictBlue[7].X() + 1.2954,
+        constants.ApriltagPositionDictBlue[7].Y(),
         math.radians(start_angle),
     )
     gyro_start_angle: radians = math.radians(start_angle)

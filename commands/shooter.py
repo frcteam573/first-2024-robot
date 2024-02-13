@@ -22,7 +22,7 @@ class ShooterActivate(commands2.CommandBase):
         self.app.setShooter(-self.speed)
         print("shooter velocity:", self.app.s_shooterEncoder1.getVelocity())
         
-        
+    
         
     def end(self, interrupted=False) -> None:
         self.app.setShooter(0)
