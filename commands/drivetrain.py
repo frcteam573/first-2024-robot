@@ -32,7 +32,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     driver_centric_reversed = False
     period = constants.period
     angular_pid: PIDController = PIDController(1, 0.5, 0.05)
-    target_pid: PIDController = PIDController(.1, 0, 0)
+    target_pid: PIDController = PIDController(.1, 1, .1)
     target_angle = None
 
     def initialize(self) -> None:
@@ -73,7 +73,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
             elif self.subsystem.speaker_align_button.getAsBoolean():
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
-            if tx is not None:
+            if tx:
                 d_theta = self.target_pid.calculate(tx)
                 tag_aligned = abs(tx) < config.vision_threshold
             self.target_angle = current_angle

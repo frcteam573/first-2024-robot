@@ -126,6 +126,14 @@ class Appendage(commands2.SubsystemBase):
             else:
                 self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
                 
+    def setShoulderSpeed(self, speed: float):
+        '''Sets the speed of the shoulder motors.
+        
+        Args:
+            speed: The speed to set the motors to, -1 to 1.
+        '''
+        self.m_shoulder1.set(speed)
+        
     
     def setShoulderAngle(self, angle: float) -> None:
         '''Sets the angle of the shoulder motors.

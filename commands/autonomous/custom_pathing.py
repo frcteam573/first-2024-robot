@@ -12,7 +12,7 @@ from wpimath.controller import (
     PIDController,
     ProfiledPIDControllerRadians,
 )
-from wpimath.geometry import Pose2d, Rotation2d
+from wpimath.geometry import Pose2d, Rotation2d, Transform2d
 from wpimath.trajectory import Trajectory, TrapezoidProfileRadians
 
 from commands.autonomous.trajectory import CustomTrajectory
@@ -462,17 +462,18 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
         relative = self.end_pose.relativeTo(
             self.subsystem.odometry_estimator.getEstimatedPosition()
         )
-        
+        self.limelight.update()
         if self.limelight.get_tv():
-            self.theta_diff = self.limelight.get_tx()
+            self.theta_diff = math.radians(self.limelight.get_tx())
+            relative = Pose2d(relative.X(),relative.Y(), self.theta_diff)
             self.omega = self.theta_diff / self.duration
 
         if (
             abs(relative.x) < 0.03
             and abs(relative.y < 0.03)
             and abs(relative.rotation().degrees()) < 3
-            or 
-            self.t > self.duration
+            # or 
+            # self.t > self.duration
         ):
             self.t = self.duration
             self.finished = True

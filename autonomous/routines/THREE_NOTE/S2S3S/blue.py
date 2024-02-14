@@ -81,7 +81,9 @@ auto = SequentialCommandGroup(
   path_1,
   # shoot note
   path_2,
+  InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
   path_3,
+  InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)),
   # shoot note
 )
 

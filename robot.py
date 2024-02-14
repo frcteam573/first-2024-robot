@@ -58,8 +58,8 @@ class MyRobot(commands2.TimedCommandRobot):
 
         self.auto_selection = wpilib.SendableChooser()
         
-        self.auto_selection.setDefaultOption("TWO NOTE", autonomous.two_disc_red)
-        self.auto_selection.addOption("THREE NOTE", autonomous.three_note_blue)
+        self.auto_selection.setDefaultOption("THREE NOTE BLUE", autonomous.three_note_blue)
+        # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
         
         wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
         
