@@ -78,12 +78,12 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motor to, -1 to 1.
         '''
-        if wpilib.SmartDashboard.getBoolean("Ready to shoot", False):
-            self.m_transfer.set(speed)
-            self.m_intake1.set(-speed)
-        else:
-            self.m_transfer.set(0)
-            self.m_intake1.set(0)
+        # if wpilib.SmartDashboard.getBoolean("Ready to shoot", False):
+        self.m_transfer.set(speed)
+        self.m_intake1.set(-speed)
+        # else:
+        #     self.m_transfer.set(0)
+        #     self.m_intake1.set(0)
         
     def setShooterRPM(self, speed: float) -> None:
         '''Sets the RPM of the shooter motors.

@@ -23,10 +23,10 @@ class Controllers:
 
 class Keymap:
     class Intake:
-        INTAKE_IN = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.LB)
-        INTAKE_OUT = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.RB)
-        SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerDRIVER.RT)
-        TRANSFER = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.RB)
+        INTAKE_IN = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.LB)
+        INTAKE_OUT = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.RB)
+        SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.RT)
+        TRANSFER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.LT)
         
         FLOOR_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.A)
         SPEAKER_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.Y)
