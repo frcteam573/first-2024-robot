@@ -77,18 +77,29 @@ path_3 = FollowPathCustomAprilTag(
 )
 
 auto = SequentialCommandGroup(
+  # shoot note
   commands.ShootNote(Robot.appendage, 11000),
-  ParallelDeadlineGroup(
-    path_1,
-    InstantCommand(lambda: Robot.appendage.setShoulderAngle(config.shoulder_floor)),
-    InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-.3)),
-  ),
+  # start intaking
+  InstantCommand(lambda: Robot.appendage.setShoulderAngle(config.shoulder_floor)),
+  InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-.3)),
+  # go to note 2 to take in note
+  path_1,
+  WaitCommand(.5),
   InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0)),
+  # shoot note
   commands.ShootNote(Robot.appendage, 11000),
+  # start intaking
+  InstantCommand(lambda: Robot.appendage.setShoulderAngle(config.shoulder_floor)),
+  InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-.3)),
+  # go to note 3 and intake note
   path_2,
+  WaitCommand(.5),
+  InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0)),
+  # drive toward and line up to speaker
   InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
   path_3,
   InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)),
+  # shoot note
   commands.ShootNote(Robot.appendage, 11000),
 )
 
