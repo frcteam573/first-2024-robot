@@ -11,20 +11,20 @@ blue_team = True
 
 initial: coord = (apb[7].X() + 1.2954, apb[7].Y(), math.pi)
 
-note_2: path = (
+note_3: path = (
     initial,
     [],
-    (np['blue_2'].X(), np['blue_2'].Y(), math.pi),
+    (np['blue_3'].X(), np['blue_3'].Y(), math.pi),
 )
 
-note_3: path = (
-    note_2[2],
-    [],
-    (np['blue_3'].X(), np['blue_3'].Y(), math.pi / 2),
-)
-
-speaker: path = (
+note_1: path = (
     note_3[2],
     [],
-    (np['blue_3'].X() - 1, np['blue_3'].Y() + 1, 5 * math.pi / 6),
+    (np['blue_1'].X(), np['blue_1'].Y(), math.pi / 2),
+)
+
+amp: path = (
+    note_1[2],
+    [],
+    (bsp['amp'].X(), bsp['amp'].Y(), bsp['amp'].rotation()),
 )
