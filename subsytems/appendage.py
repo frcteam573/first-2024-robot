@@ -31,8 +31,6 @@ class Appendage(commands2.SubsystemBase):
         self.s_claw_lightgate = wpilib.AnalogInput(0)
         
         self.m_intake1 = rev.CANSparkMax(41, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_intake2 = rev.CANSparkMax(42, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_intake2.follow(self.m_intake1, invert=True)
         
         self.m_transfer = rev.CANSparkMax(44, rev.CANSparkMax.MotorType.kBrushless)
         
@@ -165,6 +163,9 @@ class Appendage(commands2.SubsystemBase):
         Args:
             distance_to_speaker: The distance to the speaker in meters.
             blue_team: Whether the robot is on the blue team.
+            
+        Returns:
+            radians
         '''
-        ...
         # implement this
+        return 45

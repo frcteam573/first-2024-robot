@@ -43,8 +43,6 @@ class MyRobot(commands2.TimedCommandRobot):
         
         self.field = wpilib.Field2d()
         wpilib.SmartDashboard.putData("Field", self.field)
-        # self.field.getObject("traj").setTrajectory()
-        print(config.red_scoring_positions['human1'])
         
         OI.init()
         OI.map_controls()
