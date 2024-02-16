@@ -40,5 +40,5 @@ class ShootNote(commands2.CommandBase):
         return self.finished
 
     def end(self, interrupted=False) -> None:
-        self.app.setShooter(0)
+        self.app.setShooterRPM(0)
         self.app.setTransferSpeed(0)

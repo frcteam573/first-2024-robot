@@ -28,23 +28,23 @@ class OI:
 	def map_controls():
 		logger.info("Mapping controls...")
 		
-		Keymap.Intake.INTAKE_IN.whileTrue(
+		Keymap.Intake.INTAKE_IN.onTrue(
 			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-1))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0))
 		)
-		Keymap.Intake.INTAKE_OUT.whileTrue(
+		Keymap.Intake.INTAKE_OUT.onTrue(
 			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(1))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0))
 		)
-		commands2.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).onTrue(
+		commands2.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).whileTrue(
 			InstantCommand(lambda: Robot.appendage.setTransferSpeed(1))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setTransferSpeed(0))
 		)
-		commands2.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).onTrue(
-			InstantCommand(lambda: Robot.appendage.setShooterRPM(11000))
+		commands2.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
+			InstantCommand(lambda: Robot.appendage.setShooterRPM(5676))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
 		)

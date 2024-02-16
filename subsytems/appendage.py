@@ -5,7 +5,7 @@ import wpilib
 import wpilib.drive
 import rev
 from phoenix6.hardware.cancoder import CANcoder as CANCoder
-from config import shooter_threshold, shoulder_threshold
+from config import shooter_threshold, shoulder_threshold, shoulder_min, shoulder_max
 
 def remap(value: float, threshold: float) -> float:
     if abs(value) > threshold:
@@ -36,7 +36,7 @@ class Appendage(commands2.SubsystemBase):
         
         self.m_shooter1 = rev.CANSparkMax(43, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shooter2 = rev.CANSparkMax(40, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_shooter2.follow(self.m_shooter1, invert=True)
+        self.m_shooter2.follow(self.m_shooter1)
         self.shooterPID = self.m_shooter1.getPIDController()
         self.shooterPID.setP(0.00005) # find these values when built
         self.shooterPID.setI(0.0000005) # find these values when built
@@ -71,6 +71,7 @@ class Appendage(commands2.SubsystemBase):
             
         '''
         self.m_intake1.set(speed)
+        self.m_transfer.set(-.25 * speed)
         
     def setTransferSpeed(self, speed: float) -> None:
         '''Sets the speed of the transfer motor.
@@ -91,19 +92,24 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The RPM to set the motors to, -11000 to 11000.
         '''
+        speed = -speed
+        
+        print("target:", speed, "actual:", self.s_shooterEncoder1.getVelocity(), self.s_shooterEncoder2.getVelocity())
         if speed == 0:
             self.m_shooter1.set(0)
-        else:
-            self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
-        
-        ratio_1 = self.s_shooterEncoder1.getVelocity() / speed
-        ratio_2 = self.s_shooterEncoder2.getVelocity() / speed
-        min = 1 - shooter_threshold
-        max = 1 + shooter_threshold
-        if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
             wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
         else:
-            wpilib.SmartDashboard.putBoolean("Shooter at speed", False)
+            # self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
+            self.m_shooter1.set(-1)
+
+            ratio_1 = self.s_shooterEncoder1.getVelocity() / speed
+            ratio_2 = self.s_shooterEncoder2.getVelocity() / speed
+            min = 1 - shooter_threshold
+            max = 1 + shooter_threshold
+            if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
+                wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
+            else:
+                wpilib.SmartDashboard.putBoolean("Shooter at speed", False)
         
     def setClimberSpeed(self, speed: float) -> None:
         '''Sets the speed of the climber motors.

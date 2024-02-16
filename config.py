@@ -132,6 +132,9 @@ shoulder_human = 0
 shoulder_trap = 0
 shoulder_home = 0
 
+shoulder_min = 0
+shoulder_max = 100
+
 
 # speed/alignment thresholds
 vision_threshold = 3    # degrees
