@@ -17,14 +17,20 @@ note_2: path = (
     (np['blue_2'].X(), np['blue_2'].Y(), math.pi),
 )
 
-note_3: path = (
+amp: path = (
     note_2[2],
     [],
-    (np['blue_3'].X(), np['blue_3'].Y(), math.pi / 2),
+    (bsp['amp'].X(), bsp['amp'].Y(), bsp['amp'].rotation()),
 )
 
-speaker: path = (
-    note_3[2],
+note_1: path = (
+    amp[2],
     [],
-    (np['blue_3'].X() - 1, np['blue_3'].Y() + 1, 5 * math.pi / 6),
+    (np['blue_1'].X() - 1, np['blue_1'].Y() + 1, 5 * math.pi / 6),
+)
+
+amp: path = (
+    note_1[2],
+    [],
+    (bsp['amp'].X(), bsp['amp'].Y(), bsp['amp'].rotation()),
 )
