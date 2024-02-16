@@ -49,22 +49,22 @@ class OI:
 			InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
 		)
 		
-		# Keymap.Climber.CLIMBER_UP.whileTrue(
-		# 	InstantCommand(lambda: Robot.appendage.setClimberSpeed(-1))
-		# ).onFalse(
-		# 	InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
-		# )
-		# Keymap.Climber.CLIMBER_DOWN.whileTrue(
-		# 	InstantCommand(lambda: Robot.appendage.setClimberSpeed(1))
-		# ).onFalse(
-		# 	InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
-		# )
+		Keymap.Climber.CLIMBER_UP.whileTrue(
+			InstantCommand(lambda: Robot.appendage.setClimberSpeed(-0.5))
+		).onFalse(
+			InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
+		)
+		Keymap.Climber.CLIMBER_DOWN.whileTrue(
+			InstantCommand(lambda: Robot.appendage.setClimberSpeed(0.5))
+		).onFalse(
+			InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
+		)
   
-		# commands2.Trigger(lambda: math.fabs(Keymap.Shoulder.SHOULDER_AXIS.value) > .1).whileTrue(
-		# 	InstantCommand(lambda: Robot.appendage.setShoulderSpeed(Keymap.Shoulder.SHOULDER_AXIS.value))
-		# ).onFalse(
-		# 	InstantCommand(lambda: Robot.appendage.setShoulderSpeed(0))
-		# )
+		commands2.Trigger(lambda: math.fabs(Keymap.Shoulder.SHOULDER_AXIS.value) > .1).whileTrue(
+			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(Keymap.Shoulder.SHOULDER_AXIS.value))
+		).onFalse(
+			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(0))
+		)
 		
   
 		Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))

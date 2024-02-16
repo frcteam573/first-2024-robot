@@ -44,12 +44,12 @@ class Appendage(commands2.SubsystemBase):
         self.s_shooterEncoder1 = self.m_shooter1.getEncoder()
         self.s_shooterEncoder2 = self.m_shooter2.getEncoder()
         
-        # self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
-        # self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
-        # self.m_climber2.follow(self.m_climber1, invert=True)
-        # self.s_climberEncoder = self.m_climber1.getEncoder()
-        # self.climbermin = 0 # find these values when built
-        # self.climbermax = 100 # find these values when built
+        self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
+        self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
+        self.m_climber2.follow(self.m_climber1, invert=True)
+        self.s_climberEncoder = self.m_climber1.getEncoder()
+        self.climbermin = -100000 # find these values when built
+        self.climbermax = 1000000 # find these values when built
         
         self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
@@ -136,8 +136,16 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motors to, -1 to 1.
         '''
-        self.m_shoulder1.set(speed)
+        if abs(speed) > 0.7:
+            speed = 0.7* speed/abs(speed)
         
+        self.m_shoulder1.set(speed)
+
+        if abs(speed) < 0.1:
+            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)
+        else:
+            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
+    
     
     def setShoulderAngle(self, angle: float) -> None:
         '''Sets the angle of the shoulder motors.
