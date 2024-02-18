@@ -47,7 +47,7 @@ class Appendage(commands2.SubsystemBase):
         self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
         self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
         self.m_climber2.follow(self.m_climber1, invert=True)
-        self.s_climberEncoder = self.m_climber1.getEncoder()
+        self.s_climberEncoder = self.m_climber1.getAlternateEncoder(8192)
         self.climbermin = -100000 # find these values when built
         self.climbermax = 1000000 # find these values when built
         
@@ -117,6 +117,7 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motors to, -1 to 1.
         '''
+        wpilib.SmartDashboard.putString("S_Climber Pos", str(self.s_climberEncoder.getPosition()))
         if self.s_climberEncoder.getPosition() < self.climbermin and speed < 0:
             self.m_climber1.set(0)
             self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
@@ -136,6 +137,8 @@ class Appendage(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motors to, -1 to 1.
         '''
+
+        wpilib.SmartDashboard.putString("S_Shoulder Angle", str(self.s_shoulderAlternateEncoder.getPosition()))
         if abs(speed) > 0.7:
             speed = 0.7* speed/abs(speed)
         
