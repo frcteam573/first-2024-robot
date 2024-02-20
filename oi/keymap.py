@@ -25,8 +25,9 @@ class Keymap:
     class Intake:
         INTAKE_IN = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.LB)
         INTAKE_OUT = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.RB)
-        SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.RT)
-        TRANSFER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.LT)
+        SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.LT)
+        SHOOTER_AMP = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.START)
+        TRANSFER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.RT)
         
         FLOOR_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.A)
         SPEAKER_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.Y)
@@ -39,7 +40,7 @@ class Keymap:
         CLIMBER_DOWN = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.LB)
         
     class Shoulder:
-        SHOULDER_AXIS = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.L_JOY[0])
+        SHOULDER_AXIS = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.L_JOY[1])
     
     class Drivetrain:
         DRIVE_STRAIGHTEN_WHEELS = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.SELECT)
