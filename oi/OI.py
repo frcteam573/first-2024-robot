@@ -59,7 +59,7 @@ class OI:
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
 		)
-  
+		
 		commands2.Trigger(lambda: math.fabs(Keymap.Shoulder.SHOULDER_AXIS.value) > .1).whileTrue(
 			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(Keymap.Shoulder.SHOULDER_AXIS.value))
 		).onFalse(

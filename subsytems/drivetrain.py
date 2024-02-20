@@ -34,7 +34,7 @@ MOVE_CONFIG = SparkMaxConfig(
 class SparkMaxSwerveNode(SwerveNode):
     m_move: SparkMax
     m_turn: SparkMax
-    encoder: SparkMaxAlternateEncoder
+    #encoder: SparkMaxAlternateEncoder
     absolute_encoder_zeroed_pos: radians = 0
     name: str = "DefaultNode"
 
@@ -42,11 +42,11 @@ class SparkMaxSwerveNode(SwerveNode):
         super().init()
         self.m_move.init()
         self.m_turn.init()
-        self.encoder.setPositionConversionFactor(2*math.pi()) #Set Conversion Fact from rotations to radians
+        #self.encoder.setPositionConversionFactor(2*math.pi()) #Set Conversion Fact from rotations to radians
 
     def initial_zero(self):
         current_pos_rad = (
-            math.radians(self.encoder.getPosition())
+            math.radians(self.m_turn.get_sensor_position())
             - self.absolute_encoder_zeroed_pos
         )
 
@@ -63,7 +63,7 @@ class SparkMaxSwerveNode(SwerveNode):
         current_angle = self.get_current_motor_angle()
 
         current_pos_rad = (
-            math.radians(self.encoder.getPosition())
+            math.radians(self.m_turn.get_sensor_position())
             - self.absolute_encoder_zeroed_pos
         )
 
@@ -122,28 +122,28 @@ class Drivetrain(SwerveDrivetrain):
     n_front_left = SparkMaxSwerveNode(
         SparkMax(1, config=MOVE_CONFIG, inverted=False),
         SparkMax(2, config=TURN_CONFIG),
-        CANSparkMax(2).getAlternateEncoder(rev.CANEncoder.AlternateEncoderType.kQuadrature,8192),
+        #CANSparkMax(2, rev.CANSparkMax.MotorType.kBrushless).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_front_left",
     )
     n_front_right = SparkMaxSwerveNode(
         SparkMax(4, config=MOVE_CONFIG),
         SparkMax(5, config=TURN_CONFIG),
-        CANSparkMax(5).getAlternateEncoder(rev.CANEncoder.AlternateEncoderType.kQuadrature,8192),
+        #CANSparkMax(5).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_front_right",
     )
     n_back_left = SparkMaxSwerveNode(
         SparkMax(7, config=MOVE_CONFIG, inverted=False),
         SparkMax(8, config=TURN_CONFIG),
-        CANSparkMax(8).getAlternateEncoder(rev.CANEncoder.AlternateEncoderType.kQuadrature,8192),
+        #CANSparkMax(8).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_back_left",
     )
     n_back_right = SparkMaxSwerveNode(
         SparkMax(10, config=MOVE_CONFIG),
         SparkMax(11, config=TURN_CONFIG),
-        CANSparkMax(11).getAlternateEncoder(rev.CANEncoder.AlternateEncoderType.kQuadrature,8192),
+        #CANSparkMax(11).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_back_right",
     )

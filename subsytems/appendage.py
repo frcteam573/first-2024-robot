@@ -46,7 +46,7 @@ class Appendage(commands2.SubsystemBase):
         
         self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
         self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_climber2.follow(self.m_climber1, invert=True)
+        self.m_climber2.follow(self.m_climber1, invert= True)
         self.s_climberEncoder = self.m_climber1.getAlternateEncoder(8192)
         self.climbermin = -100000 # find these values when built
         self.climbermax = 1000000 # find these values when built
@@ -150,29 +150,29 @@ class Appendage(commands2.SubsystemBase):
             self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
     
     
-    def setShoulderAngle(self, angle: float) -> None:
-        '''Sets the angle of the shoulder motors.
+    # def setShoulderAngle(self, angle: float) -> None:
+    #     '''Sets the angle of the shoulder motors.
         
-        Args:
-            angle: The angle to set the motors to in degrees.
-        '''
+    #     Args:
+    #         angle: The angle to set the motors to in degrees.
+    #     '''
         
-        if angle < self.minShoulderAngle:
-            angle = self.minShoulderAngle
-        elif angle > self.maxShoulderAngle:
-            angle = self.maxShoulderAngle
+    #     if angle < self.minShoulderAngle:
+    #         angle = self.minShoulderAngle
+    #     elif angle > self.maxShoulderAngle:
+    #         angle = self.maxShoulderAngle
         
-        rotations = angle / 360
-        self.shoulderPID.setReference(rotations, rev.CANSparkMax.ControlType.kPosition)
-        if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
-            wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
-        else:
-            wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
+    #     rotations = angle / 360
+    #     self.shoulderPID.setReference(rotations, rev.CANSparkMax.ControlType.kPosition)
+    #     if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
+    #         wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
+    #     else:
+    #         wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
             
-        if self.m_shoulder1.get() == 0:
-            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)  
-        else:
-            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
+    #     if self.m_shoulder1.get() == 0:
+    #         self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)  
+    #     else:
+    #         self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
             
     def calculateShoulderAngle(self, distance_to_speaker: float) -> float:
         '''Calculates the angle of the shoulder motors.
