@@ -40,14 +40,14 @@ class OI:
 			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0))
 		)
 #------------------------ Transfer -----------------------#
-		commands2.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).whileTrue(
+		commands2.button.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).whileTrue(
 			InstantCommand(lambda: Robot.appendage.setTransferSpeed(1))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setTransferSpeed(0))
 		)
 #------------------------ Shooter -----------------------#
 		#Speaker Shooter Settings
-		commands2.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
+		commands2.button.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
 			InstantCommand(lambda: Robot.appendage.setShooterRPM(5676))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
@@ -71,7 +71,7 @@ class OI:
 			InstantCommand(lambda: Robot.appendage.setClimberSpeed(0))
 		)
 #------------------------ Shoulder -----------------------#
-		commands2.Trigger(lambda: math.fabs(Keymap.Shoulder.SHOULDER_AXIS.value) > .1).whileTrue(
+		commands2.button.Trigger(lambda: math.fabs(Keymap.Shoulder.SHOULDER_AXIS.value) > .1).whileTrue(
 			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(Keymap.Shoulder.SHOULDER_AXIS.value))
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(0))
