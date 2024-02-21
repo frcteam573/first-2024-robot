@@ -29,7 +29,7 @@ class OI:
 		logger.info("Mapping controls...")
 
 #------------------------ Intake -----------------------#
-		Keymap.Intake.INTAKE_IN.onTrue(InstantCommand(commands.IntakeIn(Robot.appendage))
+		Keymap.Intake.INTAKE_IN.onTrue(command=commands.IntakeIn(Robot.appendage)
 		# Keymap.Intake.INTAKE_IN.onTrue(
 		# 	InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-1))
 		).onFalse(
