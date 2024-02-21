@@ -28,7 +28,7 @@ class Appendage(commands2.SubsystemBase):
         self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
         self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
         
-        self.s_claw_lightgate = wpilib.AnalogInput(0)
+        self.s_claw_lightgate = wpilib.DigitalInput(0)
         
         self.m_intake1 = rev.CANSparkMax(41, rev.CANSparkMax.MotorType.kBrushless)
         
@@ -104,8 +104,8 @@ class Appendage(commands2.SubsystemBase):
             self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
             #self.m_shooter1.set(-1)
 
-            wpilib.SmartDashboard.putString("Shooter 1 RPM", self.s_shooterEncoder1.getVelocity())
-            wpilib.SmartDashboard.putString("Shooter 2 RPM", self.s_shooterEncoder2.getVelocity())
+            wpilib.SmartDashboard.putString("Shooter 1 RPM", str(self.s_shooterEncoder1.getVelocity()))
+            wpilib.SmartDashboard.putString("Shooter 2 RPM", str(self.s_shooterEncoder2.getVelocity()))
 
             ratio_1 = self.s_shooterEncoder1.getVelocity() / speed
             ratio_2 = self.s_shooterEncoder2.getVelocity() / speed

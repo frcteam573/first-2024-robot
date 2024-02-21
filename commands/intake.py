@@ -36,10 +36,10 @@ class IntakeIn(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        if self.app.s_claw_lightgate.getValue() > 100: #test value
+        if self.app.s_claw_lightgate.get(): #test value
             self.app.setIntakeSpeed(0)
         else:
-            self.app.setIntakeSpeed(-.5)
+            self.app.setIntakeSpeed(-1)
         
     def end(self, interrupted=False) -> None:
         self.app.setIntakeSpeed(0)
@@ -56,7 +56,7 @@ class IntakeOut(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setIntakeSpeed(.5)
+        self.app.setIntakeSpeed(1)
         
     def end(self, interrupted=False) -> None:
         self.app.setIntakeSpeed(0)
