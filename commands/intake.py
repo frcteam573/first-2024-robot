@@ -40,9 +40,11 @@ class IntakeIn(commands2.CommandBase):
             self.app.setIntakeSpeed(0)
         else:
             self.app.setIntakeSpeed(-1)
+        #print("Excute")
         
-    def end(self, interrupted=False) -> None:
+    def end(self, interrupted=True) -> None:
         self.app.setIntakeSpeed(0)
+        #print("end")
         
 class IntakeOut(commands2.CommandBase):
     def __init__(

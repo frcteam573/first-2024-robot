@@ -73,6 +73,7 @@ class Appendage(commands2.SubsystemBase):
         '''
         self.m_intake1.set(speed)
         self.m_transfer.set(-.25 * speed)
+        #print("HHHHHHHH")
         
     def setTransferSpeed(self, speed: float) -> None:
         '''Sets the speed of the transfer motor.

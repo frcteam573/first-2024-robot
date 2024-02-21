@@ -29,17 +29,17 @@ class OI:
 		logger.info("Mapping controls...")
 
 #------------------------ Intake -----------------------#
-		Keymap.Intake.INTAKE_IN.onTrue(command=commands.IntakeIn(Robot.appendage)
+		Keymap.Intake.INTAKE_IN.whileTrue(command=commands.IntakeIn(Robot.appendage))
+		Keymap.Intake.INTAKE_OUT.whileTrue(command=commands.IntakeOut(Robot.appendage))
 		# Keymap.Intake.INTAKE_IN.onTrue(
 		# 	InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-1))
-		).onFalse(
-			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0))
-		)
-		Keymap.Intake.INTAKE_OUT.onTrue(	# We should consider added a variable which means climber deployed or not, then we can adjust speed out for trap scoring.
-			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(1))
-		).onFalse(
-			InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0))
-		)
+		# ).onFalse(command=commands.IntakeIn(Robot.appendage).end(True)
+		# )
+		# Keymap.Intake.INTAKE_OUT.onTrue(	# We should consider added a variable which means climber deployed or not, then we can adjust speed out for trap scoring.
+		# 	InstantCommand(lambda: Robot.appendage.setIntakeSpeed(1))
+		# ).onFalse(
+		# 	InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0))
+		# )
 #------------------------ Transfer -----------------------#
 		commands2.button.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).whileTrue(
 			InstantCommand(lambda: Robot.appendage.setTransferSpeed(1))
