@@ -26,7 +26,7 @@ class Keymap:
         INTAKE_IN = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.LB)
         INTAKE_OUT = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.RB)
         SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.LT)
-        SHOOTER_AMP = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.START)
+        SHOOTER_AMP = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.START)
         TRANSFER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.RT)
         
         FLOOR_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.A)
