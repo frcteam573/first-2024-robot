@@ -48,18 +48,19 @@ class OI:
 		)
 #------------------------ Shooter -----------------------#
 		#Speaker Shooter Settings
-		commands2.button.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
-			InstantCommand(lambda: Robot.appendage.setShooterRPM(5676))
-		).onFalse(
-			InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
+		Keymap.Intake.SHOOTER_AMP.whileTrue(
+			command=commands.ShooterSpeed(Robot.appendage,5600)
 		)
+		# commands2.button.Trigger(Keymap.Intake.SHOOTER.value > .05).whileTrue(
+		# 	command=commands.ShooterSpeed(Robot.appendage)
+		# )
 
 		# Amp Shooter Settings
-		Keymap.Intake.SHOOTER_AMP.onTrue(
-			InstantCommand(lambda: Robot.appendage.setShooterRPM(1000))
-		).onFalse(
-			InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
-		)
+		# Keymap.Intake.SHOOTER_AMP.onTrue(
+		# 	InstantCommand(lambda: Robot.appendage.setShooterRPM(1000))
+		# ).onFalse(
+		# 	InstantCommand(lambda: Robot.appendage.setShooterRPM(0))
+		# )
 #------------------------ Climber -----------------------#
 		Keymap.Climber.CLIMBER_UP.whileTrue(
 			InstantCommand(lambda: Robot.appendage.setClimberSpeed(-0.5))
@@ -78,9 +79,7 @@ class OI:
 			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(0))
 		)
 		#Shoulder Setpoint Commands
-		# Keymap.Intake.FLOOR_POSITION.whileTrue(
-		# 	InstantCommand(lambda: commands.SetShoulderAngleFloor()) 
-		# ).onFalse(lambda: Robot.appendage.setShoulderSpeed(0))
+		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngleFloor(Robot.appendage)) 
 
 		# Keymap.Intake.HUMAN_POSITION.whileTrue(
 		# 	InstantCommand(lambda: commands.SetShoulderAngleHuman())

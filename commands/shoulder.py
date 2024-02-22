@@ -47,14 +47,14 @@ class SetShoulderAngleFloor(commands2.CommandBase):
   
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
-    self.app.setShoulderAngle(0) # find these values when built
+    self.app.setShoulderAngle(1.3) # find these values when built 1.7
     
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
-    ...
+    self.app.setShoulderAngle(1.3)
     
   def end(self, interrupted=False) -> None:
-    ...
+    self.app.setShoulderSpeed(0)
 
 class SetShoulderAngleAmp(commands2.CommandBase):
   def __init__(

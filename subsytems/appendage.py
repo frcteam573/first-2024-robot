@@ -37,10 +37,15 @@ class Appendage(commands2.SubsystemBase):
         self.m_shooter1 = rev.CANSparkMax(43, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shooter2 = rev.CANSparkMax(40, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shooter2.follow(self.m_shooter1)
-        self.shooterPID = self.m_shooter1.getPIDController()
-        self.shooterPID.setP(0.00005) # find these values when built
-        self.shooterPID.setI(0.0000005) # find these values when built
-        self.shooterPID.setD(0.0) # find these values when built
+        self.shooterPID2 = self.m_shooter1.getPIDController()
+        self.shooterPID2.setP(0.0007) # find these values when built
+        self.shooterPID2.setI(0.00001) # find these values when built
+        self.shooterPID2.setD(0.0) # find these values when built
+        
+        self.shooterPID3 = self.m_shooter2.getPIDController()
+        self.shooterPID3.setP(0.0007) # find these values when built
+        self.shooterPID3.setI(0.00001) # find these values when built
+        self.shooterPID3.setD(0.0) # find these values when built
         self.s_shooterEncoder1 = self.m_shooter1.getEncoder()
         self.s_shooterEncoder2 = self.m_shooter2.getEncoder()
         
@@ -54,11 +59,13 @@ class Appendage(commands2.SubsystemBase):
         
         self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_shoulder2.follow(self.m_shoulder1, invert=True)
+        self.m_shoulder2.setInverted(True)
+        #self.m_shoulder2.follow(self.m_shoulder1, invert=True)
         self.shoulderPID = self.m_shoulder1.getPIDController()
-        self.shoulderPID.setP(0.00005) # find these values when built
-        self.shoulderPID.setI(0.0000005) # find these values when built
+        self.shoulderPID.setP(-0.00025) # find these values when built
+        self.shoulderPID.setI(0.0000) # find these values when built
         self.shoulderPID.setD(0.0) # find these values when built
+
         self.minShoulderAngle = 0 # find these values when built
         self.maxShoulderAngle = 100 # find these values when built
         self.s_shoulderAlternateEncoder = self.m_shoulder1.getAlternateEncoder(8192)
@@ -102,8 +109,14 @@ class Appendage(commands2.SubsystemBase):
             self.m_shooter1.set(0)
             wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
         else:
-            self.shooterPID.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
-            #self.m_shooter1.set(-1)
+            rtio2 = 1#1/3*36/22
+            rtio3 = 24/22#1/3*36/24
+            #self.shooterPID2.setReference(speed*rtio2, rev.CANSparkMax.ControlType.kVelocity)
+            #self.shooterPID3.setReference(speed*rtio3, rev.CANSparkMax.ControlType.kVelocity)
+            self.m_shooter1.set(-1)
+            self.m_shooter2.set(-1)
+            # wpilib.SmartDashboard.putString("Shooter 1 RPM Set", str(speed*rtio2))
+            # wpilib.SmartDashboard.putString("Shooter 2 RPM Set", str(speed*rtio3))
 
             wpilib.SmartDashboard.putString("Shooter 1 RPM", str(self.s_shooterEncoder1.getVelocity()))
             wpilib.SmartDashboard.putString("Shooter 2 RPM", str(self.s_shooterEncoder2.getVelocity()))
@@ -169,8 +182,10 @@ class Appendage(commands2.SubsystemBase):
         elif angle > self.maxShoulderAngle:
             angle = self.maxShoulderAngle
         
-        rotations = angle / 360
-        self.shoulderPID.setReference(rotations, rev.CANSparkMax.ControlType.kPosition)
+        #rotations = angle / 360
+        #self.shoulderPID.setReference(angle, rev.CANSparkMax.ControlType.kPosition)
+
+        self.setShoulderSpeed(0.5*(self.s_shoulderAlternateEncoder.getPosition() - angle))
         if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
         else:

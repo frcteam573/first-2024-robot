@@ -42,3 +42,33 @@ class ShootNote(commands2.CommandBase):
     def end(self, interrupted=False) -> None:
         self.app.setShooterRPM(0)
         self.app.setTransferSpeed(0)
+
+class ShooterSpeed(commands2.CommandBase):
+    def __init__(
+        self, 
+        app: Appendage,
+        speed: float,
+    ) -> None:
+        super().__init__()
+        
+        self.speed = speed
+        
+        
+
+        self.app = app
+        self.addRequirements(app)
+        
+    def initialize(self) -> None:
+        
+        #angle: degrees = self.app.calculateShoulderAngle(Sensors.odometry.getDistance(apb[7].toPose2d() if config.blue_team else apr[4].toPose2d()))
+        #self.app.setShoulderAngle(angle)
+        self.app.setShooterRPM(self.speed)
+  
+
+    def execute(self) -> None:
+        """Called every time the scheduler runs while the command is scheduled."""
+        self.app.setShooterRPM(self.speed)
+
+
+    def end(self, interrupted=False) -> None:
+        self.app.setShooterRPM(0)
