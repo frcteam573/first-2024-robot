@@ -45,7 +45,6 @@ class Shoulder(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motors to, -1 to 1.
         '''
-
         wpilib.SmartDashboard.putString("S_Shoulder Angle", str(self.s_shoulderAlternateEncoder.getPosition()))
         if abs(speed) > 0.7:
             speed = 0.7* speed/abs(speed)
@@ -64,7 +63,7 @@ class Shoulder(commands2.SubsystemBase):
         Args:
             angle: The angle to set the motors to in degrees.
         '''
-        
+        AtPos = False
         if angle < self.minShoulderAngle:
             angle = self.minShoulderAngle
         elif angle > self.maxShoulderAngle:
@@ -73,16 +72,18 @@ class Shoulder(commands2.SubsystemBase):
         #rotations = angle / 360
         #self.shoulderPID.setReference(angle, rev.CANSparkMax.ControlType.kPosition)
 
-        self.setShoulderSpeed(0.5*(self.s_shoulderAlternateEncoder.getPosition() - angle))
+        
+
         if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
+            AtPos = True
+            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
         else:
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
-            
-        if self.m_shoulder1.get() == 0:
-            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)  
-        else:
             self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
+            self.setShoulderSpeed(0.5*(self.s_shoulderAlternateEncoder.getPosition() - angle))
+        return AtPos
+            
             
     def calculateShoulderAngle(self, distance_to_speaker: float) -> float:
         '''Calculates the angle of the shoulder motors.

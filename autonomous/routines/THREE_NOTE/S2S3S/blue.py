@@ -80,7 +80,7 @@ auto = SequentialCommandGroup(
   # shoot note
   commands.ShootNote(Robot.shooter, 11000),
   # start intaking
-  InstantCommand(lambda: Robot.shoulder.setShoulderAngle(config.shoulder_floor)),
+  commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Floor_Pos),
   InstantCommand(lambda: Robot.intake.setIntakeSpeed(-.3)),
   # go to note 2 to take in note
   path_1,
@@ -89,7 +89,7 @@ auto = SequentialCommandGroup(
   # shoot note
   commands.ShootNote(Robot.shooter, 11000),
   # start intaking
-  InstantCommand(lambda: Robot.shoulder.setShoulderAngle(config.shoulder_floor)),
+  commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Floor_Pos),
   InstantCommand(lambda: Robot.intake.setIntakeSpeed(-.3)),
   # go to note 3 and intake note
   path_2,
