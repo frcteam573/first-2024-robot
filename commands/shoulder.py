@@ -32,14 +32,14 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
       Sensors.odometry.getDistance(self.target)
     ))
-    print("Shoulder Angle Speaker")
+    #print("Shoulder Angle Speaker")
 
   def isFinished(self) -> bool:
     return self.finished
 
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
-    print("Shoulder Angle Speaker END")
+    #print("Shoulder Angle Speaker END")
             
 class SetShoulderAngle(commands2.CommandBase):
   def __init__(
@@ -61,14 +61,14 @@ class SetShoulderAngle(commands2.CommandBase):
     """Called every time the scheduler runs while the command is scheduled."""
     self.finished = self.app.setShoulderAngle(angle=self.angle)
 
-    print("Shoulder Angle: "+ str(self.angle))
+    #print("Shoulder Angle: "+ str(self.angle))
 
   def isFinished(self) -> bool:
     return self.finished
   
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
-    print("Shoulder Angle END")
+    #print("Shoulder Angle END")
 
 class JoystickMoveShoulder(commands2.CommandBase):
   def __init__(
@@ -89,8 +89,8 @@ class JoystickMoveShoulder(commands2.CommandBase):
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
     self.app.setShoulderSpeed(self.joystick_in)
-    print("Shoulder Joy_In: "+ str(self.joystick_in))
+    #print("Shoulder Joy_In: "+ str(self.joystick_in))
     
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
-    print("Shoulder Joy END")
+    #print("Shoulder Joy END")

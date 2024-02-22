@@ -68,10 +68,10 @@ class ShooterSpeed(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         self.Atspeed = self.app.setShooterRPM(self.speed)
-        print("Shooter Running")
+        #print("Shooter Running")
         return self.Atspeed
 
 
     def end(self, interrupted=False) -> None:
         self.app.setShooterRPM(0)
-        print("Shooter Stop")
+        #print("Shooter Stop")
