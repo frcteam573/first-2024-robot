@@ -21,7 +21,7 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.addRequirements(app)
     
     self.target: Pose2d
-    self.finished = False
+    self.finished = True #Temp
 
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""

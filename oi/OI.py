@@ -29,7 +29,8 @@ class OI:
 		logger.info("Mapping controls...")
 
 #------------------------ Intake -----------------------#
-		Keymap.Intake.INTAKE_IN.whileTrue(command=commands.IntakeIn(Robot.intake))
+		#Keymap.Intake.INTAKE_IN.whileTrue(command=commands.IntakeIn(Robot.intake))
+		Keymap.Intake.INTAKE_IN.whileTrue(command=commands.ShootNote(Robot.shooter,5600))
 		Keymap.Intake.INTAKE_OUT.whileTrue(command=commands.IntakeOut(Robot.intake))
 
 #------------------------ Transfer -----------------------#
