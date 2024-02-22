@@ -21,6 +21,7 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.addRequirements(app)
     
     self.target: Pose2d
+    self.finished = False
 
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
@@ -32,6 +33,7 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
       Sensors.odometry.getDistance(self.target)
     ))
+    return self.finished
     #print("Shoulder Angle Speaker")
 
   def isFinished(self) -> bool:

@@ -63,8 +63,8 @@ class Shooter(commands2.SubsystemBase):
             wpilib.SmartDashboard.putString("Shooter 1 RPM", str(self.s_shooterEncoder1.getVelocity()))
             wpilib.SmartDashboard.putString("Shooter 2 RPM", str(self.s_shooterEncoder2.getVelocity()))
 
-            ratio_1 = self.s_shooterEncoder1.getVelocity() / speed
-            ratio_2 = self.s_shooterEncoder2.getVelocity() / speed
+            ratio_1 = abs(self.s_shooterEncoder1.getVelocity() / speed)
+            ratio_2 = abs(self.s_shooterEncoder2.getVelocity() / speed)
             min = 1 - shooter_threshold
             max = 1 + shooter_threshold
             if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
