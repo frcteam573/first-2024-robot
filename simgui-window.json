@@ -14,24 +14,6 @@
       "ypos": "-1"
     }
   },
-  "Table": {
-    "0x4EEBB800,2": {
-      "Column 0  Width": "250",
-      "Column 1  Weight": "1.0000",
-      "RefScale": "25"
-    },
-    "0x965B9C9E,2": {
-      "Column 0  Width": "250",
-      "Column 1  Weight": "1.0000",
-      "RefScale": "25"
-    },
-    "0xE56EC1C2,4": {
-      "Column 0  Weight": "1.0000",
-      "Column 1  Weight": "1.0000",
-      "Column 2  Weight": "1.0000",
-      "Column 3  Weight": "1.0000"
-    }
-  },
   "Window": {
     "###/SmartDashboard/Auto Mode": {
       "Collapsed": "0",
@@ -50,7 +32,7 @@
     },
     "###Joysticks": {
       "Collapsed": "0",
-      "Pos": "227,623",
+      "Pos": "180,464",
       "Size": "796,240"
     },
     "###NetworkTables": {
@@ -66,7 +48,12 @@
     "###Other Devices": {
       "Collapsed": "0",
       "Pos": "1305,43",
-      "Size": "500,1390"
+      "Size": "500,937"
+    },
+    "###RoboRIO": {
+      "Collapsed": "0",
+      "Pos": "204,376",
+      "Size": "193,192"
     },
     "###System Joysticks": {
       "Collapsed": "0",

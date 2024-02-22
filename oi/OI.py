@@ -49,8 +49,8 @@ class OI:
 		Keymap.Climber.CLIMBER_DOWN.whileTrue(command=commands.ClimberDown(Robot.climber))
 
 #------------------------ Shoulder -----------------------#
-		commands2.button.Trigger(lambda: abs(Keymap.Shoulder.SHOULDER_AXIS.value) > .1).whileTrue(
-			command=commands.JoystickMoveShoulder(Robot.shoulder,float(Keymap.Shoulder.SHOULDER_AXIS.value)))
+		commands2.button.Trigger(lambda: abs(Keymap.Shoulder.SHOULDER_AXIS.value) > .05).whileTrue(
+			command=commands.JoystickMoveShoulder(Robot.shoulder,Keymap.Shoulder.SHOULDER_AXIS.value))
 		
 		#Shoulder Setpoint Commands
 		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Floor_Pos)) 

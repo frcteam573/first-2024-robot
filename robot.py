@@ -44,9 +44,7 @@ class MyRobot(commands2.TimedCommandRobot):
         self.field = wpilib.Field2d()
         wpilib.SmartDashboard.putData("Field", self.field)
         
-        OI.init()
-        OI.map_controls()
-        
+        OI.init() 
         
         Sensors.odometry = FieldOdometry(Robot.drivetrain, LimelightController([
             Limelight(0, 0, limelight_name="limelight-intake"),
@@ -103,6 +101,10 @@ class MyRobot(commands2.TimedCommandRobot):
         """This function is called when the robot enters operator control."""
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
+        
+         
+        OI.map_controls()#Moved from robot init to avoid joystick errors if joystick not connected when robot turns on.
+
         commands2.CommandScheduler.getInstance().schedule(
             commands.DriveSwerveCustom(Robot.drivetrain)
         )
