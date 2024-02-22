@@ -78,24 +78,18 @@ class OI:
 		).onFalse(
 			InstantCommand(lambda: Robot.appendage.setShoulderSpeed(0))
 		)
+		
 		#Shoulder Setpoint Commands
-		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngleFloor(Robot.appendage)) 
+		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.appendage,config.Shoulder_Floor_Pos)) 
 
-		# Keymap.Intake.HUMAN_POSITION.whileTrue(
-		# 	InstantCommand(lambda: commands.SetShoulderAngleHuman())
-		# ).onFalse(lambda: Robot.appendage.setShoulderSpeed(0))
+		Keymap.Intake.HUMAN_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.appendage,config.Shoulder_Human_Pos)) 
 
-		# Keymap.Intake.AMP_POSITION.whileTrue(
-		# 	InstantCommand(lambda: commands.SetShoulderAngleAmp())
-		# ).onFalse(lambda: Robot.appendage.setShoulderSpeed(0))
+		Keymap.Intake.AMP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.appendage,config.Shoulder_Amp_Pos)) 
 
-		# Keymap.Intake.TRAP_POSITION.whileTrue(
-		# 	InstantCommand(lambda: commands.SetShoulderAngleTrap())
-		# ).onFalse(lambda: Robot.appendage.setShoulderSpeed(0))
+		#Keymap.Intake.TRAP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.appendage,config.Shoulder_Trap_Pos)) 
 
-		# Keymap.Intake.SPEAKER_POSITION.whileTrue(
-		# 	InstantCommand(lambda: commands.SetShoulderAngleSpeaker())
-		# ).onFalse(lambda: Robot.appendage.setShoulderSpeed(0))
+		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.appendage)) 
+
  #------------------------------- Drivetrain --------------------------------------# 
 		Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
 		

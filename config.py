@@ -14,6 +14,11 @@ from units.SI import (
 from constants import ApriltagPositionDictBlue as ATPosesBlue, ApriltagPositionDictRed as ATPosesRed
 from constants import field_length, field_width
 
+Shoulder_Floor_Pos = 1.7 # Need to verify this is a guess
+Shoulder_Amp_Pos = .4 # Need to verify this is a guess
+Shoulder_Human_Pos = 1.3 # Need to verify this is a guess
+Shoulder_Trap_Pos = 1.3 # Need to verify this is a guess
+
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
     new_pose = Pose2d(
         Translation2d(
