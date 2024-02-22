@@ -6,12 +6,11 @@ import subsytems
 from sensors import FieldOdometry
 
 class Robot:
-    # arm = subsytems.Arm()
     drivetrain = subsytems.Drivetrain()
-    appendage = subsytems.Appendage()
-    # climber = subsytems.Climber()
-    # intake = subsytems.Intake()
-    # grabber = subsytems.Grabber()
+    climber = subsytems.Climber()
+    intake = subsytems.Intake()
+    shooter = subsytems.Shooter()
+    shoulder = subsytems.Shoulder()
 
 class Sensors:
     odometry: FieldOdometry = FieldOdometry(Robot.drivetrain, LimelightController([

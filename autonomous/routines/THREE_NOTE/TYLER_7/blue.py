@@ -77,19 +77,19 @@ path_3 = FollowPathCustomAprilTag(
 )
 
 auto = SequentialCommandGroup(
-  commands.ShootNote(Robot.appendage, 11000),
+  commands.ShootNote(Robot.shooter, 11000),
   ParallelDeadlineGroup(
     path_1,
-    InstantCommand(lambda: Robot.appendage.setShoulderAngle(config.shoulder_floor)),
-    InstantCommand(lambda: Robot.appendage.setIntakeSpeed(-.3)),
+    InstantCommand(lambda: Robot.shoulder.setShoulderAngle(config.shoulder_floor)),
+    InstantCommand(lambda: Robot.intake.setIntakeSpeed(-.3)),
   ),
-  InstantCommand(lambda: Robot.appendage.setIntakeSpeed(0)),
-  commands.ShootNote(Robot.appendage, 11000),
+  InstantCommand(lambda: Robot.intake.setIntakeSpeed(0)),
+  commands.ShootNote(Robot.shooter, 11000),
   path_2,
   InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
   path_3,
   InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)),
-  commands.ShootNote(Robot.appendage, 11000),
+  commands.ShootNote(Robot.shooter, 11000),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)

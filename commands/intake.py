@@ -2,12 +2,12 @@ import typing
 import commands2
 import wpilib
 
-from subsytems.appendage import Appendage
+from subsytems.intake import Intake
 
 class Intake(commands2.CommandBase):
     def __init__(
         self, 
-        app: Appendage,
+        app: Intake,
         speed: typing.Callable[[], float],
     ) -> None:
         super().__init__()
@@ -27,7 +27,7 @@ class Intake(commands2.CommandBase):
 class IntakeIn(commands2.CommandBase):
     def __init__(
         self, 
-        app: Appendage,
+        app: Intake,
     ) -> None:
         super().__init__()
 
@@ -49,7 +49,7 @@ class IntakeIn(commands2.CommandBase):
 class IntakeOut(commands2.CommandBase):
     def __init__(
         self, 
-        app: Appendage,
+        app: Intake,
     ) -> None:
         super().__init__()
 
@@ -59,14 +59,16 @@ class IntakeOut(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         self.app.setIntakeSpeed(1)
+        print("Intake Out")
         
     def end(self, interrupted=False) -> None:
         self.app.setIntakeSpeed(0)
+        print("Intake Out End")
         
 class TransferNote(commands2.CommandBase):
     def __init__(
         self, 
-        app: Appendage,
+        app: Intake,
     ) -> None:
         super().__init__()
 
@@ -75,7 +77,7 @@ class TransferNote(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setTransfer(.7)
+        self.app.setTransferSpeed(1)
         
     def end(self, interrupted=False) -> None:
-        self.app.setTransfer(0)
+        self.app.setTransferSpeed(0)

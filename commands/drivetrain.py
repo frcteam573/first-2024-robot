@@ -82,11 +82,9 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         else:
             self.target_angle = current_angle
         wpilib.SmartDashboard.putBoolean("Tag aligned", tag_aligned)
-        
-        
-            
+    
 
-        # print("dx", dx)
+        #print("dx", dx)
         dx = curve(dx)
         dy = curve(dy)
         d_theta = curve(d_theta)

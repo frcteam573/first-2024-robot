@@ -2,7 +2,7 @@ import typing
 import commands2
 import wpilib.shuffleboard
 
-from subsytems.appendage import Appendage
+from subsytems.shooter import Shooter
 from robot_systems import Robot, Sensors
 from constants import ApriltagPositionDictBlue as apb, ApriltagPositionDictRed as apr
 import config
@@ -11,7 +11,7 @@ from units.SI import degrees
 class ShootNote(commands2.CommandBase):
     def __init__(
         self, 
-        app: Appendage,
+        app: Shooter,
         speed: float,
     ) -> None:
         super().__init__()
@@ -46,15 +46,13 @@ class ShootNote(commands2.CommandBase):
 class ShooterSpeed(commands2.CommandBase):
     def __init__(
         self, 
-        app: Appendage,
+        app: Shooter,
         speed: float,
     ) -> None:
         super().__init__()
         
         self.speed = speed
         
-        
-
         self.app = app
         self.addRequirements(app)
         
@@ -64,7 +62,6 @@ class ShooterSpeed(commands2.CommandBase):
         #self.app.setShoulderAngle(angle)
         self.app.setShooterRPM(self.speed)
   
-
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         self.app.setShooterRPM(self.speed)

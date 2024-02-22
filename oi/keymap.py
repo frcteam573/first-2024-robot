@@ -26,14 +26,14 @@ class Keymap:
         INTAKE_IN = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.LB)
         INTAKE_OUT = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.RB)
         SHOOTER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.LT)
-        SHOOTER_AMP = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.START)
+        SHOOTER_AMP = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerOPERATOR.SELECT)
         TRANSFER = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.RT)
         
         FLOOR_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.A)
         SPEAKER_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.Y)
         HUMAN_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.B)
         AMP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.X)
-        TRAP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.SELECT)
+        TRAP_POSITION = commands2.button.JoystickButton(Controllers.OPERATOR_CONTROLLER, controllerDRIVER.START)
         
     class Climber:
         CLIMBER_UP = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB)
