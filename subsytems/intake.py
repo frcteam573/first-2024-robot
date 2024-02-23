@@ -50,11 +50,14 @@ class Intake(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motor to, -1 to 1.
         '''
-        self.note_out = self.s_claw_lightgate.get()
+        self.note_out = False
+    
         # if wpilib.SmartDashboard.getBoolean("Ready to shoot", False):
         self.m_transfer.set(speed)
         self.m_intake1.set(-speed)
-        print(str(self.note_out))
+        
+        if self.s_claw_lightgate.get():
+            self.note_out = True
         return self.note_out
         # else:
         #     self.m_transfer.set(0)

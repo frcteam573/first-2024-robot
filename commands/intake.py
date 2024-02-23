@@ -44,7 +44,7 @@ class IntakeIn(commands2.CommandBase):
     def isFinished(self) -> bool:
         return self.finished
         
-    def end(self, interrupted=True) -> None:
+    def end(self, interrupted=False) -> None:
         self.app.setIntakeSpeed(0)
         print("Intake In End")
         
@@ -80,9 +80,8 @@ class TransferNote(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        if not self.app.setTransferSpeed(1):
+        if self.app.setTransferSpeed(1):
             self.finished = True
-        return self.finished
 
     def isFinished(self) -> bool:
         return self.finished
