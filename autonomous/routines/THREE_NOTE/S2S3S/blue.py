@@ -73,34 +73,25 @@ path_3 = FollowPathCustomAprilTag(
     rev=False,
   ),
   limelight=Sensors.odometry.vision_estimator.limelights[0],
+  pipeline=2,
   period=constants.period,
 )
 
 auto = SequentialCommandGroup(
-  # shoot note
-  commands.ShootNote(Robot.shooter, 11000),
-  # start intaking
-  commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Floor_Pos),
-  InstantCommand(lambda: Robot.intake.setIntakeSpeed(-.3)),
-  # go to note 2 to take in note
-  path_1,
-  WaitCommand(.5),
-  InstantCommand(lambda: Robot.intake.setIntakeSpeed(0)),
-  # shoot note
-  commands.ShootNote(Robot.shooter, 11000),
-  # start intaking
-  commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Floor_Pos),
-  InstantCommand(lambda: Robot.intake.setIntakeSpeed(-.3)),
-  # go to note 3 and intake note
-  path_2,
-  WaitCommand(.5),
-  InstantCommand(lambda: Robot.intake.setIntakeSpeed(0)),
-  # drive toward and line up to speaker
-  InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
-  path_3,
-  InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)),
-  # shoot note
-  commands.ShootNote(Robot.shooter, 11000),
+  commands.ShootNote(Robot.shooter, 5600), # shoot note
+  commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
+  ParallelCommandGroup( # go to note 2 to take in note
+    commands.IntakeIn(Robot.intake),
+    path_1,
+  ),
+  commands.ShootNote(Robot.shooter, 5600), # shoot note
+  commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
+  ParallelCommandGroup( # go to note 3 to take in note
+    commands.IntakeIn(Robot.intake),
+    path_2,
+  ),
+  path_3, # drive toward and line up to speaker
+  commands.ShootNote(Robot.shooter, 5600), # shoot note
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)

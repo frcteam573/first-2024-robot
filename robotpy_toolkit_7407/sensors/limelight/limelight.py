@@ -78,6 +78,9 @@ class Limelight:
         """
         self.table.putNumber("pipeline", pipeline)
         print("Pipeline changed to", pipeline)
+        
+    def get_pipeline(self):
+        return self.table.getNumber("pipeline", None)
 
     def calculate_distance(self) -> float:
         """
@@ -112,6 +115,15 @@ class Limelight:
         # print(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1234))
         # print("============network table stuff============\n\n\n")
         bot_pose = self.table.getValue("botpose", None)
+        if round_to is not None and bot_pose is not None:
+            bot_pose = [round(i, round_to) for i in bot_pose]
+        return bot_pose
+    
+    def get_bot_pose_target_space(self, round_to: int = None) -> list | None:
+        """
+        Get the robot's pose from the limelight's perspective.
+        """
+        bot_pose = self.table.getValue("botpose_targetspace", None)
         if round_to is not None and bot_pose is not None:
             bot_pose = [round(i, round_to) for i in bot_pose]
         return bot_pose

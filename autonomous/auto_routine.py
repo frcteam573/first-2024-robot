@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from constants import field_length
 
 import commands2
 from commands2 import CommandBase
@@ -7,6 +8,14 @@ from wpimath.geometry import Pose2d
 from robot_systems import Robot
 import commands
 
+# def mirror_path(path):
+#     """
+#     Mirrors a path across the x-axis.
+#     """
+#     start, waypoints, end = path
+#     return [
+        
+#     ]
 
 @dataclass
 class AutoRoutine:

@@ -28,8 +28,8 @@ class Shoulder(commands2.SubsystemBase):
         
         self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
-        self.m_shoulder2.setInverted(True)
-        #self.m_shoulder2.follow(self.m_shoulder1, invert=True)
+        #self.m_shoulder2.setInverted(True)
+        self.m_shoulder2.follow(self.m_shoulder1, invert=True)
         self.shoulderPID = self.m_shoulder1.getPIDController()
         self.shoulderPID.setP(-0.00025) # find these values when built
         self.shoulderPID.setI(0.0000) # find these values when built

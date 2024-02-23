@@ -51,16 +51,16 @@ class OI:
 
 #------------------------ Shoulder -----------------------#
 		commands2.button.Trigger(lambda: abs(Keymap.Shoulder.SHOULDER_AXIS.value) > .05).whileTrue(
-			command=commands.JoystickMoveShoulder(Robot.shoulder,Keymap.Shoulder.SHOULDER_AXIS.value))
+			command=commands.JoystickMoveShoulder(Robot.shoulder))
 		
 		#Shoulder Setpoint Commands
-		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Floor_Pos)) 
+		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos)) 
 
-		Keymap.Intake.HUMAN_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Human_Pos)) 
+		Keymap.Intake.HUMAN_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_human_pos)) 
 
-		Keymap.Intake.AMP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Amp_Pos)) 
+		Keymap.Intake.AMP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_amp_pos)) 
 
-		Keymap.Intake.TRAP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.Shoulder_Trap_Pos)) 
+		Keymap.Intake.TRAP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_trap_pos)) 
 
 		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder)) 
 

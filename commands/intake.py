@@ -81,7 +81,8 @@ class TransferNote(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         if self.app.setTransferSpeed(1):
-            self.finished = True
+            # self.finished = True
+            ...
 
     def isFinished(self) -> bool:
         return self.finished

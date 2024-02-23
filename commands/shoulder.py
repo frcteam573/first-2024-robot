@@ -2,6 +2,7 @@ import typing
 import commands2
 import wpilib
 from wpimath.geometry import Pose2d
+from oi.keymap import Keymap
 
 from subsytems import Shoulder
 
@@ -76,22 +77,21 @@ class JoystickMoveShoulder(commands2.CommandBase):
   def __init__(
     self, 
     app: Shoulder,
-    joystick_in: typing.Callable[[], float]
   ) -> None:
     super().__init__()
 
     self.app = app
     self.addRequirements(app)
-    self.joystick_in = joystick_in
+    
   
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
-    self.app.setShoulderSpeed(self.joystick_in)
+    ...
     
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
-    self.app.setShoulderSpeed(self.joystick_in)
-    #print("Shoulder Joy_In: "+ str(self.joystick_in))
+    self.app.setShoulderSpeed(Keymap.Shoulder.SHOULDER_AXIS.value)
+    print("Shoulder Joy_In: "+ str(Keymap.Shoulder.SHOULDER_AXIS.value))
     
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)

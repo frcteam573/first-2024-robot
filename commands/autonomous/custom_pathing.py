@@ -402,12 +402,15 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
         subsystem: SwerveDrivetrain,
         trajectory: CustomTrajectory,
         limelight: Limelight,
+        pipeline: int = None,
         period: float = 0.02,
     ):
         super().__init__(subsystem)
         self.custom_trajectory = trajectory
         self.trajectory: Trajectory = trajectory.trajectory
         self.limelight = limelight
+        self.prev_pipeline = limelight.get_pipeline()
+        self.pipeline = pipeline
         self.controller = HolonomicDriveController(
             PIDController(95, 0, 0, period),
             PIDController(95, 0, 0, period),
@@ -433,6 +436,7 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
 
     def initialize(self) -> None:
         print("duration:", self.duration)
+        self.limelight.change_pipeline(self.pipeline)
         if self.custom_trajectory.use_robot:
             config = TrajectoryConfig(
                 self.custom_trajectory.max_velocity,
@@ -494,6 +498,7 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
         return self.finished
 
     def end(self, interrupted: bool) -> None:
+        self.limelight.change_pipeline(self.prev_pipeline)
         self.subsystem.set_driver_centric((0, 0), 0)
         SmartDashboard.putString("POSE", str(self.subsystem.odometry.getPose()))
         SmartDashboard.putString(

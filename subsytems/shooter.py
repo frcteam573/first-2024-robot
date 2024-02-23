@@ -30,14 +30,14 @@ class Shooter(commands2.SubsystemBase):
         self.shooterPID1.setI(0.00001) # find these values when built
         self.shooterPID1.setD(0.0) # find these values when built
         
-        self.shooterPID2 = self.m_shooter2.getPIDController()
-        self.shooterPID2.setP(0.0007) # find these values when built
-        self.shooterPID2.setI(0.00001) # find these values when built
-        self.shooterPID2.setD(0.0) # find these values when built
+        # self.shooterPID2 = self.m_shooter2.getPIDController()
+        # self.shooterPID2.setP(0.0007) # find these values when built
+        # self.shooterPID2.setI(0.00001) # find these values when built
+        # self.shooterPID2.setD(0.0) # find these values when built
         self.s_shooterEncoder1 = self.m_shooter1.getEncoder()
         self.s_shooterEncoder2 = self.m_shooter2.getEncoder()
                 
-    def setShooterRPM(self, speed: float) -> None:
+    def setShooterRPM(self, speed: float) -> bool:
         '''Sets the RPM of the shooter motors.
         
         Args:

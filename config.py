@@ -14,10 +14,10 @@ from units.SI import (
 from constants import ApriltagPositionDictBlue as ATPosesBlue, ApriltagPositionDictRed as ATPosesRed
 from constants import field_length, field_width
 
-Shoulder_Floor_Pos = 1.7 # Need to verify this is a guess
-Shoulder_Amp_Pos = .4 # Need to verify this is a guess
-Shoulder_Human_Pos = 1.3 # Need to verify this is a guess
-Shoulder_Trap_Pos = 1.3 # Need to verify this is a guess
+shoulder_floor_pos = 1.35 # Need to verify this is a guess
+shoulder_amp_pos = .4 # Need to verify this is a guess
+shoulder_human_pos = 1.3 # Need to verify this is a guess
+shoulder_trap_pos = 1.3 # Need to verify this is a guess
 
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
     new_pose = Pose2d(
@@ -130,12 +130,13 @@ kRobotVisionPoseWeight = 0.1
 # Dummy data
 claw_motor_extend_id = 0
 
-# shoulder positions (degrees)
-shoulder_floor = 0
+# shoulder positions
+shoulder_floor = 1.35
 shoulder_amp = 0
 shoulder_human = 0
 shoulder_trap = 0
 shoulder_home = 0
+# shoulder_close = 1.35
 
 shoulder_min = 0
 shoulder_max = 100
@@ -144,7 +145,7 @@ shoulder_max = 100
 # speed/alignment thresholds
 vision_threshold = 3    # degrees
 shooter_threshold = .05 # percent
-shoulder_threshold = math.pi/60  # degrees
+shoulder_threshold = .1  # degrees
 
 blue_scoring_positions = {
     'amp': Pose2d(ATPosesBlue[6].X(), ATPosesBlue[6].Y() - 0.7, -math.pi / 2),
