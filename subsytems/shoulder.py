@@ -38,6 +38,7 @@ class Shoulder(commands2.SubsystemBase):
         self.minShoulderAngle = 0 # find these values when built
         self.maxShoulderAngle = 100 # find these values when built
         self.s_shoulderAlternateEncoder = self.m_shoulder1.getAlternateEncoder(8192)
+        
                 
     def setShoulderSpeed(self, speed: float):
         '''Sets the speed of the shoulder motors.
@@ -63,6 +64,8 @@ class Shoulder(commands2.SubsystemBase):
         Args:
             angle: The angle to set the motors to in degrees.
         '''
+        angle += wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) / 180 * math.pi
+        
         at_pos = False
         if angle < self.minShoulderAngle:
             angle = self.minShoulderAngle
@@ -97,3 +100,12 @@ class Shoulder(commands2.SubsystemBase):
         '''
         # implement this
         return 1.4
+    
+    def changeShoulderTrim(self, value: float) -> None:
+        '''Changes the trim of the shoulder.
+        
+        Args:
+            value: The value to change the trim by.
+        '''
+        trim = wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
+        wpilib.SmartDashboard.putNumber("Shoulder Trim", trim + value)

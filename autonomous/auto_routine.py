@@ -7,15 +7,24 @@ from wpimath.geometry import Pose2d
 
 from robot_systems import Robot
 import commands
+import math
 
-# def mirror_path(path):
-#     """
-#     Mirrors a path across the x-axis.
-#     """
-#     start, waypoints, end = path
-#     return [
-        
-#     ]
+def mirror_pose(pose):
+    """
+    Mirrors a pose across the y-axis.
+    """
+    return (field_length - pose[0], pose[1], -pose[2] + math.pi)
+
+def mirror_path(path):
+    """
+    Mirrors a path across the y-axis.
+    """
+    start, waypoints, end = path
+    return [
+        mirror_pose(start),
+        [mirror_pose(p) for p in waypoints],
+        mirror_pose(end)
+    ]
 
 @dataclass
 class AutoRoutine:
