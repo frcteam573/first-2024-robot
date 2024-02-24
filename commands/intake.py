@@ -33,6 +33,8 @@ class IntakeIn(commands2.CommandBase):
 
         self.app = app
         self.addRequirements(app)
+        
+    def initialize(self):
         self.finished = False
     def initialize(self) -> None:
         self.finished = False
@@ -78,6 +80,8 @@ class TransferNote(commands2.CommandBase):
 
         self.app = app
         self.addRequirements(app)
+        
+    def initialize(self):
         self.finished = False
 
     def initialize(self) -> None:
@@ -89,7 +93,6 @@ class TransferNote(commands2.CommandBase):
         if self.app.setTransferSpeed(1):
             self.finished = True
             
-
     def isFinished(self) -> bool:
         return self.finished
         

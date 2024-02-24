@@ -65,24 +65,24 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         )
 
 # ---------------- This is the speaker tag auto align and gyro stablization block. Can be commented out for basic swerve joystick control
-        # tag_aligned = False
-        # if Sensors.odometry.vision_estimator.limelights[0].get_tv():
-        #     # tx = Rotation2d.fromDegrees(Sensors.odometry.limelight_intake.get_tx())
-        #     # current_angle -= tx
-        #     tx = None
-        #     if self.subsystem.note_align_button.getAsBoolean():
-        #         tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
-        #     elif self.subsystem.speaker_align_button.getAsBoolean():
-        #         tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
-        #     if tx:
-        #         d_theta = self.target_pid.calculate(tx)
-        #         tag_aligned = abs(tx) < config.vision_threshold
-        #     self.target_angle = current_angle
-        # elif abs(d_theta) < 0.11: # This is for gyro stablization
-        #     d_theta = angular_vel
-        # else:
-        #     self.target_angle = current_angle
-        # wpilib.SmartDashboard.putBoolean("Tag aligned", tag_aligned)
+        tag_aligned = False
+        if Sensors.odometry.vision_estimator.limelights[0].get_tv():
+            # tx = Rotation2d.fromDegrees(Sensors.odometry.limelight_intake.get_tx())
+            # current_angle -= tx
+            tx = None
+            if self.subsystem.note_align_button.getAsBoolean():
+                tx = Sensors.odometry.vision_estimator.limelights[1].get_tx()
+            elif self.subsystem.speaker_align_button.getAsBoolean():
+                tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
+            if tx:
+                d_theta = self.target_pid.calculate(tx)
+                tag_aligned = abs(tx) < config.vision_threshold
+            self.target_angle = current_angle
+        elif abs(d_theta) < 0.11: # This is for gyro stablization
+            d_theta = angular_vel
+        else:
+            self.target_angle = current_angle
+        wpilib.SmartDashboard.putBoolean("Tag aligned", tag_aligned)
 # ----------------------------------------------------------------------------------------
         #print("SwerveDriveCustom")
         #print("dx", dx)

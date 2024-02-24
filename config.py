@@ -14,6 +14,9 @@ from units.SI import (
 from constants import ApriltagPositionDictBlue as ATPosesBlue, ApriltagPositionDictRed as ATPosesRed
 from constants import field_length, field_width
 
+robot_length = 35.5 * inches_to_meters
+robot_width = 35.5 * inches_to_meters
+
 shoulder_floor_pos = 1.35 # Need to verify this is a guess
 shoulder_amp_pos = .4 # Need to verify this is a guess
 shoulder_human_pos = 1.3 # Need to verify this is a guess
