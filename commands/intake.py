@@ -34,8 +34,6 @@ class IntakeIn(commands2.CommandBase):
         self.app = app
         self.addRequirements(app)
         
-    def initialize(self):
-        self.finished = False
     def initialize(self) -> None:
         self.finished = False
 
@@ -80,9 +78,6 @@ class TransferNote(commands2.CommandBase):
 
         self.app = app
         self.addRequirements(app)
-        
-    def initialize(self):
-        self.finished = False
 
     def initialize(self) -> None:
         self.finished = False
