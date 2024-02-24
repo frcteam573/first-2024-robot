@@ -44,7 +44,7 @@ class Shooter(commands2.SubsystemBase):
             speed: The RPM to set the motors to, -11000 to 11000.
         '''
         speed = -speed
-        self.AtSpeed = False
+        self.at_speed = False
         #print("target:", speed, "actual:", self.s_shooterEncoder1.getVelocity(), self.s_shooterEncoder2.getVelocity())
         
         if speed == 0:
@@ -69,8 +69,8 @@ class Shooter(commands2.SubsystemBase):
             max = 1 + shooter_threshold
             if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
                 wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
-                self.AtSpeed = True
+                self.at_speed = True
             else:
                 wpilib.SmartDashboard.putBoolean("Shooter at speed", False)
-        return self.AtSpeed
+        return self.at_speed
     

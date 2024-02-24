@@ -30,10 +30,10 @@ class ShootNote(commands2.CommandBase):
         
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.shouldpos = commands.shoulder.SetShoulderAngleSpeaker(Robot.shoulder).isFinished()
-        self.shootergood = self.app.setShooterRPM(self.speed)
-        print("Note Excute " + str(self.shouldpos)+" | "+str(self.shootergood))
-        if self.shouldpos and self.shootergood:
+        self.should_pos = commands.shoulder.SetShoulderAngleSpeaker(Robot.shoulder).isFinished()
+        self.shooter_good = self.app.setShooterRPM(self.speed)
+        print("Note Excute " + str(self.should_pos)+" | "+str(self.shooter_good))
+        if self.should_pos and self.shooter_good:
             if commands.intake.TransferNote(Robot.intake).isFinished():
                 print("Note Shoot")
                 self.finished = True
@@ -60,17 +60,15 @@ class ShooterSpeed(commands2.CommandBase):
         self.addRequirements(app)
         
     def initialize(self) -> None:
-        
+        self.at_speed = False
         #angle: degrees = self.app.calculateShoulderAngle(Sensors.odometry.getDistance(apb[7].toPose2d() if config.blue_team else apr[4].toPose2d()))
         #self.app.setShoulderAngle(angle)
         self.app.setShooterRPM(self.speed)
   
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.Atspeed = self.app.setShooterRPM(self.speed)
-        #print("Shooter Running")
-        return self.Atspeed
-
+        self.at_speed = self.app.setShooterRPM(self.speed)
+        # print("Shooter Running")
 
     def end(self, interrupted=False) -> None:
         self.app.setShooterRPM(0)

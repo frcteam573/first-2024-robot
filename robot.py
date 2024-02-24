@@ -24,6 +24,8 @@ import commands
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
+from autonomous.routines.ONE_NOTE.SL.blue import path_1
+
 class MyRobot(commands2.TimedCommandRobot):
     """
     Command v2 robots are encouraged to inherit from TimedCommandRobot, which
@@ -41,8 +43,12 @@ class MyRobot(commands2.TimedCommandRobot):
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         
+        self.tab = Shuffleboard.getTab("Match")
+        
         self.field = wpilib.Field2d()
+        self.field.getObject("traj").setTrajectory(path_1.trajectory)
         wpilib.SmartDashboard.putData("Field", self.field)
+        
         
         OI.init() 
         
@@ -55,9 +61,12 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection = wpilib.SendableChooser()
         
         self.auto_selection.setDefaultOption("THREE NOTE BLUE", autonomous.three_note_blue)
+        self.auto_selection.addOption("ONE NOTE BLUE", autonomous.one_note_blue)
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
         
         wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
+        
+        self.auto_delay = self.tab.addNumber("Auto Delay", 0).withWidget("Number Slider").withProperties({'min': 0, 'max': 15}).getEntry()
         
         # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):
@@ -91,6 +100,8 @@ class MyRobot(commands2.TimedCommandRobot):
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
+        # wait auto delay
+        commands2.CommandScheduler.getInstance().schedule(commands2.WaitCommand(self.auto_delay.getDouble(0)))
         self.auto_selection.getSelected().run()
 
     def autonomousPeriodic(self) -> None:

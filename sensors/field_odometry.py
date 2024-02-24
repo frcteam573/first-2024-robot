@@ -173,11 +173,6 @@ class FieldOdometry:
     def getDistanceAprilTag(self) -> float:
         """
         Returns the distance between the robot's current pose and a given pose.
-
-        :param pose: Pose to calculate distance to.
-        :type pose: Pose2d
-        :return: Distance between the two poses.
-        :rtype: float
         """
         current_pose = self.vision_estimator.limelights[0].get_bot_pose_target_space()
         distance = math.sqrt(current_pose[0]**2 + current_pose[1]**2)

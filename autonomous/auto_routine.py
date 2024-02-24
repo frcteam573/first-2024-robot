@@ -41,7 +41,7 @@ class AutoRoutine:
         # Robot.drivetrain.reset_odometry(self.initial_robot_pose)
 
         commands2.CommandScheduler.getInstance().schedule(self.command)
-        print("running path for " + "blue" if self.blue_team else "red" + " team")
+        # print("running path for " + "blue" if self.blue_team else "red" + " team")
 
     def end():
         commands2.CommandScheduler.getInstance().schedule(
