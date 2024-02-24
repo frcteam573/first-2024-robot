@@ -35,7 +35,7 @@ class SparkMaxConfig:
     idle_mode: Optional[CANSparkMax.IdleMode] = None
 
 
-rev_sensor_unit = Unum.unit("rev_sensor_u", rev / 42, "rev sensor unit") # changed from 4096
+rev_sensor_unit = Unum.unit("rev_sensor_u", rev / 4096, "rev sensor unit")
 rev_sensor_vel_unit = rev_sensor_unit / hundred_ms
 rev_sensor_accel_unit = rev_sensor_vel_unit / s
 

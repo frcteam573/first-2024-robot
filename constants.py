@@ -155,11 +155,11 @@ period = 0.03
 # drivetrain_turn_gear_ratio = ((8.16 * 4096)/(2*math.pi) * rev_sensor_unit / rad).asNumber()
 
 drivetrain_turn_gear_ratio: rotations = 9424/203  # 46.42 #Updated for 3in Rev Swerve
-drivetrain_move_gear_ratio_as_rotations_per_meter = 3.75 * 3 * math.pi * inches_to_meters #Updated for 3in Rev Swerve
+drivetrain_move_gear_ratio_as_rotations_per_meter = 1 / (((3 * math.pi) / 3.75) * inches_to_meters) #Updated for 3in Rev Swerve
 
 drivetrain_move_gear_ratio: rotations_per_minute = (
     drivetrain_move_gear_ratio_as_rotations_per_meter * 60
-)  
+)
 
 track_width: meters = 0.5334
 # robot_length: meters = 35.5 * inches_to_meters
