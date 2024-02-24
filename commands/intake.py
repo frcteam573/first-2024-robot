@@ -36,6 +36,8 @@ class IntakeIn(commands2.CommandBase):
         
     def initialize(self):
         self.finished = False
+    def initialize(self) -> None:
+        self.finished = False
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
@@ -82,14 +84,18 @@ class TransferNote(commands2.CommandBase):
     def initialize(self):
         self.finished = False
 
+    def initialize(self) -> None:
+        self.finished = False
+
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
+        print("Transfer")
         if self.app.setTransferSpeed(1):
             self.finished = True
-
+            
     def isFinished(self) -> bool:
         return self.finished
         
     def end(self, interrupted=False) -> None:
         self.app.setTransferSpeed(0)
-        #print("Transfer End")
+        print("Transfer End")
