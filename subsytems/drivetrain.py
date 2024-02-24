@@ -26,7 +26,7 @@ TURN_CONFIG = SparkMaxConfig(
     0.2, 0, 0.003, 0.00015, (-0.5, 0.5), rev.CANSparkMax.IdleMode.kBrake
 )
 MOVE_CONFIG = SparkMaxConfig(
-    0.00005, 0, 0.0004, 0.00017, idle_mode=rev.CANSparkMax.IdleMode.kBrake
+    0.00005, 0, 0.0004, 0.00017, idle_mode=rev.CANSparkMax.IdleMode.kCoast
 )
 
 
@@ -121,28 +121,28 @@ class SparkMaxSwerveNode(SwerveNode):
 class Drivetrain(SwerveDrivetrain):
     n_front_left = SparkMaxSwerveNode(
         SparkMax(1, config=MOVE_CONFIG, inverted=False),
-        SparkMax(2, config=TURN_CONFIG),
+        SparkMax(2, config=TURN_CONFIG, inverted=False),
         #CANSparkMax(2, rev.CANSparkMax.MotorType.kBrushless).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_front_left",
     )
     n_front_right = SparkMaxSwerveNode(
         SparkMax(4, config=MOVE_CONFIG),
-        SparkMax(5, config=TURN_CONFIG),
+        SparkMax(5, config=TURN_CONFIG, inverted=False),
         #CANSparkMax(5).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_front_right",
     )
     n_back_left = SparkMaxSwerveNode(
         SparkMax(7, config=MOVE_CONFIG, inverted=False),
-        SparkMax(8, config=TURN_CONFIG),
+        SparkMax(8, config=TURN_CONFIG, inverted=False),
         #CANSparkMax(8).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_back_left",
     )
     n_back_right = SparkMaxSwerveNode(
         SparkMax(10, config=MOVE_CONFIG),
-        SparkMax(11, config=TURN_CONFIG),
+        SparkMax(11, config=TURN_CONFIG, inverted=False),
         #CANSparkMax(11).getAlternateEncoder(8192),
         absolute_encoder_zeroed_pos=math.radians(0),
         name="n_back_right",
@@ -163,7 +163,7 @@ class Drivetrain(SwerveDrivetrain):
     max_angular_vel: radians_per_second = constants.drivetrain_max_angular_vel
     deadzone_velocity: meters_per_second = 0.02
     deadzone_angular_velocity: radians_per_second = math.radians(5)
-    start_angle: degrees = math.pi
+    start_angle: degrees = 0
     start_pose: Pose2d = Pose2d(
         constants.ApriltagPositionDictBlue[7].X() + 1.2954,
         constants.ApriltagPositionDictBlue[7].Y(),

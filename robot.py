@@ -66,7 +66,7 @@ class MyRobot(commands2.TimedCommandRobot):
         
         wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
         
-        self.auto_delay = self.tab.addNumber("Auto Delay", 0).withWidget("Number Slider").withProperties({'min': 0, 'max': 15}).getEntry()
+        # self.auto_delay = self.tab.addNumber("Auto Delay", 0).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(15)}).getEntry()
         
         # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):

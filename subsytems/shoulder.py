@@ -24,7 +24,7 @@ class Shoulder(commands2.SubsystemBase):
         
         #double solenoid, pcm (pnematic control module)
         self.p_shoulderlock = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 4, 5)
-        self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
+        self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
         
         self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
@@ -51,11 +51,13 @@ class Shoulder(commands2.SubsystemBase):
             speed = 0.7* speed/abs(speed)
         
         self.m_shoulder1.set(speed)
+        
+        print("Shoulder Speed: "+ str(speed))
 
-        if abs(speed) < 0.1:
-            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kForward)
+        if abs(speed) == 0:
+            self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
-            self.p_shoulderlock.set (wpilib.DoubleSolenoid.Value.kReverse)
+            self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
     
     
     def setShoulderAngle(self, angle: float) -> None:

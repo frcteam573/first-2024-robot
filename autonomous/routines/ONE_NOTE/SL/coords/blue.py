@@ -15,6 +15,6 @@ initial: coord = (pose.X(), pose.Y(), pose.rotation().radians())
 
 leave: path = (
     initial,
-    [(initial[0] + 0.5, initial[1] + 2, math.pi / 3)],
+    [(initial[0] + 0.5, initial[1] + 2)],
     (initial[0] + 2.5, initial[1] + 2.5, 0),
 )
