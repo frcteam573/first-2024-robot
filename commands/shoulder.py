@@ -91,9 +91,7 @@ class JoystickMoveShoulder(commands2.CommandBase):
     
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
-    self.app.setShoulderSpeed(Keymap.Shoulder.SHOULDER_AXIS.value)
-    print("Shoulder Joy_In: "+ str(Keymap.Shoulder.SHOULDER_AXIS.value))
+    self.app.setShoulderSpeed(-0.5 * Keymap.Shoulder.SHOULDER_AXIS.value)
     
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
-    #print("Shoulder Joy END")

@@ -100,8 +100,8 @@ class Shoulder(commands2.SubsystemBase):
         Returns:
             radians
         '''
-        # implement this
-        return 1.4
+        # improve this
+        return 1.44 + -9.08E-03 * distance_to_speaker + 3.55E-05 * distance_to_speaker**2
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.

@@ -161,20 +161,20 @@ drivetrain_move_gear_ratio: rotations_per_minute = (
     drivetrain_move_gear_ratio_as_rotations_per_meter * 60
 )
 
-track_width: meters = 0.5334
+track_width: meters = 25.5 * inches_to_meters
 # robot_length: meters = 35.5 * inches_to_meters
 
 # TODO Maybe change these
 drivetrain_accel = True
-drivetrain_max_vel: meters_per_second = (12 * mile / hour).asNumber(m / s)  # 15 11
+drivetrain_max_vel: meters_per_second = (6 * mile / hour).asNumber(m / s)  # 12
 drivetrain_max_accel_tele: meters_per_second_squared = (45 * mile / hour).asNumber(m / s)
 drivetrain_max_target_accel: meters_per_second_squared = (
     45 * mile / hour
 ).asNumber(  # 10
     m / s
 )
-drivetrain_target_max_vel: meters_per_second = (12 * mile / hour).asNumber(m / s)  # 3
-drivetrain_max_angular_vel: radians_per_second = (4 * rev / s).asNumber(rad / s)  # 5
+drivetrain_target_max_vel: meters_per_second = (6 * mile / hour).asNumber(m / s)  # 12
+drivetrain_max_angular_vel: radians_per_second = (1 * rev / s).asNumber(rad / s)  # 1
 drivetrain_max_correction_vel: radians_per_second = (2 * rev / s).asNumber(rad / s)
 drivetrain_max_climb_vel: meters_per_second = (5 * mile / hour).asNumber(m / s)
 
