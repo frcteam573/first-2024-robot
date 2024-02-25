@@ -6,6 +6,7 @@ import wpilib.drive
 import rev
 #from phoenix6.hardware.cancoder import CANcoder as CANCoder
 from config import shoulder_threshold
+from units.SI import meters_to_inches
 
 def remap(value: float, threshold: float) -> float:
     if abs(value) > threshold:
@@ -78,7 +79,7 @@ class Shoulder(commands2.SubsystemBase):
         #self.shoulderPID.setReference(angle, rev.CANSparkMax.ControlType.kPosition)
 
         
-
+        print("desired angle:", angle)
         if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
             at_pos = True
             self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
@@ -101,6 +102,8 @@ class Shoulder(commands2.SubsystemBase):
             radians
         '''
         # improve this
+        distance_to_speaker *= meters_to_inches
+        print("distance:", distance_to_speaker)
         return 1.44 + -9.08E-03 * distance_to_speaker + 3.55E-05 * distance_to_speaker**2
     
     def changeShoulderTrim(self, value: float) -> None:

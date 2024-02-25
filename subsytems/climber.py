@@ -22,8 +22,8 @@ class Climber(commands2.SubsystemBase):
         
         #double solenoid, pcm (pnematic control module)
 
-        self.p_climberlock = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 0, 1)
-        self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+        self.p_climberlock = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 1, 0)
+        self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kReverse)
 
         self.m_climber1 = rev.CANSparkMax(45, rev.CANSparkMax.MotorType.kBrushless)
         self.m_climber2 = rev.CANSparkMax(46, rev.CANSparkMax.MotorType.kBrushless)
@@ -50,7 +50,7 @@ class Climber(commands2.SubsystemBase):
             self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.m_climber1.set(speed)
-            if speed > 0:
+            if speed < 0:
                 self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kReverse)
             else:
                 self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)

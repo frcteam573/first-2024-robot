@@ -97,8 +97,6 @@ class SparkMaxSwerveNode(SwerveNode):
         self.m_move.set_target_velocity(vel * constants.drivetrain_move_gear_ratio)
 
     def get_motor_velocity(self) -> meters_per_second:
-        print(self.m_move.get_sensor_velocity(),
-            constants.drivetrain_move_gear_ratio_as_rotations_per_meter)
         return (
             self.m_move.get_sensor_velocity()
             / constants.drivetrain_move_gear_ratio_as_rotations_per_meter

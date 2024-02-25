@@ -62,7 +62,8 @@ class OI:
 
 		Keymap.Intake.TRAP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_trap_pos)) 
 
-		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder)) 
+		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder)).onTrue(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
+		).onFalse(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)))
 
  #------------------------------- Drivetrain --------------------------------------# 
 		Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
@@ -74,11 +75,11 @@ class OI:
 		# ).whileTrue(commands.SetShoulderAngleSpeaker(Robot.shoulder)
 		).onFalse(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)))
 	
-		Keymap.Drivetrain.DRIVE_ALIGN_AMP.whileTrue(InstantCommand(lambda: autonomous.amp_blue.run() if config.blue_team else autonomous.amp_red.run())
-		).onFalse(InstantCommand(lambda: AutoRoutine.end()))
+		# Keymap.Drivetrain.DRIVE_ALIGN_AMP.whileTrue(InstantCommand(lambda: autonomous.amp_blue.run() if config.blue_team else autonomous.amp_red.run())
+		# ).onFalse(InstantCommand(lambda: AutoRoutine.end()))
 	
-		Keymap.Drivetrain.DRIVE_ALIGN_HUMAN.whileTrue(InstantCommand(lambda: autonomous.human_1_blue.run() if config.blue_team else autonomous.human_1_red.run())
-		).onFalse(InstantCommand(lambda: AutoRoutine.end()))
+		# Keymap.Drivetrain.DRIVE_ALIGN_HUMAN.whileTrue(InstantCommand(lambda: autonomous.human_1_blue.run() if config.blue_team else autonomous.human_1_red.run())
+		# ).onFalse(InstantCommand(lambda: AutoRoutine.end()))
 	
-		Keymap.Drivetrain.DRIVE_ALIGN_TRAP.whileTrue(InstantCommand(lambda: autonomous.trap_1_blue.run() if config.blue_team else autonomous.trap_1_red.run())
-		).onFalse(InstantCommand(lambda: AutoRoutine.end()))
+		# Keymap.Drivetrain.DRIVE_ALIGN_TRAP.whileTrue(InstantCommand(lambda: autonomous.trap_1_blue.run() if config.blue_team else autonomous.trap_1_red.run())
+		# ).onFalse(InstantCommand(lambda: AutoRoutine.end()))

@@ -53,8 +53,8 @@ class MyRobot(commands2.TimedCommandRobot):
         OI.init() 
         
         Sensors.odometry = FieldOdometry(Robot.drivetrain, LimelightController([
+            Limelight(0, 0, limelight_name="limelight-target"),
             Limelight(0, 0, limelight_name="limelight-intake"),
-            # Limelight(0, 0, limelight_name="limelight-target")
         ]))
         Sensors.gyro = Robot.drivetrain.gyro
 

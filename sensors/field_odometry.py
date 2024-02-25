@@ -170,11 +170,14 @@ class FieldOdometry:
         relative = self.getPose().relativeTo(pose)
         return math.sqrt(relative.X()**2 + relative.Y()**2)
     
-    def getDistanceAprilTag(self) -> float:
+    def getDistanceAprilTag(self) -> float | None:
         """
         Returns the distance between the robot's current pose and a given pose.
         """
         current_pose = self.vision_estimator.limelights[0].get_bot_pose_target_space()
-        distance = math.sqrt(current_pose[0]**2 + current_pose[1]**2)
+        if current_pose:
+            distance = math.sqrt(current_pose[0]**2 + current_pose[1]**2)
+        else:
+            distance = None
         return distance
         

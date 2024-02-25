@@ -19,7 +19,7 @@ class ClimberUp(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setClimberSpeed(-0.5)
+        self.app.setClimberSpeed(0.5)
         #print("Climber Up")
         
     def end(self, interrupted=True) -> None:
@@ -43,7 +43,7 @@ class ClimberDown(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.setClimberSpeed(0.9)
+        self.app.setClimberSpeed(-0.9)
         #print("Climber Down")
         
     def end(self, interrupted=True) -> None:
