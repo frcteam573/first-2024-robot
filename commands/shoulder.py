@@ -22,10 +22,12 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.addRequirements(app)
     
     self.target: Pose2d
+    self.finished = False
 
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
-    self.finished = False
+    self.in_pos = False
+    self.app.setShoulderLocks(False)
     #self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d()
   
   def execute(self) -> None:
@@ -33,10 +35,10 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
     distance = Sensors.odometry.getDistanceAprilTag()
     if distance:
-      self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
+      self.in_pos = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
         distance
       ))
-    return self.finished
+    return self.in_pos  # Comment out so that the shoulder just uses PID and not locks
     #print("Shoulder Angle Speaker")
 
   def isFinished(self) -> bool:
@@ -44,6 +46,7 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
 
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
+    self.app.setShoulderLocks(True)
     #print("Shoulder Angle Speaker END")
             
 class SetShoulderAngle(commands2.CommandBase):
@@ -57,15 +60,16 @@ class SetShoulderAngle(commands2.CommandBase):
     self.app = app
     self.addRequirements(app)
     self.angle = angle
+    self.finished = False
   
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
-    self.finished = False
     self.app.setShoulderAngle(angle=self.angle) # find these values when built 1.7
+    self.app.setShoulderLocks(False)
     
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
-    self.finished = self.app.setShoulderAngle(angle=self.angle)
+    self.app.setShoulderAngle(angle=self.angle)
 
     #print("Shoulder Angle: "+ str(self.angle))
 
@@ -74,6 +78,7 @@ class SetShoulderAngle(commands2.CommandBase):
   
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
+    self.app.setShoulderLocks(True)
     #print("Shoulder Angle END")
 
 class JoystickMoveShoulder(commands2.CommandBase):
@@ -89,7 +94,7 @@ class JoystickMoveShoulder(commands2.CommandBase):
   
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
-    ...
+    self.app.setShoulderLocks(False)
     
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
@@ -97,3 +102,4 @@ class JoystickMoveShoulder(commands2.CommandBase):
     
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
+    self.app.setShoulderLocks(True)

@@ -7,6 +7,7 @@ import rev
 #from phoenix6.hardware.cancoder import CANcoder as CANCoder
 from config import shoulder_threshold
 from units.SI import meters_to_inches
+from wpimath.controller import PIDController
 
 def remap(value: float, threshold: float) -> float:
     if abs(value) > threshold:
@@ -29,13 +30,15 @@ class Shoulder(commands2.SubsystemBase):
         
         self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
-        #self.m_shoulder2.setInverted(True)
         self.m_shoulder2.follow(self.m_shoulder1, invert=True)
-        self.shoulderPID = self.m_shoulder1.getPIDController()
-        self.shoulderPID.setP(-0.00025) # find these values when built
-        self.shoulderPID.setI(0.0000) # find these values when built
-        self.shoulderPID.setD(0.0) # find these values when built
 
+        self.shoulderPID_kP = 0.5 # find these values when built
+        self.shoulderPID_kI = 0.0 # find these values when built
+        self.shoulderPID_kD = 0.0 # find these values when built
+        
+        self.shoulderPID = PIDController(self.shoulderPID_kP,self.shoulderPID_kI,self.shoulderPID_kD)
+        self.shoulderPID.setTolerance(shoulder_threshold)
+        
         self.minShoulderAngle = 0 # find these values when built
         self.maxShoulderAngle = 100 # find these values when built
         self.s_shoulderAlternateEncoder = self.m_shoulder1.getAlternateEncoder(8192)
@@ -55,7 +58,8 @@ class Shoulder(commands2.SubsystemBase):
         
         print("Shoulder Speed: "+ str(speed))
 
-        if abs(speed) == 0:
+    def setShoulderLocks(self,lock: bool):
+        if bool:
             self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
@@ -76,18 +80,18 @@ class Shoulder(commands2.SubsystemBase):
             angle = self.maxShoulderAngle
         
         #rotations = angle / 360
-        #self.shoulderPID.setReference(angle, rev.CANSparkMax.ControlType.kPosition)
-
         
         print("desired angle:", angle)
-        if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
+        self.setShoulderSpeed(self.shoulderPID.calculate(self.s_shoulderAlternateEncoder.getPosition(),angle))
+
+        if self.shoulderPID.atSetpoint():
             at_pos = True
-            self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
+            #self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
         else:
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
-            self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
-            self.setShoulderSpeed(0.5*(self.s_shoulderAlternateEncoder.getPosition() - angle))
+            #self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
+            
         return at_pos
             
             
