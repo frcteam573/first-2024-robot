@@ -32,8 +32,9 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
   
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
-    self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
+    # self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
     distance = Sensors.odometry.getDistanceAprilTag()
+    print(distance)
     if distance:
       self.in_pos = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
         distance
@@ -98,7 +99,7 @@ class JoystickMoveShoulder(commands2.CommandBase):
     
   def execute(self) -> None:
     """Called every time the scheduler runs while the command is scheduled."""
-    self.app.setShoulderSpeed(-0.5 * Keymap.Shoulder.SHOULDER_AXIS.value)
+    self.app.setShoulderSpeed(-.2*Keymap.Shoulder.SHOULDER_AXIS.value)
     
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)

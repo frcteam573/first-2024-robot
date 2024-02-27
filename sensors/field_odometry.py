@@ -176,7 +176,7 @@ class FieldOdometry:
         """
         current_pose = self.vision_estimator.limelights[0].get_bot_pose_target_space()
         if current_pose:
-            distance = math.sqrt(current_pose[0]**2 + current_pose[1]**2)
+            distance = math.sqrt(current_pose[0]**2 + current_pose[2]**2)
         else:
             distance = None
         return distance

@@ -2,6 +2,7 @@ import math
 
 import commands2
 import wpilib
+from wpilib.shuffleboard import Shuffleboard, BuiltInWidgets
 import wpilib.drive
 import rev
 #from phoenix6.hardware.cancoder import CANcoder as CANCoder
@@ -32,11 +33,13 @@ class Shoulder(commands2.SubsystemBase):
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2.follow(self.m_shoulder1, invert=True)
 
-        self.shoulderPID_kP = 0.5 # find these values when built
+        # self.PID_tab = Shuffleboard.getTab("PID")
+        self.shoulderPID_kP = 1.0 # find these values when built
         self.shoulderPID_kI = 0.0 # find these values when built
-        self.shoulderPID_kD = 0.0 # find these values when built
+        self.shoulderPID_kD = 0.06 # find these values when built
         
         self.shoulderPID = PIDController(self.shoulderPID_kP,self.shoulderPID_kI,self.shoulderPID_kD)
+        # self.PID_config = self.PID_tab.add("Shoulder PID", self.shoulderPID).withWidget(BuiltInWidgets.kPIDController).getEntry()
         self.shoulderPID.setTolerance(shoulder_threshold)
         
         self.minShoulderAngle = 0 # find these values when built
@@ -51,15 +54,15 @@ class Shoulder(commands2.SubsystemBase):
             speed: The speed to set the motors to, -1 to 1.
         '''
         wpilib.SmartDashboard.putString("S_Shoulder Angle", str(self.s_shoulderAlternateEncoder.getPosition()))
-        if abs(speed) > 0.7:
-            speed = 0.7* speed/abs(speed)
+        if abs(speed) > 0.95:
+            speed = 0.95* speed/abs(speed)
         
         self.m_shoulder1.set(speed)
         
-        print("Shoulder Speed: "+ str(speed))
+        # print("Shoulder Speed: "+ str(speed))
 
-    def setShoulderLocks(self,lock: bool):
-        if bool:
+    def setShoulderLocks(self, lock: bool):
+        if lock:
             self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
@@ -80,9 +83,8 @@ class Shoulder(commands2.SubsystemBase):
             angle = self.maxShoulderAngle
         
         #rotations = angle / 360
-        
-        print("desired angle:", angle)
-        self.setShoulderSpeed(self.shoulderPID.calculate(self.s_shoulderAlternateEncoder.getPosition(),angle))
+        speed = -self.shoulderPID.calculate(self.s_shoulderAlternateEncoder.getPosition(), angle)
+        self.setShoulderSpeed(speed * (2 if speed > .1 else 1))
 
         if self.shoulderPID.atSetpoint():
             at_pos = True
@@ -107,8 +109,7 @@ class Shoulder(commands2.SubsystemBase):
         '''
         # improve this
         distance_to_speaker *= meters_to_inches
-        print("distance:", distance_to_speaker)
-        return 1.44 + -9.08E-03 * distance_to_speaker + 3.55E-05 * distance_to_speaker**2
+        return 1.41 + -9.67E-03 * distance_to_speaker + 2.7E-05 * distance_to_speaker**2
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.

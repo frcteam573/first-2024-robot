@@ -80,6 +80,9 @@ class MyRobot(commands2.TimedCommandRobot):
         pose = Sensors.odometry.getPose()
         self.field.setRobotPose(pose)
         # print(Robot.drivetrain.chassis_speeds)
+        
+        # print(Robot.shoulder.PID_config.getDoubleArray(0))
+        
         SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag Aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
         try:
             commands2.CommandScheduler.getInstance().run()

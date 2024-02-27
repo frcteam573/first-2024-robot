@@ -39,10 +39,10 @@ class OI:
 #------------------------ Shooter -----------------------#
 		#Speaker Shooter Settings
 		commands2.button.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
-			command=commands.ShooterSpeed(Robot.shooter,5600))
+			command=commands.ShooterSpeed(Robot.shooter,5000))
 		
 		Keymap.Intake.SHOOTER_AMP.whileTrue(
-			command=commands.ShooterSpeed(Robot.shooter,1000)
+			command=commands.ShooterSpeed(Robot.shooter,500)
 		)
 #------------------------ Climber -----------------------#
 		Keymap.Climber.CLIMBER_UP.whileTrue(command=commands.ClimberUp(Robot.climber))

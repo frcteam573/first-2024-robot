@@ -17,9 +17,9 @@ from constants import field_length, field_width
 robot_length = 35.5 * inches_to_meters
 robot_width = 35.5 * inches_to_meters
 
-shoulder_floor_pos = 1.35 # Need to verify this is a guess
-shoulder_amp_pos = .4 # Need to verify this is a guess
-shoulder_human_pos = 1.3 # Need to verify this is a guess
+shoulder_floor_pos = .9 # Need to verify this is a guess
+shoulder_amp_pos = 0 # Need to verify this is a guess
+shoulder_human_pos = .4 # Need to verify this is a guess
 shoulder_trap_pos = 1.3 # Need to verify this is a guess
 
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
@@ -132,14 +132,6 @@ default_intake_speed = 0.40
 kRobotVisionPoseWeight = 0.1
 # Dummy data
 claw_motor_extend_id = 0
-
-# shoulder positions
-shoulder_floor = 1.35
-shoulder_amp = 0
-shoulder_human = 0
-shoulder_trap = 0
-shoulder_home = 0
-# shoulder_close = 1.35
 
 shoulder_min = 0
 shoulder_max = 100

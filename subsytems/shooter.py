@@ -29,6 +29,7 @@ class Shooter(commands2.SubsystemBase):
         self.shooterPID1.setP(0.0007) # find these values when built
         self.shooterPID1.setI(0.00001) # find these values when built
         self.shooterPID1.setD(0.0) # find these values when built
+        self.shooterPID1.setFF(.8)
         
         # self.shooterPID2 = self.m_shooter2.getPIDController()
         # self.shooterPID2.setP(0.0007) # find these values when built
@@ -41,7 +42,7 @@ class Shooter(commands2.SubsystemBase):
         '''Sets the RPM of the shooter motors.
         
         Args:
-            speed: The RPM to set the motors to, -11000 to 11000.
+            speed: The RPM to set the motors to, -5000 to 5000.
         '''
         speed = -speed
         self.at_speed = False
@@ -51,14 +52,7 @@ class Shooter(commands2.SubsystemBase):
             self.m_shooter1.set(0)
             wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
         else:
-            rtio1 = 1#1/3*36/22
-            rtio2 = 24/22#1/3*36/24
-            #self.shooterPID1.setReference(speed*rtio2, rev.CANSparkMax.ControlType.kVelocity)
-            #self.shooterPID2.setReference(speed*rtio3, rev.CANSparkMax.ControlType.kVelocity)
-            self.m_shooter1.set(-1)
-            self.m_shooter2.set(-1)
-            # wpilib.SmartDashboard.putString("Shooter 1 RPM Set", str(speed*rtio1))
-            # wpilib.SmartDashboard.putString("Shooter 2 RPM Set", str(speed*rtio2))
+            self.shooterPID1.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
 
             wpilib.SmartDashboard.putString("Shooter 1 RPM", str(self.s_shooterEncoder1.getVelocity()))
             wpilib.SmartDashboard.putString("Shooter 2 RPM", str(self.s_shooterEncoder2.getVelocity()))
