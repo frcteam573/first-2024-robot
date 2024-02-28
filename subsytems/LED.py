@@ -18,16 +18,16 @@ class LED(commands2.SubsystemBase):
   
   def setBlackLed(self): # Off
     self.blinkin.set(0.99)
-    print('Black')
+    #print('Black')
   
   def setRedLed(self): 
     self.blinkin.set(0.61)
-    print('Red')
+   # print('Red')
   
   def setYellowLed(self):
     self.blinkin.set(0.69)
-    print('Yellow')
+    #print('Yellow')
   
   def setOrangeLed(self):
     self.blinkin.set(0.65)
-    print('Orange')
+   # print('Orange')

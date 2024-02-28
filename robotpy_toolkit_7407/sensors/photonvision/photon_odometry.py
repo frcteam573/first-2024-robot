@@ -82,7 +82,7 @@ class PhotonOdometry:
             ]
         )
 
-        print("ESTIMATED FIELD TO ROBOT POSE: ", estimated_field_to_robot_pose)
+        #print("ESTIMATED FIELD TO ROBOT POSE: ", estimated_field_to_robot_pose)
 
         gyro_angle = self.gyro.get_robot_heading()
         camera_to_target = target.relative_pose

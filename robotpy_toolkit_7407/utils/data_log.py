@@ -49,7 +49,7 @@ class Logger:
                 ...
 
         # lg.info(message, system, frame)
-        print(message)
+        #print(message)
 
     def debug(self, system: str, message: str):
         """

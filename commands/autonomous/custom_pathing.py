@@ -69,7 +69,7 @@ class GyroBalance(SubsystemCommand[Drivetrain]):
 
     def isFinished(self) -> bool:
         pitch = math.degrees(self.subsystem.gyro.get_robot_pitch())
-        print(pitch)
+        #print(pitch)
 
         SmartDashboard.putString(
             "Auto Pitch Gyro", str(math.degrees(self.subsystem.gyro.get_robot_pitch()))
@@ -78,7 +78,7 @@ class GyroBalance(SubsystemCommand[Drivetrain]):
         if abs(pitch) > 13 and self.start_delay == 0:
             self.step_1 = True
             self.start_delay = time.time()
-            print("FINISHED STEP 1")
+            #print("FINISHED STEP 1")
 
         if self.step_1 and (time.time() - self.start_delay) > 0.4:
             self.step_2 = True
@@ -259,11 +259,11 @@ class DriveOverChargeStation(SubsystemCommand[Drivetrain]):
             if self.currently_zeroed == 1:
                 self.times_zeroed += 1
                 self.currently_zeroed += 1
-                print("TIMES ZEROED: ", self.times_zeroed)
+                #print("TIMES ZEROED: ", self.times_zeroed)
             else:
                 self.currently_zeroed += 1
         else:
-            print("RESET CURRENTLY ZEROED")
+            #print("RESET CURRENTLY ZEROED")
             self.currently_zeroed = 0
 
         return self.times_zeroed > self.times_before_stop
@@ -319,7 +319,7 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         self.finished: bool = False
 
     def initialize(self) -> None:
-        print("duration:", self.duration)
+        #print("duration:", self.duration)
         if self.custom_trajectory.use_robot:
             config = TrajectoryConfig(
                 self.custom_trajectory.max_velocity,
@@ -435,7 +435,7 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
         self.finished: bool = False
 
     def initialize(self) -> None:
-        print("duration:", self.duration)
+        #print("duration:", self.duration)
         self.limelight.change_pipeline(self.pipeline)
         if self.custom_trajectory.use_robot:
             config = TrajectoryConfig(
@@ -554,7 +554,7 @@ class RotateInPlace(SubsystemCommand[SwerveDrivetrain]):
         self.theta_diff: float | None = None
 
     def initialize(self) -> None:
-        print("DESIRED FINAL THETA: ", math.degrees(self.theta_f))
+        #print("DESIRED FINAL THETA: ", math.degrees(self.theta_f))
         self.theta_i = Sensors.odometry.getPose().rotation().radians()
         self.theta_diff = bounded_angle_diff(self.theta_i, self.theta_f)
 
@@ -564,7 +564,7 @@ class RotateInPlace(SubsystemCommand[SwerveDrivetrain]):
         self.subsystem.set_driver_centric((0, 0), speeds.omega)
 
     def end(self, interrupted: bool) -> None:
-        print("ENDED ROTATE")
+       # print("ENDED ROTATE")
         self.subsystem.set_driver_centric((0, 0), 0)
 
     def isFinished(self) -> bool:
@@ -687,7 +687,7 @@ class CustomRouting(SubsystemCommand[SwerveDrivetrain]):
         )
 
     def end(self, interrupted: bool) -> None:
-        print("FINISHED RUNNING CUSTOM ROUTE")
+       # print("FINISHED RUNNING CUSTOM ROUTE")
         self.subsystem.set_driver_centric((0, 0), 0)
         SmartDashboard.putString("POSE", str(self.subsystem.odometry.getPose()))
         SmartDashboard.putString(

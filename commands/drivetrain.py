@@ -157,7 +157,7 @@ class DrivetrainZero(SubsystemCommand[Drivetrain]):
         self.subsystem = subsystem
 
     def initialize(self) -> None:
-        print("ZEROING DRIVETRAIN")
+        #print("ZEROING DRIVETRAIN")
         self.subsystem.n_front_left.zero()
         self.subsystem.n_front_right.zero()
         self.subsystem.n_back_left.zero()
@@ -182,7 +182,7 @@ class DriveSwerveSlowed(SubsystemCommand[Drivetrain]):
     target_angle = Rotation2d(0)
 
     def initialize(self) -> None:
-        print("STARTED DRIVE SWERVE SLOW")
+        #print("STARTED DRIVE SWERVE SLOW")
         self.angular_pid: PIDController = PIDController(2, 0, 0.05)
         self.angular_pid.setSetpoint(0)
 

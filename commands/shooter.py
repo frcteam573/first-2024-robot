@@ -32,10 +32,10 @@ class ShootNote(commands2.CommandBase):
         """Called every time the scheduler runs while the command is scheduled."""
         self.should_pos = commands.shoulder.SetShoulderAngleSpeaker(Robot.shoulder).in_pos
         self.shooter_good = self.app.setShooterRPM(self.speed)
-        print("Note Excute " + str(self.should_pos)+" | "+str(self.shooter_good))
+        #print("Note Excute " + str(self.should_pos)+" | "+str(self.shooter_good))
         if self.should_pos and self.shooter_good:
             if commands.intake.TransferNote(Robot.intake).isFinished():
-                print("Note Shoot")
+                #print("Note Shoot")
                 self.finished = True
 
     def isFinished(self) -> bool:
@@ -44,7 +44,7 @@ class ShootNote(commands2.CommandBase):
     def end(self, interrupted=False) -> None:
         self.app.setShooterRPM(0)
         Intake.setTransferSpeed(Robot.intake,0)
-        print("Note End")
+        #print("Note End")
 
 class ShooterSpeed(commands2.CommandBase):
     def __init__(

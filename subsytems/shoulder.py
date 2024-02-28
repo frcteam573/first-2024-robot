@@ -93,7 +93,7 @@ class Shoulder(commands2.SubsystemBase):
         else:
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", False)
             #self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
-        print(str(self.at_pos))
+        #print(str(self.at_pos))
         return self.at_pos
             
             
