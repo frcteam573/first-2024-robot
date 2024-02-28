@@ -76,7 +76,10 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
                 tx = Sensors.odometry.vision_estimator.limelights[1].get_tx()
             elif speaker_align:
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
-                print("getting tx")
+                # if not tx:
+                #     tx = Sensors.odometry.getAngleToPose(
+                #         (constants.ApriltagPositionDictBlue[7] if config.blue_team else constants.ApriltagPositionDictRed[4]).toPose2d()
+                #         )
             if tx:
                 d_theta = -self.target_pid.calculate(tx)
                 tag_aligned = abs(tx) < config.vision_threshold

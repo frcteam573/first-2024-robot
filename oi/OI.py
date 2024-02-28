@@ -64,7 +64,10 @@ class OI:
 
 		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder)).onTrue(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
 		).onFalse(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)))
-
+		
+		Keymap.Shoulder.SHOULDER_TRIM_UP.onTrue(InstantCommand(lambda: wpilib.SmartDashboard.putNumber("Shoulder Trim", wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) + 0.05)))
+		Keymap.Shoulder.SHOULDER_TRIM_DOWN.onTrue(InstantCommand(lambda: wpilib.SmartDashboard.putNumber("Shoulder Trim", wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) - 0.05)))
+  
  #------------------------------- Drivetrain --------------------------------------# 
 		Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
 		

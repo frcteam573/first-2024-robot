@@ -27,7 +27,7 @@ class Shoulder(commands2.SubsystemBase):
         
         #double solenoid, pcm (pnematic control module)
         self.p_shoulderlock = wpilib.DoubleSolenoid(19, wpilib.PneumaticsModuleType.CTREPCM, 4, 5)
-        self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
+        self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
         
         self.m_shoulder1 = rev.CANSparkMax(47, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shoulder2 = rev.CANSparkMax(48, rev.CANSparkMax.MotorType.kBrushless)
@@ -108,7 +108,7 @@ class Shoulder(commands2.SubsystemBase):
             radians
         '''
         # improve this
-        return 1.65 - 0.607 * distance_to_speaker + 0.0845 * distance_to_speaker**2
+        return 1.65 - 0.607 * distance_to_speaker + 0.0845 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.

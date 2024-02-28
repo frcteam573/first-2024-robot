@@ -31,6 +31,8 @@ class Keymap:
         
     class Shoulder:
         SHOULDER_AXIS = JoystickAxis(Controllers.OPERATOR, controllerOPERATOR.L_JOY[1])
+        SHOULDER_TRIM_UP = commands2.button.POVButton(Controllers.OPERATOR_CONTROLLER, 90)
+        SHOULDER_TRIM_DOWN = commands2.button.POVButton(Controllers.OPERATOR_CONTROLLER, 270)
         
     class Climber:
         CLIMBER_UP = commands2.button.JoystickButton(Controllers.DRIVER_CONTROLLER, controllerDRIVER.RB)

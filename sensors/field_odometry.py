@@ -180,4 +180,10 @@ class FieldOdometry:
         else:
             distance = None
         return distance
-        
+    
+    def getAngleToPose(self, pose: Pose2d) -> float:
+        """
+        Retruns the robot's angle to a Pose2d in degrees.
+        """
+        relative = self.getPose().relativeTo(pose)
+        return relative.rotation().degrees()
