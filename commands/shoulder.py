@@ -104,3 +104,28 @@ class JoystickMoveShoulder(commands2.CommandBase):
   def end(self, interrupted=False) -> None:
     self.app.setShoulderSpeed(0)
     self.app.setShoulderLocks(True)
+
+class ChangeShoulderTrim(commands2.CommandBase):
+  def __init__(
+    self, 
+    app: Shoulder,
+    trim_val: typing.Callable[[], float]
+  ) -> None:
+    super().__init__()
+
+    self.app = app
+    self.addRequirements(app)
+    self.trim_val = trim_val
+    
+  
+  def initialize(self) -> None:
+    """Called when the command is initially scheduled."""
+    self.app.changeShoulderTrim(self.trim_val)
+    
+    
+  def execute(self) -> None:
+    """Called every time the scheduler runs while the command is scheduled."""
+    ...
+    
+  def end(self, interrupted=False) -> None:
+    ...

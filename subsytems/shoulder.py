@@ -117,4 +117,5 @@ class Shoulder(commands2.SubsystemBase):
             value: The value to change the trim by.
         '''
         trim = wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
+        #print("TRIM" + str(trim))
         wpilib.SmartDashboard.putNumber("Shoulder Trim", trim + value)
