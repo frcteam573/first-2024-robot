@@ -174,7 +174,7 @@ drivetrain_max_target_accel: meters_per_second_squared = (
     m / s
 )
 drivetrain_target_max_vel: meters_per_second = (3 * mile / hour).asNumber(m / s)  # 12
-drivetrain_max_angular_vel: radians_per_second = (.5 * rev / s).asNumber(rad / s)  # 1
+drivetrain_max_angular_vel: radians_per_second = (1 * rev / s).asNumber(rad / s)  # 1
 drivetrain_max_correction_vel: radians_per_second = (2 * rev / s).asNumber(rad / s)
 drivetrain_max_climb_vel: meters_per_second = (5 * mile / hour).asNumber(m / s)
 

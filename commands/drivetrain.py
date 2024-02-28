@@ -32,7 +32,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     driver_centric_reversed = False
     period = constants.period
     angular_pid: PIDController = PIDController(1, 0.5, 0.05)
-    target_pid: PIDController = PIDController(.1, 1, .1)
+    target_pid: PIDController = PIDController(.02, 0, 0)
     target_angle = None
 
     def initialize(self) -> None:
@@ -78,7 +78,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
                 print("getting tx")
             if tx:
-                d_theta = self.target_pid.calculate(tx)
+                d_theta = -self.target_pid.calculate(tx)
                 tag_aligned = abs(tx) < config.vision_threshold
             self.target_angle = current_angle
         # elif abs(d_theta) < 0.11: # This is for gyro stablization
