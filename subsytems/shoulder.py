@@ -108,8 +108,7 @@ class Shoulder(commands2.SubsystemBase):
             radians
         '''
         # improve this
-        distance_to_speaker *= meters_to_inches
-        return 1.41 + -9.67E-03 * distance_to_speaker + 2.7E-05 * distance_to_speaker**2
+        return 1.65 - 0.607 * distance_to_speaker + 0.0845 * distance_to_speaker**2
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.

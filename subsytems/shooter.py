@@ -26,10 +26,11 @@ class Shooter(commands2.SubsystemBase):
         self.m_shooter2 = rev.CANSparkMax(40, rev.CANSparkMax.MotorType.kBrushless)
         self.m_shooter2.follow(self.m_shooter1)
         self.shooterPID1 = self.m_shooter1.getPIDController()
-        self.shooterPID1.setP(0.0007) # find these values when built
-        self.shooterPID1.setI(0.00001) # find these values when built
-        self.shooterPID1.setD(0.0) # find these values when built
-        self.shooterPID1.setFF(.8)
+        self.shooterPID1.setP(0.025) # find these values when built
+        self.shooterPID1.setI(0.000000000001) # find these values when built
+        self.shooterPID1.setIZone(0)
+        self.shooterPID1.setD(0.01) # find these values when built
+        self.shooterPID1.setFF(0)
         
         # self.shooterPID2 = self.m_shooter2.getPIDController()
         # self.shooterPID2.setP(0.0007) # find these values when built
@@ -53,6 +54,7 @@ class Shooter(commands2.SubsystemBase):
             wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
         else:
             self.shooterPID1.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
+            # self.m_shooter1.set(-1)
 
             wpilib.SmartDashboard.putString("Shooter 1 RPM", str(self.s_shooterEncoder1.getVelocity()))
             wpilib.SmartDashboard.putString("Shooter 2 RPM", str(self.s_shooterEncoder2.getVelocity()))

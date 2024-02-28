@@ -81,7 +81,7 @@ class MyRobot(commands2.TimedCommandRobot):
         self.field.setRobotPose(pose)
         # print(Robot.drivetrain.chassis_speeds)
         
-        # print(Robot.shoulder.PID_config.getDoubleArray(0))
+        wpilib.SmartDashboard.putNumber("distance", Sensors.odometry.getDistanceAprilTag())
         
         SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag Aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
         try:
