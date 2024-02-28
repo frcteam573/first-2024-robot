@@ -65,9 +65,8 @@ class MyRobot(commands2.TimedCommandRobot):
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
         
         wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
-        
-        # self.auto_delay = self.tab.addNumber("Auto Delay", 0).withWidget("Number Slider").withProperties({"min": Value.makeDouble(0), "max": Value.makeDouble(15)}).getEntry()
-        
+        wpilib.SmartDashboard.putNumber("Auto Delay",5)
+                
         # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):
             Robot.drivetrain.n_front_left.initial_zero()
@@ -103,9 +102,8 @@ class MyRobot(commands2.TimedCommandRobot):
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
-        # wait auto delay
-        commands2.CommandScheduler.getInstance().schedule(commands2.WaitCommand(self.auto_delay.getDouble(0)))
         self.auto_selection.getSelected().run()
+        
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""

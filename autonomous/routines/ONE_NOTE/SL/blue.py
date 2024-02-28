@@ -15,6 +15,7 @@ from commands2 import (
 )
 from wpimath.geometry import Pose2d, Translation2d
 from wpilib import SmartDashboard, Field2d
+from wpilib.shuffleboard import Shuffleboard
 
 import commands
 import config
@@ -44,6 +45,7 @@ path_1 = FollowPathCustom(
 )
 
 auto = SequentialCommandGroup(
+  WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
   commands.ShootNote(Robot.shooter, 5600),
   path_1,
 )

@@ -20,7 +20,7 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
 
     self.app = app
     self.addRequirements(app)
-    
+    self.in_pos=False
     self.target: Pose2d
     self.finished = False
 
@@ -30,17 +30,19 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     self.app.setShoulderLocks(False)
     #self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d()
   
-  def execute(self) -> None:
+  def execute(self) -> bool:
     """Called every time the scheduler runs while the command is scheduled."""
     # self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
     distance = Sensors.odometry.getDistanceAprilTag()
+    #distance = 2
     print(distance)
     if distance:
       self.in_pos = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
         distance
       ))
+    
     return self.in_pos  # Comment out so that the shoulder just uses PID and not locks
-    #print("Shoulder Angle Speaker")
+    
 
   def isFinished(self) -> bool:
     return self.finished

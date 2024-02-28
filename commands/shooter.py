@@ -30,7 +30,7 @@ class ShootNote(commands2.CommandBase):
         
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.should_pos = commands.shoulder.SetShoulderAngleSpeaker(Robot.shoulder)
+        self.should_pos = commands.shoulder.SetShoulderAngleSpeaker(Robot.shoulder).in_pos
         self.shooter_good = self.app.setShooterRPM(self.speed)
         print("Note Excute " + str(self.should_pos)+" | "+str(self.shooter_good))
         if self.should_pos and self.shooter_good:
