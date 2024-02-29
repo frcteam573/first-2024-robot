@@ -47,7 +47,7 @@ auto = SequentialCommandGroup(
   InstantCommand(lambda: Robot.shooter.setShooterRPM(2000)),
   WaitCommand(1),
   commands.ShootNote(Robot.shooter, 4000),
-  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   ParallelCommandGroup( # go to note 2 to take in note
     commands.IntakeIn(Robot.intake),
     path_1,

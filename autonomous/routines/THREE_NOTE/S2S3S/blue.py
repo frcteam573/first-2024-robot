@@ -79,13 +79,13 @@ path_3 = FollowPathCustomAprilTag(
 
 auto = SequentialCommandGroup(
   commands.ShootNote(Robot.shooter, 2000), # shoot note
-  commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
+  commands.SetShoulderAngleAuto(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
   ParallelCommandGroup( # go to note 2 to take in note
     commands.IntakeIn(Robot.intake),
     path_1,
   ),
   commands.ShootNote(Robot.shooter, 4000), # shoot note
-  commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
+  commands.SetShoulderAngleAuto(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
   ParallelCommandGroup( # go to note 3 to take in note
     commands.IntakeIn(Robot.intake),
     path_2,

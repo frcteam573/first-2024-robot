@@ -84,6 +84,40 @@ class SetShoulderAngle(commands2.CommandBase):
     self.app.setShoulderLocks(True)
     #print("Shoulder Angle END")
 
+class SetShoulderAngleAuto(commands2.CommandBase):
+  def __init__(
+    self, 
+    app: Shoulder,
+    angle: typing.Callable[[], float]
+  ) -> None:
+    super().__init__()
+
+    self.app = app
+    self.addRequirements(app)
+    self.angle = angle
+    self.finished = False
+  
+  def initialize(self) -> None:
+    """Called when the command is initially scheduled."""
+    self.app.setShoulderAngle(angle=self.angle) # find these values when built 1.7
+    self.app.setShoulderLocks(False)
+    self.finished = False
+    
+  def execute(self) -> None:
+    """Called every time the scheduler runs while the command is scheduled."""
+    if self.app.setShoulderAngle(angle=self.angle):
+      self.finished = True
+
+    #print("Shoulder Angle: "+ str(self.angle))
+
+  def isFinished(self) -> bool:
+    return self.finished
+  
+  def end(self, interrupted=False) -> None:
+    self.app.setShoulderSpeed(0)
+    self.app.setShoulderLocks(True)
+    #print("Shoulder Angle END")
+
 class JoystickMoveShoulder(commands2.CommandBase):
   def __init__(
     self, 
