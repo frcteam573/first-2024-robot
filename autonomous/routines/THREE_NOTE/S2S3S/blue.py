@@ -40,7 +40,7 @@ path_1 = FollowPathCustom(
         max_accel=max_accel,
         start_velocity=0,
         end_velocity=0,
-        rev=True,
+        rev=False,
     ),
     period=constants.period,
 )
@@ -70,7 +70,7 @@ path_3 = FollowPathCustomAprilTag(
     max_accel=max_accel,
     start_velocity=0,
     end_velocity=0,
-    rev=False,
+    rev=True,
   ),
   limelight=Sensors.odometry.vision_estimator.limelights[0],
   pipeline=2,

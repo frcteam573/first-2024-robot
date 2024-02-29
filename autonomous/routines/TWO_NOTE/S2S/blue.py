@@ -38,7 +38,7 @@ path_1 = FollowPathCustom(
         max_accel=max_accel,
         start_velocity=0,
         end_velocity=0,
-        rev=True,
+        rev=False,
     ),
     period=constants.period,
 )
