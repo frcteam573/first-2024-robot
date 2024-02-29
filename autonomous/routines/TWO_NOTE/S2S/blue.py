@@ -1,8 +1,8 @@
 import math
 
-from autonomous.routines.ONE_NOTE.SL.coords.red import (
+from autonomous.routines.TWO_NOTE.S2S.coords.blue import (
   initial,
-  leave,
+  note_2,
   blue_team
 )
 
@@ -15,7 +15,6 @@ from commands2 import (
 )
 from wpimath.geometry import Pose2d, Translation2d
 from wpilib import SmartDashboard, Field2d
-from wpilib.shuffleboard import Shuffleboard
 
 import commands
 import config
@@ -32,22 +31,28 @@ max_accel: meters_per_second_squared = 3
 path_1 = FollowPathCustom(
     subsystem=Robot.drivetrain,
     trajectory=CustomTrajectory(
-        start_pose=Pose2d(*leave[0]),
-        waypoints=[Translation2d(*x) for x in leave[1]],
-        end_pose=Pose2d(*leave[2]),
+        start_pose=Pose2d(*note_2[0]),
+        waypoints=[Translation2d(*x) for x in note_2[1]],
+        end_pose=Pose2d(*note_2[2]),
         max_velocity=max_vel,
         max_accel=max_accel,
         start_velocity=0,
         end_velocity=0,
-        rev=False,
+        rev=True,
     ),
     period=constants.period,
 )
 
 auto = SequentialCommandGroup(
-  WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(2000)),
+  WaitCommand(1),
   commands.ShootNote(Robot.shooter, 4000),
-  path_1,
+  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  ParallelCommandGroup( # go to note 2 to take in note
+    commands.IntakeIn(Robot.intake),
+    path_1,
+  ),
+  commands.ShootNote(Robot.shooter, 4000),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)

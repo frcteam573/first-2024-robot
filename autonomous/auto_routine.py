@@ -9,6 +9,12 @@ from robot_systems import Robot
 import commands
 import math
 
+def mirror_waypoints(waypoints):
+    """
+    Mirrors a list of waypoints across the y-axis.
+    """
+    return [(field_length - x, y) for x, y in waypoints]
+
 def mirror_pose(pose):
     """
     Mirrors a pose across the y-axis.
@@ -22,7 +28,7 @@ def mirror_path(path):
     start, waypoints, end = path
     return [
         mirror_pose(start),
-        [mirror_pose(p) for p in waypoints],
+        mirror_waypoints(waypoints),
         mirror_pose(end)
     ]
 

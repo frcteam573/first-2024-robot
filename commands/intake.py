@@ -5,7 +5,7 @@ from oi.keymap import Keymap
 
 from subsytems.intake import Intake
 
-class Intake(commands2.CommandBase):
+class IntakeSpeed(commands2.CommandBase):
     def __init__(
         self, 
         app: Intake,

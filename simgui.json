@@ -31,11 +31,23 @@
         }
       },
       "/SmartDashboard/Field": {
+        "Robot": {
+          "length": 0.8889999985694885,
+          "width": 0.8889999985694885
+        },
         "bottom": 1476,
         "height": 8.210550308227539,
         "left": 150,
         "right": 2961,
         "top": 79,
+        "traj": {
+          "arrowSize": 25,
+          "arrowWeight": 1.5,
+          "selectable": false,
+          "style": "Track",
+          "width": 0.8889999985694885
+        },
+        "units": "meters",
         "width": 16.541748046875,
         "window": {
           "visible": true
@@ -46,17 +58,14 @@
   "NetworkTables": {
     "transitory": {
       "SmartDashboard": {
+        "Field": {
+          "open": true
+        },
         "open": true
       }
     }
   },
   "NetworkTables Info": {
-    "shuffleboard@1": {
-      "Publishers": {
-        "open": false
-      },
-      "open": false
-    },
     "visible": true
   }
 }
