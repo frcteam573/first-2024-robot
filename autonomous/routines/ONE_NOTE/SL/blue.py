@@ -39,14 +39,14 @@ path_1 = FollowPathCustom(
         max_accel=max_accel,
         start_velocity=0,
         end_velocity=0,
-        rev=True,
+        rev=False,
     ),
     period=constants.period,
 )
 
 auto = SequentialCommandGroup(
   WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
-  commands.ShootNote(Robot.shooter, 5600),
+  commands.ShootNote(Robot.shooter, 4000),
   path_1,
 )
 
