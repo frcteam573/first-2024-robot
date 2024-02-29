@@ -74,7 +74,7 @@ class Shoulder(commands2.SubsystemBase):
         Args:
             angle: The angle to set the motors to in degrees.
         '''
-        angle += wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) / 180 * math.pi
+        #angle += wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) / 180 * math.pi
         
         self.at_pos = False
         if angle < self.minShoulderAngle:

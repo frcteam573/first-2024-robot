@@ -75,7 +75,8 @@ class MyRobot(commands2.TimedCommandRobot):
         wpilib.SmartDashboard.putNumber("Auto Delay",5)
         
         wpilib.SmartDashboard.putNumber("Shoulder Trim", wpilib.SmartDashboard.getNumber("Shoulder Trim", 0))
-                
+        OI.map_controls()
+
         # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):
             Robot.drivetrain.n_front_left.initial_zero()
@@ -101,7 +102,6 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def disabledInit(self) -> None:
         """This function is called once each time the robot enters Disabled mode."""
-        pass
 
     def disabledPeriodic(self) -> None:
         """This function is called periodically when disabled"""
@@ -123,9 +123,6 @@ class MyRobot(commands2.TimedCommandRobot):
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         
-         
-        OI.map_controls()#Moved from robot init to avoid joystick errors if joystick not connected when robot turns on.
-
         commands2.CommandScheduler.getInstance().schedule(
             commands.DriveSwerveCustom(Robot.drivetrain)
         )
