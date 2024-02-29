@@ -54,7 +54,7 @@ class OI:
 			command=commands.JoystickMoveShoulder(Robot.shoulder))
 		
 		#Shoulder Setpoint Commands
-		#Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos)) 
+		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos)) 
 
 		Keymap.Intake.HUMAN_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_human_pos)) 
 
@@ -62,17 +62,13 @@ class OI:
 
 		Keymap.Intake.TRAP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_trap_pos)) 
 
-		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder)).onTrue(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
-		).onFalse(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)))
+		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder))
 		
 		Keymap.Shoulder.SHOULDER_TRIM_UP.whileTrue(command=commands.ChangeShoulderTrim(Robot.shoulder,0.05))
 		Keymap.Shoulder.SHOULDER_TRIM_DOWN.whileTrue(command=commands.ChangeShoulderTrim(Robot.shoulder,-0.05))
   
  #------------------------------- Drivetrain --------------------------------------# 
 		Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))
-		
-		Keymap.Drivetrain.DRIVE_ALIGN_NOTE.onTrue(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(1)),
-		).onFalse(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(0)))
   
 		Keymap.Drivetrain.DRIVE_ALIGN_SPEAKER.onTrue(InstantCommand(lambda: Sensors.odometry.vision_estimator.limelights[0].change_pipeline(2)),
 		# ).whileTrue(commands.SetShoulderAngleSpeaker(Robot.shoulder)

@@ -33,11 +33,13 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     period = constants.period
     angular_pid: PIDController = PIDController(1, 0.5, 0.05)
     target_pid: PIDController = PIDController(.02, 0, 0)
+    speaker_pid: PIDController = PIDController(.03, .001, 0)
     target_angle = None
 
     def initialize(self) -> None:
         self.angular_pid.setSetpoint(0)
         self.target_pid.setSetpoint(0)
+        self.speaker_pid.setSetpoint(0)
         self.target_angle = Sensors.gyro.get_robot_heading() % (math.pi * 2)
         self.target_angle = math.atan2(
             math.sin(self.target_angle), math.cos(self.target_angle)
@@ -74,14 +76,19 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
             tx = None
             if note_align:
                 tx = Sensors.odometry.vision_estimator.limelights[1].get_tx()
+                if tx:
+                    d_theta = self.target_pid.calculate(tx)
+                    
             elif speaker_align:
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
-                # if not tx:
-                #     tx = Sensors.odometry.getAngleToPose(
-                #         (constants.ApriltagPositionDictBlue[7] if config.blue_team else constants.ApriltagPositionDictRed[4]).toPose2d()
-                #         )
+                if not tx:
+                    tx = Sensors.odometry.getAngleToPose(
+                        (constants.ApriltagPositionDictBlue[7] if config.blue_team else constants.ApriltagPositionDictRed[4]).toPose2d()
+                        )
+                d_theta = self.speaker_pid.calculate(tx)
+                if abs(d_theta) > 0.5:
+                    d_theta = d_theta / abs(d_theta) * 0.5
             if tx:
-                d_theta = -self.target_pid.calculate(tx)
                 tag_aligned = abs(tx) < config.vision_threshold
             self.target_angle = current_angle
         # elif abs(d_theta) < 0.11: # This is for gyro stablization
@@ -132,7 +139,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         if config.driver_centric:
             self.subsystem.set_driver_centric((-dy, dx), d_theta)
         elif self.driver_centric_reversed:
-            self.subsystem.set_driver_centric((dy, -dx), d_theta)
+            self.subsystem.set_driver_centric((dy, -dx), -d_theta)
         else:
             self.subsystem.set_robot_centric((dy, -dx), d_theta)
 

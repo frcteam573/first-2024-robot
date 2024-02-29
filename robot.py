@@ -63,9 +63,14 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection.setDefaultOption("THREE NOTE BLUE", autonomous.three_note_blue)
         self.auto_selection.addOption("ONE NOTE BLUE", autonomous.one_note_blue)
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
+            
+        
+        self.auto_selection.onChange(lambda x: Sensors.odometry.resetOdometry(self.auto_selection.getSelected().initial_robot_pose))
         
         wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
         wpilib.SmartDashboard.putNumber("Auto Delay",5)
+        
+        wpilib.SmartDashboard.putNumber("Shoulder Trim", wpilib.SmartDashboard.getNumber("Shoulder Trim", 0))
                 
         # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):
