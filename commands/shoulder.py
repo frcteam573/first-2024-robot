@@ -37,7 +37,7 @@ class SetShoulderAngleSpeaker(commands2.CommandBase):
     if distance:
       self.in_pos = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
         distance
-      ))
+      ),distance)
     
     return self.in_pos  # Comment out so that the shoulder just uses PID and not locks
     
@@ -76,7 +76,7 @@ class SetShoulderAngleSpeakerAuto(commands2.CommandBase):
     if distance:
       self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
         distance
-      ))
+      ),distance)
   
   def isFinished(self) -> bool:
     return self.finished

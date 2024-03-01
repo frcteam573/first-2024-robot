@@ -6,8 +6,8 @@ from wpilib.shuffleboard import Shuffleboard, BuiltInWidgets
 import wpilib.drive
 import rev
 #from phoenix6.hardware.cancoder import CANcoder as CANCoder
-from config import shoulder_threshold
-from units.SI import meters_to_inches
+from config import shoulder_threshold_lowest, shoulder_threshold_highest, shoulder_threshold_lowest_distance, shoulder_threshold_highest_distance
+from units.SI import meters_to_inches, inches_to_meters
 from wpimath.controller import PIDController
 
 def remap(value: float, threshold: float) -> float:
@@ -40,7 +40,7 @@ class Shoulder(commands2.SubsystemBase):
         
         self.shoulderPID = PIDController(self.shoulderPID_kP,self.shoulderPID_kI,self.shoulderPID_kD)
         # self.PID_config = self.PID_tab.add("Shoulder PID", self.shoulderPID).withWidget(BuiltInWidgets.kPIDController).getEntry()
-        self.shoulderPID.setTolerance(shoulder_threshold)
+        #self.shoulderPID.setTolerance(shoulder_threshold)
         
         self.minShoulderAngle = 0 # find these values when built
         self.maxShoulderAngle = 100 # find these values when built
@@ -68,14 +68,13 @@ class Shoulder(commands2.SubsystemBase):
             self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kReverse)
     
     
-    def setShoulderAngle(self, angle: float) -> bool:
+    def setShoulderAngle(self, angle: float, distance: float = shoulder_threshold_lowest_distance) -> bool:
         '''Sets the angle of the shoulder motors.
         
         Args:
             angle: The angle to set the motors to in degrees.
         '''
         #angle += wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) / 180 * math.pi
-        
         self.at_pos = False
         if angle < self.minShoulderAngle:
             angle = self.minShoulderAngle
@@ -85,8 +84,16 @@ class Shoulder(commands2.SubsystemBase):
         #rotations = angle / 360
         speed = -self.shoulderPID.calculate(self.s_shoulderAlternateEncoder.getPosition(), angle)
         self.setShoulderSpeed(speed * (2 if speed > .1 else 1))
+        self.shoulder_threshold = shoulder_threshold_lowest
+        if distance < shoulder_threshold_lowest_distance:
+            if distance < shoulder_threshold_highest_distance:
+                self.shoulder_threshold = shoulder_threshold_highest
+            else:
+                slope = (shoulder_threshold_highest-shoulder_threshold_lowest)/(shoulder_threshold_highest_distance-shoulder_threshold_lowest_distance)
+                b = shoulder_threshold_lowest- slope*shoulder_threshold_lowest_distance
+                self.shoulder_threshold = slope*distance + b
 
-        if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
+        if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < self.shoulder_threshold:
             self.at_pos = True
             #self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
