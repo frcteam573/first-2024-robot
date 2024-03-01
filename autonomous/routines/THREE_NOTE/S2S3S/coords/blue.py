@@ -19,8 +19,14 @@ note_2: path = (
     (np['blue_2'].X() - robot_length / 2, np['blue_2'].Y(), 0),
 )
 
-note_3: path = (
+rotate: path = (
     note_2[2],
+    [],
+    (note_2[2][0], note_2[2][1] - 0.2, math.pi/2)
+)
+
+note_3: path = (
+    rotate[2],
     [],
     (np['blue_1'].X(), np['blue_1'].Y(), math.pi/2),
 )

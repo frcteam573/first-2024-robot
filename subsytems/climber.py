@@ -30,8 +30,8 @@ class Climber(commands2.SubsystemBase):
         self.m_climber2.follow(self.m_climber1, invert= True)
         self.s_climber1Encoder = self.m_climber1.getEncoder()
         self.s_climberEncoderAlt = self.m_climber1.getAlternateEncoder(8192)
-        self.climbermin = -100000 # find these values when built
-        self.climbermax = 1000000 # find these values when built
+        self.climbermin = -0 # find these values when built
+        self.climbermax = 158 # find these values when built
 
         
     def setClimberSpeed(self, speed: float) -> None:

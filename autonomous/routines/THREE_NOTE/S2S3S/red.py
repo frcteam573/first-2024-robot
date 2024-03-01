@@ -3,6 +3,7 @@ import math
 from autonomous.routines.THREE_NOTE.S2S3S.coords.red import (
   initial,
   note_2,
+  rotate,
   note_3,
   speaker,
   blue_team
@@ -43,6 +44,7 @@ path_1 = FollowPathCustom(
         rev=False,
     ),
     period=constants.period,
+    blue_team=blue_team,
 )
 
 path_2 = FollowPathCustom(
@@ -58,9 +60,10 @@ path_2 = FollowPathCustom(
     rev=False,
   ),
   period=constants.period,
+  blue_team=blue_team,
 )
 
-path_3 = FollowPathCustomAprilTag(
+path_3 = FollowPathCustom(
   subsystem=Robot.drivetrain,
   trajectory=CustomTrajectory(
     start_pose=Pose2d(*speaker[0]),
@@ -72,9 +75,24 @@ path_3 = FollowPathCustomAprilTag(
     end_velocity=0,
     rev=True,
   ),
-  limelight=Sensors.odometry.vision_estimator.limelights[0],
-  pipeline=2,
   period=constants.period,
+  blue_team=blue_team,
+)
+
+rotate_path = FollowPathCustom(
+  subsystem=Robot.drivetrain,
+  trajectory=CustomTrajectory(
+    start_pose=Pose2d(*rotate[0]),
+    waypoints=[Translation2d(*x) for x in rotate[1]],
+    end_pose=Pose2d(*rotate[2]),
+    max_velocity=max_vel,
+    max_accel=max_accel,
+    start_velocity=0,
+    end_velocity=0,
+    rev=True,
+  ),
+  period=constants.period,
+  blue_team=blue_team
 )
 
 auto = SequentialCommandGroup(
@@ -90,6 +108,7 @@ auto = SequentialCommandGroup(
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  rotate_path,
   ParallelDeadlineGroup( # go to note 3 to take in note
     path_2,
     commands.IntakeIn(Robot.intake),

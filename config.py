@@ -141,7 +141,7 @@ shoulder_max = 100
 # speed/alignment thresholds
 vision_threshold = 3    # degrees
 shooter_threshold = .05 # percent
-shoulder_threshold = .025  # radians
+shoulder_threshold = .05  # radians .025
 
 blue_scoring_positions = {
     'amp': Pose2d(ATPosesBlue[6].X(), ATPosesBlue[6].Y() - 0.7, -math.pi / 2),
