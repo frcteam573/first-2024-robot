@@ -24,7 +24,7 @@ import commands
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
-from autonomous.routines.THREE_NOTE.S2S3S.red import path_1
+from autonomous.routines.FOUR_NOTE.S2S3S.red import path_2_p2 as path_1
 #from autonomous.routines.ONE_NOTE.SL.blue import path_1
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -61,7 +61,9 @@ class MyRobot(commands2.TimedCommandRobot):
 
         self.auto_selection = wpilib.SendableChooser()
         
-        self.auto_selection.setDefaultOption("THREE NOTE BLUE", autonomous.three_note_blue)
+        self.auto_selection.setDefaultOption("FOUR NOTE BLUE", autonomous.four_note_blue)
+        self.auto_selection.addOption("FOUR NOTE RED", autonomous.four_note_red)
+        self.auto_selection.addOption("THREE NOTE BLUE", autonomous.three_note_blue)
         self.auto_selection.addOption("THREE NOTE RED", autonomous.three_note_red)
         self.auto_selection.addOption("TWO NOTE BLUE", autonomous.two_note_blue)
         self.auto_selection.addOption("TWO NOTE RED", autonomous.two_note_red)

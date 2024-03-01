@@ -46,7 +46,12 @@ path_1 = FollowPathCustom(
 
 auto = SequentialCommandGroup(
   WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
-  commands.ShootNote(Robot.shooter, 4000),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNote(Robot.intake),
+  # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
   path_1,
 )
 

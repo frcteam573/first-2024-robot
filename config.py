@@ -23,6 +23,8 @@ shoulder_amp_pos = 0 # Need to verify this is a guess
 shoulder_human_pos = .4 # Need to verify this is a guess
 shoulder_trap_pos = 1.3 # Need to verify this is a guess
 
+shoulder_front_speaker = 0.98 
+
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
     new_pose = Pose2d(
         Translation2d(
