@@ -67,6 +67,8 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection.addOption("THREE NOTE RED", autonomous.three_note_red)
         self.auto_selection.addOption("TWO NOTE BLUE", autonomous.two_note_blue)
         self.auto_selection.addOption("TWO NOTE RED", autonomous.two_note_red)
+        self.auto_selection.addOption("TWO NOTE CENTER BLUE", autonomous.two_note_blue_center)
+        self.auto_selection.addOption("TWO NOTE CENTER RED", autonomous.two_note_red_center)
         self.auto_selection.addOption("ONE NOTE BLUE", autonomous.one_note_blue)
         self.auto_selection.addOption("ONE NOTE RED", autonomous.one_note_red)
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
