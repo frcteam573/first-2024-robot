@@ -86,7 +86,7 @@ class Shoulder(commands2.SubsystemBase):
         speed = -self.shoulderPID.calculate(self.s_shoulderAlternateEncoder.getPosition(), angle)
         self.setShoulderSpeed(speed * (2 if speed > .1 else 1))
 
-        if self.shoulderPID.atSetpoint():
+        if abs(self.s_shoulderAlternateEncoder.getPosition() - angle) < shoulder_threshold:
             self.at_pos = True
             #self.p_shoulderlock.set(wpilib.DoubleSolenoid.Value.kForward)
             wpilib.SmartDashboard.putBoolean("Shoulder at angle", True)
@@ -108,7 +108,7 @@ class Shoulder(commands2.SubsystemBase):
             radians
         '''
         # improve this
-        return 1.65 - 0.607 * distance_to_speaker + 0.0845 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
+        return 1.22 + -0.3 * distance_to_speaker + 0.0347 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.

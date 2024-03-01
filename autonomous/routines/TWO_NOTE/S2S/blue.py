@@ -25,7 +25,7 @@ from autonomous.auto_routine import AutoRoutine
 from robot_systems import Robot, Sensors
 from units.SI import meters_per_second, meters_per_second_squared
 
-max_vel: meters_per_second = 1
+max_vel: meters_per_second = 1.3
 max_accel: meters_per_second_squared = 3
 
 path_1 = FollowPathCustom(
@@ -44,15 +44,20 @@ path_1 = FollowPathCustom(
 )
 
 auto = SequentialCommandGroup(
-  InstantCommand(lambda: Robot.shooter.setShooterRPM(2000)),
-  WaitCommand(1),
-  commands.ShootNote(Robot.shooter, 4000),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  # WaitCommand(1),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNote(Robot.intake),
+  # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
-  ParallelCommandGroup( # go to note 2 to take in note
-    commands.IntakeIn(Robot.intake),
+  ParallelDeadlineGroup( # go to note 2 to take in note
     path_1,
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos_auto),
+    commands.IntakeIn(Robot.intake),
+
   ),
-  commands.ShootNote(Robot.shooter, 4000),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNote(Robot.intake),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)

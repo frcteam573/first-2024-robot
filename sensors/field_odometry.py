@@ -63,7 +63,7 @@ class FieldOdometry:
         )
 
         self.vision_estimator: LimelightController = vision_estimator
-        self.vision_estimator_pose_weight: float = .2
+        self.vision_estimator_pose_weight: float = 0
         self.robot_pose_weight: float = 1 - self.vision_estimator_pose_weight
 
         self.vision_on = True

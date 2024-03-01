@@ -291,17 +291,18 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         subsystem: SwerveDrivetrain,
         trajectory: CustomTrajectory,
         period: float = 0.02,
+        blue_team: bool = True
     ):
         super().__init__(subsystem)
         self.custom_trajectory = trajectory
         self.trajectory: Trajectory = trajectory.trajectory
         self.controller = HolonomicDriveController(
-            PIDController(95, 0, 0, period),
-            PIDController(95, 0, 0, period),
+            PIDController(25, 0, 0, period),
+            PIDController(25, 0, 0, period),
             ProfiledPIDControllerRadians(
-                44,  # 7.3
+                3,  # 7.3
                 0,
-                0.01,  # .005
+                0,  # .005
                 TrapezoidProfileRadians.Constraints(
                     subsystem.max_angular_vel, subsystem.max_angular_vel / 0.001  # .001
                 ),
@@ -316,6 +317,7 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         self.theta_diff: float | None = None
         self.omega: float | None = None
         self.end_pose: Pose2d = trajectory.end_pose
+        self.blue_team = blue_team
         self.finished: bool = False
 
     def initialize(self) -> None:
@@ -370,7 +372,7 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
             speeds.vx, speeds.vy, Sensors.odometry.getPose().rotation().radians()
         )
 
-        self.subsystem.set_driver_centric((-vx, -vy), speeds.omega)
+        self.subsystem.set_driver_centric((-vx * (1 if self.blue_team else -1), -vy  * (1 if self.blue_team else -1)), speeds.omega)
 
     def isFinished(self) -> bool:
         return self.finished
@@ -404,6 +406,7 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
         limelight: Limelight,
         pipeline: int = None,
         period: float = 0.02,
+        
     ):
         super().__init__(subsystem)
         self.custom_trajectory = trajectory

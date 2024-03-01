@@ -14,5 +14,6 @@ initial: coord = (apb[7].X() + 0.918 + robot_length / 2, apb[7].Y(), 0)
 note_2: path = (
     initial,
     [],
-    (np['blue_2'].X(), np['blue_2'].Y(), 0),
+    (np['blue_2'].X() - robot_length / 2, np['blue_2'].Y(), 0),
 )
+

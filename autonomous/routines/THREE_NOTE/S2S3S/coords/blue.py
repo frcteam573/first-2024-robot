@@ -10,13 +10,13 @@ path = (coord, waypoints, coord)
 
 blue_team = True
 
-initial: coord = (apb[7].X() + 1.2954, apb[7].Y(), 0)
+initial: coord = (apb[7].X() + 0.918 + robot_length / 2, apb[7].Y(), 0)
 final: coord = (apb[7].X() + 1.5, apb[7].Y(), 0)
 
 note_2: path = (
     initial,
     [],
-    (np['blue_2'].X(), np['blue_2'].Y(), 0),
+    (np['blue_2'].X() - robot_length / 2, np['blue_2'].Y(), 0),
 )
 
 note_3: path = (

@@ -78,20 +78,26 @@ path_3 = FollowPathCustomAprilTag(
 )
 
 auto = SequentialCommandGroup(
-  commands.ShootNote(Robot.shooter, 2000), # shoot note
-  commands.SetShoulderAngleAuto(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
-  ParallelCommandGroup( # go to note 2 to take in note
-    commands.IntakeIn(Robot.intake),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNote(Robot.intake),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  ParallelDeadlineGroup( # go to note 2 to take in note
     path_1,
-  ),
-  commands.ShootNote(Robot.shooter, 4000), # shoot note
-  commands.SetShoulderAngleAuto(Robot.shoulder,config.shoulder_floor_pos), # set shoulder to floor
-  ParallelCommandGroup( # go to note 3 to take in note
     commands.IntakeIn(Robot.intake),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  ),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNote(Robot.intake),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  ParallelDeadlineGroup( # go to note 3 to take in note
     path_2,
+    commands.IntakeIn(Robot.intake),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
   path_3, # drive toward and line up to speaker
-  commands.ShootNote(Robot.shooter, 4000), # shoot note
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNote(Robot.intake),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)

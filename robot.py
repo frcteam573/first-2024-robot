@@ -24,7 +24,7 @@ import commands
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
-from autonomous.routines.TWO_NOTE.S2S.blue import path_1
+from autonomous.routines.THREE_NOTE.S2S3S.red import path_1
 #from autonomous.routines.ONE_NOTE.SL.blue import path_1
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -91,7 +91,6 @@ class MyRobot(commands2.TimedCommandRobot):
         self.field.setRobotPose(pose)
         # print(Robot.drivetrain.chassis_speeds)
         
-        #wpilib.SmartDashboard.putNumber("distance", Sensors.odometry.getDistanceAprilTag())
         
         SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag Aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
         try:
@@ -130,7 +129,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""
-        pass
+        wpilib.SmartDashboard.putNumber("distance", Sensors.odometry.getDistanceAprilTag())
 
     def testInit(self) -> None:
         # Cancels all running commands at the start of test mode
