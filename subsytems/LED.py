@@ -31,3 +31,7 @@ class LED(commands2.SubsystemBase):
   def setOrangeLed(self):
     self.blinkin.set(0.65)
    # print('Orange')
+   
+  def setGreenLed(self):
+    self.blinkin.set(0.77)
+    #print('Green')
