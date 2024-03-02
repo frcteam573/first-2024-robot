@@ -96,7 +96,11 @@ class MyRobot(commands2.TimedCommandRobot):
         # print(Robot.drivetrain.chassis_speeds)
         
         
-        SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag Aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
+        SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
+        if SmartDashboard.getBoolean('Ready to shoot', False):
+            Robot.led.setGreenLed()
+        else:
+            Robot.led.setRedLed()
         try:
             commands2.CommandScheduler.getInstance().run()
         except Exception as e:
