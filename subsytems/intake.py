@@ -44,7 +44,7 @@ class Intake(commands2.SubsystemBase):
 
         return self.note_in
         
-    def setTransferSpeed(self, speed: float) -> bool:
+    def setTransferSpeed(self, speed: float, overide: bool = False) -> bool:
         '''Sets the speed of the transfer motor.
         
         Args:
@@ -56,7 +56,7 @@ class Intake(commands2.SubsystemBase):
         self.m_transfer.set(speed)
         self.m_intake1.set(-speed)
         
-        if self.s_claw_lightgate.get():
+        if not overide and self.s_claw_lightgate.get():
             self.note_out = True
         return self.note_out
         # else:

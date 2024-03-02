@@ -64,6 +64,7 @@ class IntakeOut(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         self.app.setIntakeSpeed(.3 if Keymap.Intake.TRAP_POSITION.getAsBoolean() else 1)
+        # self.app.setIntakeSpeed(.3)
         #print("Intake Out")
         
     def end(self, interrupted=False) -> None:
@@ -74,11 +75,14 @@ class TransferNote(commands2.CommandBase):
     def __init__(
         self, 
         app: Intake,
+        overide: bool = False
     ) -> None:
         super().__init__()
 
         self.app = app
         self.addRequirements(app)
+
+        self.overide = overide
 
     def initialize(self) -> None:
         self.finished = False
@@ -86,7 +90,7 @@ class TransferNote(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         #print("Transfer")
-        if self.app.setTransferSpeed(1):
+        if self.app.setTransferSpeed(1, self.overide):
             self.finished = True
             
     def isFinished(self) -> bool:

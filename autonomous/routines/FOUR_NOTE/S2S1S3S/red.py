@@ -1,6 +1,6 @@
 import math
 
-from autonomous.routines.FOUR_NOTE.S2S3S.coords.red import (
+from autonomous.routines.FOUR_NOTE.S2S1S3S.coords.red import (
   initial,
   note_2,
   note_3,

@@ -35,7 +35,7 @@ class OI:
 
 #------------------------ Transfer -----------------------#
 		commands2.button.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).whileTrue(
-			command=commands.TransferNote(Robot.intake))
+			command=commands.TransferNote(Robot.intake, True))
 #------------------------ Shooter -----------------------#
 		#Speaker Shooter Settings
 		commands2.button.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(

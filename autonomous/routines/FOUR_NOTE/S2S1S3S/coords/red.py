@@ -1,5 +1,5 @@
 from units.SI import meters, radians
-from autonomous.routines.FOUR_NOTE.S2S3S.coords.blue import initial, note_2, note_3, note_3_short, note_4, note_4_short, note_2_to_speaker, note_3_to_speaker, note_4_to_speaker
+from autonomous.routines.FOUR_NOTE.S2S1S3S.coords.blue import initial, note_2, note_3, note_3_short, note_4, note_4_short, note_2_to_speaker, note_3_to_speaker, note_4_to_speaker
 from autonomous.auto_routine import mirror_path, mirror_pose
 import constants
 import math

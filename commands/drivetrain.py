@@ -76,8 +76,8 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
             tx = None
             if note_align:
                 tx = Sensors.odometry.vision_estimator.limelights[1].get_tx()
-                dx = math.sin(Sensors.gyro.get_robot_heading()) * (1 if config.drivetrain_reversed else -1)
-                dy = math.cos(Sensors.gyro.get_robot_heading()) * (1 if config.drivetrain_reversed else -1)
+                dx = 0.3 * math.sin(Sensors.gyro.get_robot_heading()) * (1 if config.drivetrain_reversed else -1)
+                dy = 0.3 * math.cos(Sensors.gyro.get_robot_heading()) * (1 if config.drivetrain_reversed else -1)
                 if tx:
                     d_theta = self.target_pid.calculate(tx)
             elif speaker_align:

@@ -28,7 +28,7 @@ note_2_to_speaker: path = (
 note_3_short: path = (
     speaker_front,
     [],
-    (np['blue_1'].X()- robot_length/2 - .5, np['blue_1'].Y(), 0),
+    (np['blue_1'].X()- robot_length/2 - .75, np['blue_1'].Y(), 0),
 )
 
 note_3: path = (
@@ -46,7 +46,7 @@ note_3_to_speaker: path = (
 note_4_short: path = (
     speaker_front,
     [],
-    (np['blue_3'].X()- robot_length / 2 - .5, np['blue_3'].Y(), 0),
+    (np['blue_3'].X()- robot_length / 2 - .75, np['blue_3'].Y(), 0),
 )
 
 note_4: path = (
