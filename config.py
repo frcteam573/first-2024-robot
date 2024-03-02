@@ -144,9 +144,9 @@ shoulder_max = 100
 vision_threshold = 3    # degrees
 shooter_threshold = .05 # percent
 shoulder_threshold = 0.05 #radians
-shoulder_threshold_lowest = .05  # radians .025
+shoulder_threshold_lowest = .03  # radians .025
 shoulder_threshold_lowest_distance = 72 * inches_to_meters  # m
-shoulder_threshold_highest = .1  # radians .025
+shoulder_threshold_highest = .07  # radians .025
 shoulder_threshold_highest_distance = 36 * inches_to_meters  # m
 
 
