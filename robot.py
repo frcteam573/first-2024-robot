@@ -100,7 +100,7 @@ class MyRobot(commands2.TimedCommandRobot):
         if SmartDashboard.getBoolean('Ready to shoot', False):
             Robot.led.setGreenLed()
         else:
-            Robot.led.setRedLed()
+            Robot.led.setBlackLed()
         try:
             commands2.CommandScheduler.getInstance().run()
         except Exception as e:
