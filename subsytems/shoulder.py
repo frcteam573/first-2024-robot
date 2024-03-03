@@ -35,12 +35,14 @@ class Shoulder(commands2.SubsystemBase):
 
         # self.PID_tab = Shuffleboard.getTab("PID")
         self.shoulderPID_kP = 1.0 # find these values when built
-        self.shoulderPID_kI = 0.0 # find these values when built
+        self.shoulderPID_kI = 0.0001 # find these values when built
         self.shoulderPID_kD = 0.06 # find these values when built
+       
         
         self.shoulderPID = PIDController(self.shoulderPID_kP,self.shoulderPID_kI,self.shoulderPID_kD)
         # self.PID_config = self.PID_tab.add("Shoulder PID", self.shoulderPID).withWidget(BuiltInWidgets.kPIDController).getEntry()
         #self.shoulderPID.setTolerance(shoulder_threshold)
+        self.shoulderPID.setIZone(0.1)
         
         self.minShoulderAngle = 0 # find these values when built
         self.maxShoulderAngle = 100 # find these values when built
