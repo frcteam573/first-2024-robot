@@ -135,7 +135,7 @@ auto = SequentialCommandGroup(
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_1,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos_auto),
   ),
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_2,
@@ -143,7 +143,7 @@ auto = SequentialCommandGroup(
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
   ),
   commands.TransferNote(Robot.intake),
-  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_3,
     commands.IntakeIn(Robot.intake),
@@ -155,7 +155,7 @@ auto = SequentialCommandGroup(
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
   ),
   commands.TransferNote(Robot.intake),
-  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
     ParallelDeadlineGroup( # go to note 2 to take in note
     path_5,
     commands.IntakeIn(Robot.intake),

@@ -24,7 +24,7 @@ import commands
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
-from autonomous.routines.CENTERLINE.red import path_6 as path_1
+from autonomous.routines.CENTERLINE.red import path_5 as path_1
 #from autonomous.routines.ONE_NOTE.SL.blue import path_1
 
 class MyRobot(commands2.TimedCommandRobot):
