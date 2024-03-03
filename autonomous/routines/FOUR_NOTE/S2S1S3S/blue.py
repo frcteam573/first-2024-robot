@@ -199,25 +199,25 @@ auto = SequentialCommandGroup(
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
-   ParallelDeadlineGroup( # go to note 2 to take in note
-    path_3_1,
-    commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
-  ),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
-   ParallelDeadlineGroup( # go to note 2 to take in note
-    path_3_2,
-    commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
-  ),
-  ParallelDeadlineGroup( # go speaker front
-    path_3_to_speaker,
-    commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
-  ),
-  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
-  commands.TransferNote(Robot.intake),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  #  ParallelDeadlineGroup( # go to note 2 to take in note
+  #   path_3_1,
+  #   commands.IntakeIn(Robot.intake),
+  #   commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  # ),
+  # commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  #  ParallelDeadlineGroup( # go to note 2 to take in note
+  #   path_3_2,
+  #   commands.IntakeIn(Robot.intake),
+  #   commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+  # ),
+  # ParallelDeadlineGroup( # go speaker front
+  #   path_3_to_speaker,
+  #   commands.IntakeIn(Robot.intake),
+  #   commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
+  # ),
+  # commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  # commands.TransferNote(Robot.intake),
+  # commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
 
 )

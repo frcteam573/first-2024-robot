@@ -19,7 +19,7 @@ robot_width = 35.5 * inches_to_meters
 
 shoulder_floor_pos = 1.39 # Need to verify this is a guess
 shoulder_floor_pos_auto = 1.421 # Need to verify this is a guess
-shoulder_amp_pos = 0 # Need to verify this is a guess
+shoulder_amp_pos = -0.1 # Need to verify this is a guess
 shoulder_human_pos = .4 # Need to verify this is a guess
 shoulder_trap_pos = 1.3 # Need to verify this is a guess
 

@@ -1,3 +1,6 @@
+from autonomous.routines.NOTHING.blue import routine as nothing_blue
+from autonomous.routines.NOTHING.red import routine as nothing_red
+
 from autonomous.routines.ONE_NOTE.SL.blue import routine as one_note_blue
 from autonomous.routines.ONE_NOTE.SL.red import routine as one_note_red
 

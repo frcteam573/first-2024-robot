@@ -27,8 +27,8 @@ from autonomous.auto_routine import AutoRoutine
 from robot_systems import Robot, Sensors
 from units.SI import meters_per_second, meters_per_second_squared
 
-max_vel: meters_per_second = 1
-max_accel: meters_per_second_squared = 3
+max_vel: meters_per_second = 3
+max_accel: meters_per_second_squared = 5
 
 path_1 = FollowPathCustom(
   subsystem=Robot.drivetrain,
@@ -62,25 +62,25 @@ path_2 = FollowPathCustom(
 
 auto = SequentialCommandGroup(
   WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
-  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
-  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
-  commands.TransferNote(Robot.intake),
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos_auto),
+  # commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  # commands.TransferNote(Robot.intake),
+  # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  # commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos_auto),
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_1,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
+    # commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
   ParallelCommandGroup( # go to speaker while shooting
     path_2,
     SequentialCommandGroup(
       WaitCommand(1.5),
-      commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+      # commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
     ),
   ),
-  commands.TransferNote(Robot.intake),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  # commands.TransferNote(Robot.intake),
+  # commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
 )
 

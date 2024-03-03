@@ -1,17 +1,15 @@
 {
   "Docking": {
-    "Data": [
-      "DockNode  ID=0x00000001 Pos=454,174 Size=1500,290 Selected=0xB5CBE9F0"
-    ]
+    "Data": []
   },
   "MainWindow": {
     "GLOBAL": {
       "fps": "120",
-      "height": "1009",
+      "height": "705",
       "maximized": "1",
       "style": "0",
       "userScale": "2",
-      "width": "2560",
+      "width": "1366",
       "xpos": "0",
       "ypos": "45"
     }
@@ -37,7 +35,7 @@
     },
     "###/SmartDashboard/Field": {
       "Collapsed": "0",
-      "Pos": "787,525",
+      "Pos": "341,156",
       "Size": "836,432"
     },
     "###DIO": {
@@ -47,28 +45,27 @@
     },
     "###FMS": {
       "Collapsed": "0",
-      "Pos": "11,990",
-      "Size": "283,140"
+      "Pos": "11,686",
+      "Size": "169,184"
     },
     "###Joysticks": {
       "Collapsed": "0",
       "Pos": "1093,466",
-      "Size": "796,73"
+      "Size": "796,240"
     },
     "###NetworkTables": {
       "Collapsed": "0",
-      "Pos": "9,990",
+      "Pos": "9,686",
       "Size": "1500,370"
     },
     "###NetworkTables Info": {
       "Collapsed": "0",
-      "DockId": "0x00000001,0",
       "Pos": "454,174",
       "Size": "1500,290"
     },
     "###Other Devices": {
       "Collapsed": "0",
-      "Pos": "1901,62",
+      "Pos": "1347,62",
       "Size": "500,937"
     },
     "###RoboRIO": {
