@@ -24,7 +24,7 @@ import commands
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
-from autonomous.routines.TWO_NOTE.SC5S.blue import path_2 as path_1
+from autonomous.routines.CENTERLINE.red import path_6 as path_1
 #from autonomous.routines.ONE_NOTE.SL.blue import path_1
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -73,6 +73,8 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection.addOption("ONE NOTE RED", autonomous.one_note_red)
         self.auto_selection.addOption("NOTHING BLUE", autonomous.nothing_blue)
         self.auto_selection.addOption("NOTHING RED", autonomous.nothing_red)
+        self.auto_selection.addOption("CENTERLINE BLUE", autonomous.centerline_blue)
+        self.auto_selection.addOption("CENTERLINE RED", autonomous.centerline_red)
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
             
         
