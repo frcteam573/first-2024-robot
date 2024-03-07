@@ -17,3 +17,9 @@ note_2: path = (
     (np['blue_2'].X() - robot_length / 2, np['blue_2'].Y(), 0),
 )
 
+speaker: path = (
+    note_2[2],
+    [],
+    initial,
+)
+

@@ -100,7 +100,8 @@ class MyRobot(commands2.TimedCommandRobot):
         # print(Robot.drivetrain.chassis_speeds)
         # print('Gyro: ' +str(Sensors.odometry.getPose().rotation().radians()))
         
-        
+        # print(Robot.drivetrain.n_front_left.m_turn.encoder.getPosition())
+
         SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
         if SmartDashboard.getBoolean('Ready to shoot', False):
             Robot.led.setGreenLed()

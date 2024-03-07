@@ -3,6 +3,7 @@ import math
 from autonomous.routines.TWO_NOTE.S2S.coords.blue import (
   initial,
   note_2,
+  speaker,
   blue_team
 )
 
@@ -43,6 +44,21 @@ path_1 = FollowPathCustom(
     period=constants.period,
 )
 
+path_2 = FollowPathCustom(
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*speaker[0]),
+        waypoints=[Translation2d(*x) for x in speaker[1]],
+        end_pose=Pose2d(*speaker[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+        rev=True,
+    ),
+    period=constants.period,
+)
+
 auto = SequentialCommandGroup(
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   # WaitCommand(1),
@@ -54,10 +70,14 @@ auto = SequentialCommandGroup(
     path_1,
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos_auto),
     commands.IntakeIn(Robot.intake),
-
+  ),
+  ParallelDeadlineGroup( # go speaker front
+    path_2,
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
   ),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)
