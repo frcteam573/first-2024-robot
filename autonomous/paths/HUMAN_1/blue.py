@@ -20,7 +20,7 @@ import config
 import constants
 from commands.autonomous.custom_pathing import FollowPathCustom
 from commands.autonomous.trajectory import CustomTrajectory
-from autonomous.auto_routine import AutoRoutine
+from autonomous.auto_routine import TeleRoutine
 from robot_systems import Robot, Sensors
 from units.SI import meters_per_second, meters_per_second_squared
 
@@ -47,4 +47,4 @@ auto = SequentialCommandGroup(
     path_1
 )
 
-routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)
+routine = TeleRoutine(auto, blue_team=blue_team)
