@@ -166,7 +166,7 @@ track_width: meters = 25.5 * inches_to_meters
 
 # TODO Maybe change these
 drivetrain_accel = True
-drivetrain_max_vel: meters_per_second = (9 * mile / hour).asNumber(m / s)  # 12
+drivetrain_max_vel: meters_per_second = (11 * mile / hour).asNumber(m / s)  # 12
 drivetrain_max_accel_tele: meters_per_second_squared = (45 * mile / hour).asNumber(m / s)
 drivetrain_max_target_accel: meters_per_second_squared = (
     45 * mile / hour

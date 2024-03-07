@@ -42,6 +42,10 @@ class Intake(commands2.SubsystemBase):
             self.m_intake1.set(speed)
             self.m_transfer.set(-.25 * speed)
 
+        if self.s_claw_lightgate.get():
+            wpilib.SmartDashboard.putBoolean("Note in", False)
+        else:
+            wpilib.SmartDashboard.putBoolean("Note in", True)
         return self.note_in
         
     def setTransferSpeed(self, speed: float, overide: bool = False) -> bool:
@@ -58,6 +62,11 @@ class Intake(commands2.SubsystemBase):
         
         if not overide and self.s_claw_lightgate.get():
             self.note_out = True
+        if self.s_claw_lightgate.get():
+            wpilib.SmartDashboard.putBoolean("Note in", False)
+        else:
+            wpilib.SmartDashboard.putBoolean("Note in", True)
+
         return self.note_out
         # else:
         #     self.m_transfer.set(0)

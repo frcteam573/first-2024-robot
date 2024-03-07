@@ -24,7 +24,7 @@ import commands
 from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
-from autonomous.routines.FOUR_NOTE.S2S1S3S.red import path_2_p2 as path_1
+from autonomous.routines.CENTERLINE.red import path_5 as path_1
 #from autonomous.routines.ONE_NOTE.SL.blue import path_1
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -55,7 +55,7 @@ class MyRobot(commands2.TimedCommandRobot):
         
         Sensors.odometry = FieldOdometry(Robot.drivetrain, LimelightController([
             Limelight(0, 0, limelight_name="limelight-target"),
-            Limelight(0, 0, limelight_name="limelight-intake"),
+            # Limelight(0, 0, limelight_name="limelight-intake"),
         ]))
         Sensors.gyro = Robot.drivetrain.gyro
 
@@ -71,6 +71,10 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection.addOption("TWO NOTE CENTER RED", autonomous.two_note_red_center)
         self.auto_selection.addOption("ONE NOTE BLUE", autonomous.one_note_blue)
         self.auto_selection.addOption("ONE NOTE RED", autonomous.one_note_red)
+        self.auto_selection.addOption("NOTHING BLUE", autonomous.nothing_blue)
+        self.auto_selection.addOption("NOTHING RED", autonomous.nothing_red)
+        self.auto_selection.addOption("CENTERLINE BLUE", autonomous.centerline_blue)
+        self.auto_selection.addOption("CENTERLINE RED", autonomous.centerline_red)
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
             
         
@@ -94,13 +98,17 @@ class MyRobot(commands2.TimedCommandRobot):
         pose = Sensors.odometry.getPose()
         self.field.setRobotPose(pose)
         # print(Robot.drivetrain.chassis_speeds)
+        # print('Gyro: ' +str(Sensors.odometry.getPose().rotation().radians()))
         
-        
+        # print(Robot.drivetrain.n_front_left.m_turn.encoder.getPosition())
+
         SmartDashboard.putBoolean('Ready to shoot', SmartDashboard.getBoolean('Shooter at speed', False) and SmartDashboard.getBoolean('Tag aligned', False) and SmartDashboard.getBoolean('Shoulder at angle', False))
         if SmartDashboard.getBoolean('Ready to shoot', False):
             Robot.led.setGreenLed()
+        elif SmartDashboard.getBoolean("Note in", False):
+            Robot.led.setOrangeLed()
         else:
-            Robot.led.setRedLed()
+            Robot.led.setBlackLed()
         try:
             commands2.CommandScheduler.getInstance().run()
         except Exception as e:
@@ -137,7 +145,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""
-        wpilib.SmartDashboard.putNumber("distance", Sensors.odometry.getDistanceAprilTag())
+        # wpilib.SmartDashboard.putNumber("distance", Sensors.odometry.getDistanceAprilTag())
 
     def testInit(self) -> None:
         # Cancels all running commands at the start of test mode

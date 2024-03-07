@@ -156,7 +156,9 @@ class FieldOdometry:
         :param pose: Pose of the robot to reset to.
         :type pose: Pose2d
         """
+        # self.drivetrain.gyro.reset_angle(pose.rotation().radians())
         self.drivetrain.reset_odometry(pose)
+        
         
     def getDistance(self, pose: Pose2d) -> float:
         """

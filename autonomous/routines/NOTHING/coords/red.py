@@ -1,5 +1,7 @@
 from units.SI import meters, radians
-from autonomous.routines.TWO_NOTE.S2S.coords.blue import initial, note_2, speaker
+import constants
+import math
+from autonomous.routines.NOTHING.coords.blue import initial, leave
 from autonomous.auto_routine import mirror_path, mirror_pose
 
 coord = (meters, meters, radians)
@@ -10,6 +12,4 @@ blue_team = False
 
 initial = mirror_pose(initial)
 
-note_2 = mirror_path(note_2)
-
-speaker = mirror_path(speaker)
+leave = mirror_path(leave)

@@ -1,3 +1,6 @@
+from autonomous.routines.NOTHING.blue import routine as nothing_blue
+from autonomous.routines.NOTHING.red import routine as nothing_red
+
 from autonomous.routines.ONE_NOTE.SL.blue import routine as one_note_blue
 from autonomous.routines.ONE_NOTE.SL.red import routine as one_note_red
 
@@ -12,3 +15,6 @@ from autonomous.routines.THREE_NOTE.S2S3S.red import routine as three_note_red
 
 from autonomous.routines.FOUR_NOTE.S2S1S3S.blue import routine as four_note_blue
 from autonomous.routines.FOUR_NOTE.S2S1S3S.red import routine as four_note_red
+
+from autonomous.routines.CENTERLINE.blue import routine as centerline_blue
+from autonomous.routines.CENTERLINE.red import routine as centerline_red
