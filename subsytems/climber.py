@@ -32,6 +32,8 @@ class Climber(commands2.SubsystemBase):
         self.s_climberEncoderAlt = self.m_climber1.getAlternateEncoder(8192)
         self.climbermin = -0 # find these values when built
         self.climbermax = 158 # find these values when built
+        self.fullspeedmin = 10
+        self.fullspeedmax = 148
 
         
     def setClimberSpeed(self, speed: float) -> None:
@@ -42,15 +44,22 @@ class Climber(commands2.SubsystemBase):
         '''
         wpilib.SmartDashboard.putString("S_Climber Pos Alt", str(self.s_climberEncoderAlt.getPosition()))
         wpilib.SmartDashboard.putString("S_Climber Pos Motor", str(self.s_climber1Encoder.getPosition()))
-        # if self.s_climber1Encoder.getPosition() < self.climbermin and speed < 0:
-        #     self.m_climber1.set(0)
-        #     self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
-        # elif self.s_climber1Encoder.getPosition() > self.climbermax and speed > 0:
-        #     self.m_climber1.set(0)
-        #     self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
-        # else:
-        self.m_climber1.set(speed)
+        if speed < 0:
+            if self.s_climber1Encoder.getPosition() < self.fullspeedmin:
+                speed *= 0.5
+            if self.s_climber1Encoder.getPosition() < self.climbermin:
+                speed = 0
+                self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+        elif speed > 0:
+            if self.s_climber1Encoder.getPosition() > self.fullspeedmax:
+                speed *= 0.5
+            if self.s_climber1Encoder.getPosition() > self.climbermax:
+                speed = 0
+                self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+            
         if speed <= 0:
             self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kReverse)
         else:
             self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+            
+        self.m_climber1.set(speed)
