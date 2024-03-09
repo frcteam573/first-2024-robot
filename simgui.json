@@ -6,7 +6,22 @@
       }
     },
     "Other Devices": {
+      "SPARK MAX [1]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [2]": {
+        "header": {
+          "open": true
+        }
+      },
       "SPARK MAX [40]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [41]": {
         "header": {
           "open": true
         }
