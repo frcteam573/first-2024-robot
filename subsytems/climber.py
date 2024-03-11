@@ -35,6 +35,10 @@ class Climber(commands2.SubsystemBase):
         self.fullspeedmin = 10
         self.fullspeedmax = 148
 
+    def initClimberLocks(self) -> None:
+
+        self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+
         
     def setClimberSpeed(self, speed: float) -> None:
         '''Sets the speed of the climber motors.
@@ -49,17 +53,19 @@ class Climber(commands2.SubsystemBase):
                 speed *= 0.5
             if self.s_climber1Encoder.getPosition() < self.climbermin:
                 speed = 0
-                self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+                #self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
         elif speed > 0:
             if self.s_climber1Encoder.getPosition() > self.fullspeedmax:
                 speed *= 0.5
             if self.s_climber1Encoder.getPosition() > self.climbermax:
                 speed = 0
-                self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+                #self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kReverse)
             
-        if speed <= 0:
+        if speed > 0:
+            self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+        elif speed < 0:
             self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kReverse)
         else:
-            self.p_climberlock.set(wpilib.DoubleSolenoid.Value.kForward)
+            ...
             
         self.m_climber1.set(speed)
