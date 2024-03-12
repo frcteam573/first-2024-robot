@@ -96,7 +96,7 @@ class MyRobot(commands2.TimedCommandRobot):
         # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
             
         
-        self.auto_selection.onChange(lambda x: Sensors.odometry.resetOdometry(self.auto_selection.getSelected().initial_robot_pose))
+        # self.auto_selection.onChange(lambda x: Sensors.odometry.resetOdometry(self.auto_selection.getSelected().initial_robot_pose))
         
         wpilib.SmartDashboard.putData("Auto Mode", self.auto_selection)
         wpilib.SmartDashboard.putNumber("Auto Delay",5)
@@ -114,6 +114,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def robotPeriodic(self) -> None:
         Sensors.odometry.update()
+        SmartDashboard.putNumber("Gyro angle", Robot.drivetrain.gyro.get_robot_heading())
         pose = Sensors.odometry.getPose()
         self.field.setRobotPose(pose)
         # print(Robot.drivetrain.chassis_speeds)

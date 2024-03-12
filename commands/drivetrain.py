@@ -141,9 +141,9 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
 
 
 
-        if config.driver_centric:
+        if config.driver_centric and config.blue_team:
             self.subsystem.set_driver_centric((-dy, dx), d_theta)
-        elif self.driver_centric_reversed:
+        elif not config.blue_team or self.driver_centric_reversed:
             self.subsystem.set_driver_centric((dy, -dx), -d_theta)
         else:
             self.subsystem.set_robot_centric((dy, -dx), d_theta)

@@ -373,7 +373,7 @@ class FollowPathCustom(SubsystemCommand[SwerveDrivetrain]):
         )
 
         # NOTE: Reversal may not be necessary
-        self.subsystem.set_driver_centric((-vx * (1 if self.blue_team else -1), -vy  * (1 if self.blue_team else -1)), speeds.omega) 
+        self.subsystem.set_driver_centric((-vx, -vy ), speeds.omega) 
 
     def isFinished(self) -> bool:
         return self.finished
@@ -498,7 +498,7 @@ class FollowPathCustomAprilTag(SubsystemCommand[SwerveDrivetrain]):
         )
 
         # NOTE: Reversal may not be necessary
-        self.subsystem.set_driver_centric((-vx * (1 if self.blue_team else -1), -vy * (1 if self.blue_team else -1)), speeds.omega)
+        self.subsystem.set_driver_centric((-vx, -vy), speeds.omega)
 
     def isFinished(self) -> bool:
         return self.finished

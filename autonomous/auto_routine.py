@@ -54,6 +54,8 @@ class AutoRoutine:
         # commented this out because i want robot paths from current position, lets see if it still works
         Robot.drivetrain.gyro.reset_angle(self.initial_robot_pose.rotation().radians())
         Robot.drivetrain.reset_odometry(self.initial_robot_pose)
+        Robot.drivetrain.gyro.reset_angle(self.initial_robot_pose.rotation().radians())
+        Robot.drivetrain.reset_odometry(self.initial_robot_pose)
 
         commands2.CommandScheduler.getInstance().schedule(self.command)
         # print("running path for " + "blue" if self.blue_team else "red" + " team")
