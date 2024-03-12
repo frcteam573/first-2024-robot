@@ -1,9 +1,9 @@
 import math
 
-from autonomous.routines.THREE_NOTE.S2S3S.coords.red import (
+from autonomous.routines.THREE_NOTE.S2S3S.coords.blue import (
   initial,
   note_2,
-  note_2_to_speaker,
+  rotate,
   note_3,
   speaker,
   blue_team
@@ -49,21 +49,6 @@ path_1 = FollowPathCustom(
 path_2 = FollowPathCustom(
   subsystem=Robot.drivetrain,
   trajectory=CustomTrajectory(
-    start_pose=Pose2d(*note_2_to_speaker[0]),
-    waypoints=[Translation2d(*x) for x in note_2_to_speaker[1]],
-    end_pose=Pose2d(*note_2_to_speaker[2]),
-    max_velocity=max_vel,
-    max_accel=max_accel,
-    start_velocity=0,
-    end_velocity=0,
-    rev=True,
-  ),
-  period=constants.period,
-)
-
-path_3 = FollowPathCustom(
-  subsystem=Robot.drivetrain,
-  trajectory=CustomTrajectory(
     start_pose=Pose2d(*note_3[0]),
     waypoints=[Translation2d(*x) for x in note_3[1]],
     end_pose=Pose2d(*note_3[2]),
@@ -76,12 +61,27 @@ path_3 = FollowPathCustom(
   period=constants.period,
 )
 
-path_4 = FollowPathCustom(
+path_3 = FollowPathCustom(
   subsystem=Robot.drivetrain,
   trajectory=CustomTrajectory(
     start_pose=Pose2d(*speaker[0]),
     waypoints=[Translation2d(*x) for x in speaker[1]],
     end_pose=Pose2d(*speaker[2]),
+    max_velocity=max_vel,
+    max_accel=max_accel,
+    start_velocity=0,
+    end_velocity=0,
+    rev=True,
+  ),
+  period=constants.period,
+)
+
+rotate_path = FollowPathCustom(
+  subsystem=Robot.drivetrain,
+  trajectory=CustomTrajectory(
+    start_pose=Pose2d(*rotate[0]),
+    waypoints=[Translation2d(*x) for x in rotate[1]],
+    end_pose=Pose2d(*rotate[2]),
     max_velocity=max_vel,
     max_accel=max_accel,
     start_velocity=0,
@@ -104,13 +104,13 @@ auto = SequentialCommandGroup(
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
-  path_2,
+  rotate_path,
   ParallelDeadlineGroup( # go to note 3 to take in note
-    path_3,
+    path_2,
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
-  path_4, # drive toward and line up to speaker
+  path_3, # drive toward and line up to speaker
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
 )

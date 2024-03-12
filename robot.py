@@ -78,22 +78,22 @@ class MyRobot(commands2.TimedCommandRobot):
         Sensors.gyro = Robot.drivetrain.gyro
 
         self.auto_selection = wpilib.SendableChooser()
-        
-        self.auto_selection.setDefaultOption("FOUR NOTE BLUE", autonomous.four_note_blue)
-        self.auto_selection.addOption("FOUR NOTE RED", autonomous.four_note_red)
-        self.auto_selection.addOption("THREE NOTE BLUE", autonomous.three_note_blue)
-        self.auto_selection.addOption("THREE NOTE RED", autonomous.three_note_red)
-        self.auto_selection.addOption("TWO NOTE BLUE", autonomous.two_note_blue)
-        self.auto_selection.addOption("TWO NOTE RED", autonomous.two_note_red)
-        self.auto_selection.addOption("TWO NOTE CENTER BLUE", autonomous.two_note_blue_center)
-        self.auto_selection.addOption("TWO NOTE CENTER RED", autonomous.two_note_red_center)
-        self.auto_selection.addOption("ONE NOTE BLUE", autonomous.one_note_blue)
-        self.auto_selection.addOption("ONE NOTE RED", autonomous.one_note_red)
-        self.auto_selection.addOption("NOTHING BLUE", autonomous.nothing_blue)
-        self.auto_selection.addOption("NOTHING RED", autonomous.nothing_red)
-        self.auto_selection.addOption("CENTERLINE BLUE", autonomous.centerline_blue)
-        self.auto_selection.addOption("CENTERLINE RED", autonomous.centerline_red)
-        # self.auto_selection.addOption("TWO NOTE", autonomous.two_disc_red)
+        if config.blue_team:
+            self.auto_selection.setDefaultOption("FOUR NOTE", autonomous.four_note_blue)
+            self.auto_selection.addOption("THREE NOTE", autonomous.three_note_blue)
+            self.auto_selection.addOption("TWO NOTE", autonomous.two_note_blue)
+            self.auto_selection.addOption("TWO NOTE BOTTOM", autonomous.two_note_blue_center)
+            self.auto_selection.addOption("ONE NOTE", autonomous.one_note_blue)
+            self.auto_selection.addOption("NOTHING", autonomous.nothing_blue)
+            self.auto_selection.addOption("CENTERLINE", autonomous.centerline_blue)
+        else:
+            self.auto_selection.setDefaultOption("FOUR NOTE", autonomous.four_note_red)
+            self.auto_selection.addOption("THREE NOTE", autonomous.three_note_red)
+            self.auto_selection.addOption("TWO NOTE", autonomous.two_note_red)
+            self.auto_selection.addOption("TWO NOTE BOTTOM", autonomous.two_note_red_center)
+            self.auto_selection.addOption("ONE NOTE", autonomous.one_note_red)
+            self.auto_selection.addOption("NOTHING", autonomous.nothing_red)
+            self.auto_selection.addOption("CENTERLINE", autonomous.centerline_red)
             
         
         # self.auto_selection.onChange(lambda x: Sensors.odometry.resetOdometry(self.auto_selection.getSelected().initial_robot_pose))

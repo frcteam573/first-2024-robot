@@ -45,7 +45,7 @@ class OI:
 			command=commands.ShooterAmpSpeed(Robot.shooter)
 		)
 #------------------------ Climber -----------------------#
-		Keymap.Climber.CLIMBER_UP.whileTrue(command=commands.ClimberUp(Robot.climber))
+		Keymap.Climber.CLIMBER_UP.whileTrue(command=commands.ClimberJolt)
 	
 		Keymap.Climber.CLIMBER_DOWN.whileTrue(command=commands.ClimberDown(Robot.climber))
 
