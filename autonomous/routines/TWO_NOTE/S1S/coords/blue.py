@@ -10,7 +10,8 @@ path = (coord, waypoints, coord)
 
 blue_team = True
 
-initial: coord = get_perpendicular_pose(Pose2d(apb[7].X(), apb[7].Y(), math.pi/3), 0.918 + robot_length / 2, math.pi / 3)
+pose = get_perpendicular_pose(Pose2d(apb[7].X(), apb[7].Y(), math.pi/3), 0.918 + robot_length / 2, math.pi / 3)
+initial: coord = (pose.X(), pose.Y(), pose.rotation().radians())
 
 note_1: path = (
     initial,

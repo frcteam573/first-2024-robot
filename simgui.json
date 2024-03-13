@@ -1,35 +1,11 @@
 {
   "HALProvider": {
-    "DIO": {
-      "window": {
-        "visible": true
-      }
-    },
-    "Other Devices": {
-      "SPARK MAX [1]": {
-        "header": {
-          "open": true
-        }
+    "RoboRIO": {
+      "6V Rail": {
+        "open": true
       },
-      "SPARK MAX [2]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [40]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [41]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [43]": {
-        "header": {
-          "open": true
-        }
+      "RoboRIO Input": {
+        "open": true
       }
     }
   },
@@ -46,23 +22,12 @@
         }
       },
       "/SmartDashboard/Field": {
-        "Robot": {
-          "length": 0.8889999985694885,
-          "width": 0.8889999985694885
-        },
         "bottom": 1476,
         "height": 8.210550308227539,
         "left": 150,
         "right": 2961,
         "top": 79,
-        "traj": {
-          "arrowSize": 25,
-          "arrowWeight": 1.5,
-          "selectable": false,
-          "style": "Track",
-          "width": 0.8889999985694885
-        },
-        "units": "meters",
+        "units": "",
         "width": 16.541748046875,
         "window": {
           "visible": true
@@ -72,11 +37,13 @@
   },
   "NetworkTables": {
     "transitory": {
-      "SmartDashboard": {
-        "Field": {
-          "open": true
-        },
+      "FMSInfo": {
         "open": true
+      },
+      "Shuffleboard": {
+        "Shooter PID": {
+          "open": true
+        }
       }
     }
   },
