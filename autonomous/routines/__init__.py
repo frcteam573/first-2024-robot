@@ -4,11 +4,14 @@ from autonomous.routines.NOTHING.red import routine as nothing_red
 from autonomous.routines.ONE_NOTE.SL.blue import routine as one_note_blue
 from autonomous.routines.ONE_NOTE.SL.red import routine as one_note_red
 
-from autonomous.routines.TWO_NOTE.S2S.blue import routine as two_note_blue
-from autonomous.routines.TWO_NOTE.S2S.red import routine as two_note_red
+from autonomous.routines.TWO_NOTE.S1S.blue import routine as two_note_top_blue
+from autonomous.routines.TWO_NOTE.S1S.red import routine as two_note_top_red
 
-from autonomous.routines.TWO_NOTE.SC5S.blue import routine as two_note_blue_center
-from autonomous.routines.TWO_NOTE.SC5S.red import routine as two_note_red_center
+from autonomous.routines.TWO_NOTE.S2S.blue import routine as two_note_middle_blue
+from autonomous.routines.TWO_NOTE.S2S.red import routine as two_note_middle_red
+
+from autonomous.routines.TWO_NOTE.SC5S.blue import routine as two_note_bottom_center_blue
+from autonomous.routines.TWO_NOTE.SC5S.red import routine as two_note_bottom_center_red
 
 from autonomous.routines.THREE_NOTE.S1S2S.blue import routine as three_note_middle_1_2_blue
 from autonomous.routines.THREE_NOTE.S1S2S.red import routine as three_note_middle_1_2_red
