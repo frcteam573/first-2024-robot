@@ -80,7 +80,8 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection = wpilib.SendableChooser()
         if config.blue_team:
             self.auto_selection.setDefaultOption("FOUR NOTE", autonomous.four_note_blue)
-            self.auto_selection.addOption("THREE NOTE", autonomous.three_note_blue)
+            self.auto_selection.addOption("THREE NOTE M 1 2", autonomous.three_note_middle_1_2_blue)
+            self.auto_selection.addOption("THREE NOTE M 2 3", autonomous.three_note_middle_2_3_blue)
             self.auto_selection.addOption("TWO NOTE", autonomous.two_note_blue)
             self.auto_selection.addOption("TWO NOTE BOTTOM", autonomous.two_note_blue_center)
             self.auto_selection.addOption("ONE NOTE", autonomous.one_note_blue)
@@ -88,7 +89,8 @@ class MyRobot(commands2.TimedCommandRobot):
             self.auto_selection.addOption("CENTERLINE", autonomous.centerline_blue)
         else:
             self.auto_selection.setDefaultOption("FOUR NOTE", autonomous.four_note_red)
-            self.auto_selection.addOption("THREE NOTE", autonomous.three_note_red)
+            self.auto_selection.addOption("THREE NOTE M 1 2", autonomous.three_note_middle_1_2_red)
+            self.auto_selection.addOption("THREE NOTE M 2 3", autonomous.three_note_middle_2_3_red)
             self.auto_selection.addOption("TWO NOTE", autonomous.two_note_red)
             self.auto_selection.addOption("TWO NOTE BOTTOM", autonomous.two_note_red_center)
             self.auto_selection.addOption("ONE NOTE", autonomous.one_note_red)

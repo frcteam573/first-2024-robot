@@ -10,8 +10,11 @@ from autonomous.routines.TWO_NOTE.S2S.red import routine as two_note_red
 from autonomous.routines.TWO_NOTE.SC5S.blue import routine as two_note_blue_center
 from autonomous.routines.TWO_NOTE.SC5S.red import routine as two_note_red_center
 
-from autonomous.routines.THREE_NOTE.S2S3S.blue import routine as three_note_blue
-from autonomous.routines.THREE_NOTE.S2S3S.red import routine as three_note_red
+from autonomous.routines.THREE_NOTE.S1S2S.blue import routine as three_note_middle_1_2_blue
+from autonomous.routines.THREE_NOTE.S1S2S.red import routine as three_note_middle_1_2_red
+
+from autonomous.routines.THREE_NOTE.S2S3S.blue import routine as three_note_middle_2_3_blue
+from autonomous.routines.THREE_NOTE.S2S3S.red import routine as three_note_middle_2_3_red
 
 from autonomous.routines.FOUR_NOTE.S2S1S3S.blue import routine as four_note_blue
 from autonomous.routines.FOUR_NOTE.S2S1S3S.red import routine as four_note_red

@@ -1,11 +1,11 @@
 import math
 
-from autonomous.routines.THREE_NOTE.S2S3S.coords.blue import (
+from autonomous.routines.THREE_NOTE.S1S2S.coords.blue import (
   initial,
   note_2,
-  rotate,
-  note_3,
-  speaker,
+  note_2_to_speaker,
+  note_1,
+  note_1_to_speaker,
   blue_team
 )
 
@@ -47,48 +47,48 @@ path_1 = FollowPathCustom(
 )
 
 path_2 = FollowPathCustom(
-  subsystem=Robot.drivetrain,
-  trajectory=CustomTrajectory(
-    start_pose=Pose2d(*note_3[0]),
-    waypoints=[Translation2d(*x) for x in note_3[1]],
-    end_pose=Pose2d(*note_3[2]),
-    max_velocity=max_vel,
-    max_accel=max_accel,
-    start_velocity=0,
-    end_velocity=0,
-    rev=False,
-  ),
-  period=constants.period,
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*note_2_to_speaker[0]),
+        waypoints=[Translation2d(*x) for x in note_2_to_speaker[1]],
+        end_pose=Pose2d(*note_2_to_speaker[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+        rev=True,
+    ),
+    period=constants.period,
 )
 
 path_3 = FollowPathCustom(
-  subsystem=Robot.drivetrain,
-  trajectory=CustomTrajectory(
-    start_pose=Pose2d(*speaker[0]),
-    waypoints=[Translation2d(*x) for x in speaker[1]],
-    end_pose=Pose2d(*speaker[2]),
-    max_velocity=max_vel,
-    max_accel=max_accel,
-    start_velocity=0,
-    end_velocity=0,
-    rev=True,
-  ),
-  period=constants.period,
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*note_1[0]),
+        waypoints=[Translation2d(*x) for x in note_1[1]],
+        end_pose=Pose2d(*note_1[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+        rev=True,
+    ),
+    period=constants.period,
 )
 
-rotate_path = FollowPathCustom(
-  subsystem=Robot.drivetrain,
-  trajectory=CustomTrajectory(
-    start_pose=Pose2d(*rotate[0]),
-    waypoints=[Translation2d(*x) for x in rotate[1]],
-    end_pose=Pose2d(*rotate[2]),
-    max_velocity=max_vel,
-    max_accel=max_accel,
-    start_velocity=0,
-    end_velocity=0,
-    rev=True,
-  ),
-  period=constants.period,
+path_4 = FollowPathCustom(
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*note_1_to_speaker[0]),
+        waypoints=[Translation2d(*x) for x in note_1_to_speaker[1]],
+        end_pose=Pose2d(*note_1_to_speaker[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+        rev=True,
+    ),
+    period=constants.period,
 )
 
 auto = SequentialCommandGroup(
@@ -101,16 +101,16 @@ auto = SequentialCommandGroup(
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
+  path_2,
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
-  rotate_path,
-  ParallelDeadlineGroup( # go to note 3 to take in note
-    path_2,
+  ParallelDeadlineGroup( # go to note 1 to take in note
+    path_3,
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
-  path_3, # drive toward and line up to speaker
+  path_4, # drive toward and line up to speaker
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
 )

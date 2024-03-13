@@ -101,10 +101,10 @@ auto = SequentialCommandGroup(
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
+  path_2,
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
-  path_2,
   ParallelDeadlineGroup( # go to note 3 to take in note
     path_3,
     commands.IntakeIn(Robot.intake),
