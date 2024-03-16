@@ -73,8 +73,6 @@ class Shooter(commands2.SubsystemBase):
         self.graph1.setDouble(-self.s_shooterEncoder1.getVelocity())
         self.graph2.setDouble(-self.s_shooterEncoder2.getVelocity())
         
-        
-        speed = -speed
         self.at_speed = False
         #print("target:", speed, "actual:", self.s_shooterEncoder1.getVelocity(), self.s_shooterEncoder2.getVelocity())
         
