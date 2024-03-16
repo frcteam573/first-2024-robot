@@ -140,8 +140,9 @@ auto = SequentialCommandGroup(
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_2,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_mid_pos),
   ),
+  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   ParallelDeadlineGroup( # go to note 2 to take in note
@@ -152,8 +153,9 @@ auto = SequentialCommandGroup(
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_4,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_mid_pos),
   ),
+  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
     ParallelDeadlineGroup( # go to note 2 to take in note
@@ -164,10 +166,12 @@ auto = SequentialCommandGroup(
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_6,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_mid_pos),
   ),
+  commands.SetShoulderAngle(Robot.shoulder, config.shoulder_amp_pos),
   commands.TransferNote(Robot.intake),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
 )
+
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)
