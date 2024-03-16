@@ -58,7 +58,7 @@ class Intake(commands2.SubsystemBase):
     
         # if wpilib.SmartDashboard.getBoolean("Ready to shoot", False):
         self.m_transfer.set(speed)
-        self.m_intake1.set(-0.3 * speed)
+        self.m_intake1.set(-speed) # amp .4
         
         if not overide and self.s_claw_lightgate.get():
             self.note_out = True
