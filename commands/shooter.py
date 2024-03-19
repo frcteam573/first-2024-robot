@@ -71,8 +71,8 @@ class ShooterSpeed(commands2.CommandBase):
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         if abs(Shoulder.getShoulderPos(Robot.shoulder)-config.shoulder_amp_pos) < 0.2:
-            self.app.m_shooter1.set(.2)
-            self.app.m_shooter2.set(.2)
+            self.app.m_shooter1.set(.4)
+            self.app.m_shooter2.set(.4)
             #print("Shooter AMP Running")
         else:
             self.at_speed = self.app.setShooterRPM(self.speed)
@@ -96,13 +96,13 @@ class ShooterAmpSpeed(commands2.CommandBase):
         self.at_speed = False
         #angle: degrees = self.app.calculateShoulderAngle(Sensors.odometry.getDistance(apb[7].toPose2d() if config.blue_team else apr[4].toPose2d()))
         #self.app.setShoulderAngle(angle)
-        self.app.m_shooter1.set(.2)
-        self.app.m_shooter2.set(.2)
+        self.app.m_shooter1.set(.4)
+        self.app.m_shooter2.set(.4)
   
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.app.m_shooter1.set(.2)
-        self.app.m_shooter2.set(.2)
+        self.app.m_shooter1.set(.4)
+        self.app.m_shooter2.set(.4)
         #print("Shooter AMP Running")
 
     def end(self, interrupted=False) -> None:
