@@ -5,6 +5,7 @@ import commands.shoulder
 import commands.intake
 from subsytems.shooter import Shooter
 from subsytems.intake import Intake
+from subsytems.shoulder import Shoulder
 from robot_systems import Robot, Sensors
 from constants import ApriltagPositionDictBlue as apb, ApriltagPositionDictRed as apr
 import config
@@ -69,8 +70,13 @@ class ShooterSpeed(commands2.CommandBase):
   
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        self.at_speed = self.app.setShooterRPM(self.speed)
-        # print("Shooter Running")
+        if abs(Shoulder.getShoulderPos(Robot.shoulder)-config.shoulder_amp_pos) < 0.2:
+            self.app.m_shooter1.set(.2)
+            self.app.m_shooter2.set(.2)
+            #print("Shooter AMP Running")
+        else:
+            self.at_speed = self.app.setShooterRPM(self.speed)
+            #print("Shooter Running")
 
     def end(self, interrupted=False) -> None:
         self.app.setShooterRPM(0)
@@ -91,12 +97,15 @@ class ShooterAmpSpeed(commands2.CommandBase):
         #angle: degrees = self.app.calculateShoulderAngle(Sensors.odometry.getDistance(apb[7].toPose2d() if config.blue_team else apr[4].toPose2d()))
         #self.app.setShoulderAngle(angle)
         self.app.m_shooter1.set(.2)
+        self.app.m_shooter2.set(.2)
   
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
         self.app.m_shooter1.set(.2)
-        # print("Shooter Running")
+        self.app.m_shooter2.set(.2)
+        #print("Shooter AMP Running")
 
     def end(self, interrupted=False) -> None:
         self.app.m_shooter1.set(0)
+        self.app.m_shooter2.set(0)
         #print("Shooter Stop")

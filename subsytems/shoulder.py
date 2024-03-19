@@ -128,3 +128,7 @@ class Shoulder(commands2.SubsystemBase):
         trim = wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
         #print("TRIM" + str(trim))
         wpilib.SmartDashboard.putNumber("Shoulder Trim", trim + value)
+
+    def getShoulderPos(self) -> float:
+
+        return self.s_shoulderAlternateEncoder.getPosition()

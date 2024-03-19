@@ -91,9 +91,10 @@ class Shooter(commands2.SubsystemBase):
 
             ratio_1 = abs(self.s_shooterEncoder1.getVelocity() / speed)
             ratio_2 = abs(self.s_shooterEncoder2.getVelocity() / speed)
-            min = 1 - shooter_threshold
-            max = 1 + shooter_threshold
-            if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
+            # min = 1 - shooter_threshold
+            # max = 1 + shooter_threshold
+            # if min < ratio_1 < max and min < ratio_2 < max and speed != 0:
+            if ratio_1 > 1 and ratio_2 > 1 and speed !=0:
                 wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
                 self.at_speed = True
             else:
