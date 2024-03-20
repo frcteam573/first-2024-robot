@@ -12,6 +12,7 @@ class Robot:
     shooter = subsytems.Shooter()
     shoulder = subsytems.Shoulder()
     led = subsytems.LED()
+    trap = subsytems.Trap()
 
 class Sensors:
     odometry: FieldOdometry = FieldOdometry(Robot.drivetrain, LimelightController([

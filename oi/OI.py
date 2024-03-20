@@ -41,8 +41,8 @@ class OI:
 		commands2.button.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
 			command=commands.ShooterSpeed(Robot.shooter,4000))
 		
-		Keymap.Intake.SHOOTER_AMP.whileTrue(
-			command=commands.ShooterAmpSpeed(Robot.shooter)
+		Keymap.Intake.TRAP_HOOD.whileTrue(
+			command=commands.ExtendTrap(Robot.trap)
 		)
 #------------------------ Climber -----------------------#
 		Keymap.Climber.CLIMBER_UP.whileTrue(command=commands.ClimberJolt)

@@ -108,6 +108,7 @@ class MyRobot(commands2.TimedCommandRobot):
         wpilib.SmartDashboard.putNumber("Shoulder Trim", wpilib.SmartDashboard.getNumber("Shoulder Trim", 0))
         OI.map_controls()
         Robot.climber.initClimberLocks()
+        Robot.trap.StopTrap()
 
         # Robot.drivetrain.reset_odometry(Robot.drivetrain.start_pose)
         for i in range(15):
