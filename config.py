@@ -17,14 +17,14 @@ from constants import field_length, field_width
 robot_length = 35.5 * inches_to_meters
 robot_width = 35.5 * inches_to_meters
 
-shoulder_floor_pos = 1.39
-shoulder_floor_pos_auto = 1.41
+shoulder_floor_pos = 1.44
+shoulder_floor_pos_auto = 1.44
 shoulder_mid_pos = 0.7
 shoulder_amp_pos = 0
-shoulder_human_pos = .4
+shoulder_human_pos = .436
 shoulder_trap_pos = 1.3
 
-shoulder_front_speaker = 0.98 
+shoulder_front_speaker = 0.7
 
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
     new_pose = Pose2d(

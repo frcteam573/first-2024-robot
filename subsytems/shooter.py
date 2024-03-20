@@ -79,7 +79,7 @@ class Shooter(commands2.SubsystemBase):
         if speed == 0:
             self.m_shooter1.set(0)
             self.m_shooter2.set(0)
-            wpilib.SmartDashboard.putBoolean("Shooter at speed", True)
+            wpilib.SmartDashboard.putBoolean("Shooter at speed", False)
         else:
             self.m_shooter1.set(1)
             self.m_shooter2.set(1)

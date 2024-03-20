@@ -71,9 +71,10 @@ auto = SequentialCommandGroup(
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos_auto),
     commands.IntakeIn(Robot.intake),
   ),
-  ParallelDeadlineGroup( # go speaker front
+  ParallelCommandGroup( # go speaker front
     path_2,
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
+    commands.IntakeIn(Robot.intake),
+    commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   ),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),

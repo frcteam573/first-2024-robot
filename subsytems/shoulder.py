@@ -45,8 +45,15 @@ class Shoulder(commands2.SubsystemBase):
         self.shoulderPID.setIZone(0.1)
         
         self.minShoulderAngle = 0 # find these values when built
-        self.maxShoulderAngle = 100 # find these values when built
+        self.maxShoulderAngle = 1.42 # find these values when built
         self.s_shoulderAlternateEncoder = self.m_shoulder1.getAlternateEncoder(8192)
+        
+        self.pid_graphs = Shuffleboard.getTab("Shoulder PID")
+        self.graph = self.pid_graphs.add("Angle", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
+        self.setpoint = self.pid_graphs.add("Setpoint", 0).getEntry()
+        self.pid_settings_kp = self.pid_graphs.add("kp", self.shoulderPID_kP).getEntry()
+        self.pid_settings_ki = self.pid_graphs.add("ki", self.shoulderPID_kI).getEntry()
+        self.pid_settings_kd = self.pid_graphs.add("kd", self.shoulderPID_kD).getEntry()
         
                 
     def setShoulderSpeed(self, speed: float):
@@ -77,6 +84,18 @@ class Shoulder(commands2.SubsystemBase):
             angle: The angle to set the motors to in degrees.
         '''
         #angle += wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) / 180 * math.pi
+        
+        kp = self.pid_settings_kp.getDouble(self.shoulderPID_kP)
+        ki = self.pid_settings_ki.getDouble(self.shoulderPID_kI)
+        kd = self.pid_settings_kd.getDouble(self.shoulderPID_kD)
+        
+        # angle = self.setpoint.getDouble(angle)
+        
+        self.shoulderPID = PIDController(kp,ki,kd)
+        
+        self.graph.setDouble(self.s_shoulderAlternateEncoder.getPosition())
+        
+        
         self.at_pos = False
         if angle < self.minShoulderAngle:
             angle = self.minShoulderAngle
@@ -117,7 +136,7 @@ class Shoulder(commands2.SubsystemBase):
             radians
         '''
         # improve this
-        return 1.22 + -0.3 * distance_to_speaker + 0.0347 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0)
+        return 1.22 + -0.3 * distance_to_speaker + 0.0347 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) + 0.05 # 0.05 trim
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.
