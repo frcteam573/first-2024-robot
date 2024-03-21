@@ -2,7 +2,7 @@ import typing
 import commands2
 import wpilib
 
-from subsytems.climber import Climber
+from subsystems.climber import Climber
 from robot_systems import Robot
         
 class ClimberUp(commands2.CommandBase):

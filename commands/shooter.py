@@ -3,9 +3,9 @@ import commands2
 import wpilib.shuffleboard
 import commands.shoulder
 import commands.intake
-from subsytems.shooter import Shooter
-from subsytems.intake import Intake
-from subsytems.shoulder import Shoulder
+from subsystems.shooter import Shooter
+from subsystems.intake import Intake
+from subsystems.shoulder import Shoulder
 from robot_systems import Robot, Sensors
 from constants import ApriltagPositionDictBlue as apb, ApriltagPositionDictRed as apr
 import config

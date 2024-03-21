@@ -2,7 +2,7 @@ import typing
 import commands2
 import wpilib
 
-from subsytems.trap import Trap
+from subsystems.trap import Trap
 from robot_systems import Robot
         
 class ExtendTrap(commands2.CommandBase):

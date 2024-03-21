@@ -22,7 +22,7 @@ shoulder_floor_pos_auto = 1.44
 shoulder_mid_pos = 0.7
 shoulder_amp_pos = 0
 shoulder_human_pos = .436
-shoulder_trap_pos = 1.3
+shoulder_trap_pos = .145
 
 shoulder_front_speaker = 0.7
 

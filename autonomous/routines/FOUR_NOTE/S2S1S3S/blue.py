@@ -32,8 +32,8 @@ from autonomous.auto_routine import AutoRoutine
 from robot_systems import Robot, Sensors
 from units.SI import meters_per_second, meters_per_second_squared
 
-max_vel: meters_per_second = 3
-max_accel: meters_per_second_squared = 5
+max_vel: meters_per_second = 2
+max_accel: meters_per_second_squared = 4
 
 path_1 = FollowPathCustom(
     subsystem=Robot.drivetrain,
@@ -76,7 +76,7 @@ path_2_p1 = FollowPathCustom(
     max_velocity=max_vel,
     max_accel=max_accel,
     start_velocity=0,
-    end_velocity=1.5,
+    end_velocity=.25,
     rev=False,
   ),
   period=constants.period,
@@ -91,7 +91,7 @@ path_2_p2 = FollowPathCustom(
     end_pose=Pose2d(*note_3[2]),
     max_velocity=max_vel,
     max_accel=max_accel,
-    start_velocity=1.5,
+    start_velocity=.25,
     end_velocity=0,
     rev=False,
   ),
@@ -124,7 +124,7 @@ path_3_1 = FollowPathCustom(
     max_velocity=max_vel,
     max_accel=max_accel,
     start_velocity=0,
-    end_velocity=1.5,
+    end_velocity=.25,
     rev=False,
   ),
   period=constants.period,
@@ -139,7 +139,7 @@ path_3_2 = FollowPathCustom(
     end_pose=Pose2d(*note_4[2]),
     max_velocity=max_vel,
     max_accel=max_accel,
-    start_velocity=1.5,
+    start_velocity=.25,
     end_velocity=0,
     rev=False,
   ),
@@ -165,6 +165,7 @@ path_3_to_speaker = FollowPathCustom(
 
 auto = SequentialCommandGroup(
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  WaitCommand(0.5),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),

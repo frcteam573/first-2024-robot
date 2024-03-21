@@ -17,7 +17,7 @@ from wpimath.trajectory import Trajectory, TrapezoidProfileRadians
 
 from commands.autonomous.trajectory import CustomTrajectory
 from robot_systems import Sensors
-from subsytems import Drivetrain
+from subsystems import Drivetrain
 from units.SI import meters, meters_per_second, radians_per_second
 
 from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator

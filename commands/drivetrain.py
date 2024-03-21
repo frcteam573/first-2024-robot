@@ -13,7 +13,7 @@ import config
 import constants
 from robot_systems import Sensors
 from sensors import FieldOdometry
-from subsytems import Drivetrain
+from subsystems import Drivetrain
 
 
 def curve_abs(x):

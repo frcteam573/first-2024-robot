@@ -4,7 +4,7 @@ import wpilib
 from wpimath.geometry import Pose2d
 from oi.keymap import Keymap
 
-from subsytems import Shoulder
+from subsystems import Shoulder
 
 from robot_systems import Robot, Sensors
 
@@ -66,18 +66,20 @@ class SetShoulderAngleSpeakerAuto(commands2.CommandBase):
   def initialize(self) -> None:
     """Called when the command is initially scheduled."""
     self.finished = False
+    self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
     self.app.setShoulderLocks(False)
     #self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d()
   
   def execute(self) -> bool:
     """Called every time the scheduler runs while the command is scheduled."""
-    # self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
     distance = Sensors.odometry.getDistanceAprilTag()
-    if distance:
-      self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
-        distance
-      ),distance)
+    if not distance or distance == 0:
+      distance = Sensors.odometry.getDistance(self.target)
   
+    self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
+      distance
+    ),distance)
+    
   def isFinished(self) -> bool:
     return self.finished
 

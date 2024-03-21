@@ -22,7 +22,7 @@ class Trap(commands2.SubsystemBase):
         
         #double solenoid, pcm (pnematic control module)
 
-        self.servo = wpilib.Servo(1)
+        self.servo = wpilib.Servo(9)
 
     def StopTrap(self) -> None:
 
@@ -45,7 +45,7 @@ class Trap(commands2.SubsystemBase):
         Args:
             speed: The speed to set the motors to, -1 to 1.
         '''
-                  
+        
         self.servo.setAngle(179)
 
 
