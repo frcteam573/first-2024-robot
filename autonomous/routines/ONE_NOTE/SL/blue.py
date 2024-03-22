@@ -53,7 +53,7 @@ auto = SequentialCommandGroup(
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
-  path_1,
+  # path_1,
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)
