@@ -61,7 +61,7 @@ path_2 = FollowPathCustom(
 
 auto = SequentialCommandGroup(
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
-  # WaitCommand(1),
+  WaitCommand(0.5),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
