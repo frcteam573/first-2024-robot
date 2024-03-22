@@ -29,7 +29,6 @@ class Trap(commands2.SubsystemBase):
         self.servo.setAngle(90) #Set Trap Hood to off.
         #print("Stop Hood") 
 
-        
     def ExtendTrap(self) -> None:
         '''Sets the speed of the climber motors.
         

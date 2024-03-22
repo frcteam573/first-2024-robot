@@ -9,6 +9,7 @@ from wpilib import SmartDashboard, FieldObject2d
 from wpilib.shuffleboard import Shuffleboard, BuiltInWidgets
 from wpimath.geometry import Pose2d
 import commands2
+from cscore import CameraServer
 import typing
 from ntcore import Value
 
@@ -21,11 +22,9 @@ from sensors import FieldOdometry
 from robotpy_toolkit_7407.sensors.limelight.limelight import LimelightController, Limelight
 import commands
 
-from constants import ApriltagPositionDictRed, ApriltagPositionDictBlue
 import config
 
-from autonomous.routines.CENTERLINE.red import path_5 as path_1
-#from autonomous.routines.ONE_NOTE.SL.blue import path_1
+# from autonomous.routines.ONE_NOTE.SL.blue import path_1
 
 class MyRobot(commands2.TimedCommandRobot):
     """
@@ -65,9 +64,10 @@ class MyRobot(commands2.TimedCommandRobot):
         # self.pcm_power = self.power.add("PCM (Compressor)", self.PDP.getCurrent(22)).withWidget(BuiltInWidgets.kGraph).getEntry()
         
         self.field = wpilib.Field2d()
-        self.field.getObject("traj").setTrajectory(path_1.trajectory)
+        # self.field.getObject("traj").setTrajectory(path_1.trajectory)
         wpilib.SmartDashboard.putData("Field", self.field)
         
+        CameraServer.startAutomaticCapture() # automatically puts usb camera to SmartDashboard
         
         OI.init() 
         
@@ -171,6 +171,12 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def autonomousInit(self) -> None:
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
+        for i in range(15):
+            Robot.drivetrain.n_front_left.initial_zero()
+            Robot.drivetrain.n_front_right.initial_zero()
+            Robot.drivetrain.n_back_left.initial_zero()
+            Robot.drivetrain.n_back_right.initial_zero()
+        
         self.alliance = wpilib.DriverStation.getAlliance()
         config.blue_team = wpilib.DriverStation.Alliance.kBlue == self.alliance
         self.auto_selection.getSelected().run()

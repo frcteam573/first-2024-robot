@@ -27,8 +27,8 @@ from autonomous.auto_routine import AutoRoutine
 from robot_systems import Robot, Sensors
 from units.SI import meters_per_second, meters_per_second_squared
 
-max_vel: meters_per_second = 1
-max_accel: meters_per_second_squared = 3
+max_vel: meters_per_second = 3
+max_accel: meters_per_second_squared = 5
 
 path_1 = FollowPathCustom(
   subsystem=Robot.drivetrain,
@@ -63,6 +63,7 @@ path_2 = FollowPathCustom(
 auto = SequentialCommandGroup(
   WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  WaitCommand(0.5),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNote(Robot.intake),
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),

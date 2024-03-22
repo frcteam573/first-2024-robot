@@ -11,7 +11,7 @@ path = (coord, waypoints, coord)
 blue_team = True
 
 initial: coord = (apb[7].X() + 0.918 + robot_length / 2, apb[7].Y(), 0)
-speaker_front: coord = (apb[7].X() + 1.5, apb[7].Y(), 0)
+speaker_front: coord = initial
 
 note_2: path = (
     initial,

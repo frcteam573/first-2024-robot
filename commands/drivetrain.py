@@ -94,13 +94,17 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
                     d_theta = d_theta / abs(d_theta) * 0.5
             if tx:
                 tag_aligned = abs(tx) < config.vision_threshold
+            else:
+                tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
+                tag_aligned = abs(tx) < config.vision_threshold # delete all this when PID works again
+                
             self.target_angle = current_angle
         # elif abs(d_theta) < 0.11: # This is for gyro stablization
         #     d_theta = angular_vel
         # else:
         #     self.target_angle = current_angle
-        # wpilib.SmartDashboard.putBoolean("Tag aligned", tag_aligned)
-        wpilib.SmartDashboard.putBoolean("Tag aligned", True)
+        wpilib.SmartDashboard.putBoolean("Tag aligned", tag_aligned)
+        # wpilib.SmartDashboard.putBoolean("Tag aligned", True)
 # ----------------------------------------------------------------------------------------
         #print("SwerveDriveCustom")
         #print("dx", dx)
