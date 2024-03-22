@@ -32,8 +32,8 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
     driver_centric_reversed = False
     period = constants.period
     angular_pid: PIDController = PIDController(1, 0.5, 0.05)
-    target_pid: PIDController = PIDController(.02, 0, 0)
-    speaker_pid: PIDController = PIDController(.03, .001, 0)
+    target_pid: PIDController = PIDController(.01, 0, 0)
+    speaker_pid: PIDController = PIDController(.02, .001, 0)
     target_angle = None
 
     def initialize(self) -> None:
@@ -85,6 +85,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
                 #     d_theta = self.target_pid.calculate(tx)
             elif speaker_align:
                 tx = Sensors.odometry.vision_estimator.limelights[0].get_tx()
+                print(tx)
                 if not tx:
                     tx = Sensors.odometry.getAngleToPose(
                         (constants.ApriltagPositionDictBlue[7] if config.blue_team else constants.ApriltagPositionDictRed[4]).toPose2d()
@@ -148,7 +149,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         if config.driver_centric and config.blue_team:
             self.subsystem.set_driver_centric((-dy, dx), d_theta)
         elif not config.blue_team or self.driver_centric_reversed:
-            self.subsystem.set_driver_centric((dy, -dx), -d_theta)
+            self.subsystem.set_driver_centric((dy, -dx), d_theta)
         else:
             self.subsystem.set_robot_centric((dy, -dx), d_theta)
 
