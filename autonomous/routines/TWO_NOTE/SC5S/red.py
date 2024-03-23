@@ -73,9 +73,9 @@ auto = SequentialCommandGroup(
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
-  commands.IntakeIn(Robot.intake),
   ParallelCommandGroup( # go to speaker while shooting
     path_2,
+    commands.IntakeIn(Robot.intake),
     SequentialCommandGroup(
       WaitCommand(1.5),
       commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
