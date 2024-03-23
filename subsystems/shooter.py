@@ -46,12 +46,12 @@ class Shooter(commands2.SubsystemBase):
         self.s_shooterEncoder1 = self.m_shooter1.getEncoder()
         self.s_shooterEncoder2 = self.m_shooter2.getEncoder()
         
-        self.pid_graphs = Shuffleboard.getTab("Shooter PID")
-        self.graph1 = self.pid_graphs.add("Shooter 1", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
-        self.graph2 = self.pid_graphs.add("Shooter 2", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
-        self.pid_settings_kp = self.pid_graphs.add("kp", self.kp).getEntry()
-        self.pid_settings_ki = self.pid_graphs.add("ki", self.ki).getEntry()
-        self.pid_settings_kd = self.pid_graphs.add("kd", self.kd).getEntry()
+        # self.pid_graphs = Shuffleboard.getTab("Shooter PID")
+        # self.graph1 = self.pid_graphs.add("Shooter 1", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
+        # self.graph2 = self.pid_graphs.add("Shooter 2", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
+        # self.pid_settings_kp = self.pid_graphs.add("kp", self.kp).getEntry()
+        # self.pid_settings_ki = self.pid_graphs.add("ki", self.ki).getEntry()
+        # self.pid_settings_kd = self.pid_graphs.add("kd", self.kd).getEntry()
         
     def setShooterRPM(self, speed: float) -> bool:
         '''Sets the RPM of the shooter motors.
@@ -59,19 +59,19 @@ class Shooter(commands2.SubsystemBase):
         Args:
             speed: The RPM to set the motors to, -5000 to 5000.
         '''
-        kp = self.pid_settings_kp.getDouble(self.kp)
-        ki = self.pid_settings_ki.getDouble(self.ki)
-        kd = self.pid_settings_kd.getDouble(self.kd)
+        # kp = self.pid_settings_kp.getDouble(self.kp)
+        # ki = self.pid_settings_ki.getDouble(self.ki)
+        # kd = self.pid_settings_kd.getDouble(self.kd)
         
-        self.shooterPID1.setP(kp)
-        self.shooterPID1.setI(ki)
-        self.shooterPID1.setD(kd)
-        self.shooterPID2.setP(kp)
-        self.shooterPID2.setI(ki)
-        self.shooterPID2.setD(kd)
+        # self.shooterPID1.setP(kp)
+        # self.shooterPID1.setI(ki)
+        # self.shooterPID1.setD(kd)
+        # self.shooterPID2.setP(kp)
+        # self.shooterPID2.setI(ki)
+        # self.shooterPID2.setD(kd)
         
-        self.graph1.setDouble(-self.s_shooterEncoder1.getVelocity())
-        self.graph2.setDouble(-self.s_shooterEncoder2.getVelocity())
+        # self.graph1.setDouble(-self.s_shooterEncoder1.getVelocity())
+        # self.graph2.setDouble(-self.s_shooterEncoder2.getVelocity())
         
         self.at_speed = False
         #print("target:", speed, "actual:", self.s_shooterEncoder1.getVelocity(), self.s_shooterEncoder2.getVelocity())
@@ -86,8 +86,8 @@ class Shooter(commands2.SubsystemBase):
             # self.shooterPID1.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
             # self.shooterPID2.setReference(speed, rev.CANSparkMax.ControlType.kVelocity)
 
-            wpilib.SmartDashboard.putNumber("Shooter 1 RPM", self.s_shooterEncoder1.getVelocity())
-            wpilib.SmartDashboard.putNumber("Shooter 2 RPM", self.s_shooterEncoder2.getVelocity())
+            # wpilib.SmartDashboard.putNumber("Shooter 1 RPM", self.s_shooterEncoder1.getVelocity())
+            # wpilib.SmartDashboard.putNumber("Shooter 2 RPM", self.s_shooterEncoder2.getVelocity())
 
             ratio_1 = abs(self.s_shooterEncoder1.getVelocity() / speed)
             ratio_2 = abs(self.s_shooterEncoder2.getVelocity() / speed)

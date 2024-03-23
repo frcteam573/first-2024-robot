@@ -48,12 +48,12 @@ class Shoulder(commands2.SubsystemBase):
         self.maxShoulderAngle = 1.42 # find these values when built
         self.s_shoulderAlternateEncoder = self.m_shoulder1.getAlternateEncoder(8192)
         
-        self.pid_graphs = Shuffleboard.getTab("Shoulder PID")
-        self.graph = self.pid_graphs.add("Angle", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
-        self.setpoint = self.pid_graphs.add("Setpoint", 0).getEntry()
-        self.pid_settings_kp = self.pid_graphs.add("kp", self.shoulderPID_kP).getEntry()
-        self.pid_settings_ki = self.pid_graphs.add("ki", self.shoulderPID_kI).getEntry()
-        self.pid_settings_kd = self.pid_graphs.add("kd", self.shoulderPID_kD).getEntry()
+        # self.pid_graphs = Shuffleboard.getTab("Shoulder PID")
+        # self.graph = self.pid_graphs.add("Angle", 0).withWidget(BuiltInWidgets.kGraph).getEntry()
+        # self.setpoint = self.pid_graphs.add("Setpoint", 0).getEntry()
+        # self.pid_settings_kp = self.pid_graphs.add("kp", self.shoulderPID_kP).getEntry()
+        # self.pid_settings_ki = self.pid_graphs.add("ki", self.shoulderPID_kI).getEntry()
+        # self.pid_settings_kd = self.pid_graphs.add("kd", self.shoulderPID_kD).getEntry()
         
                 
     def setShoulderSpeed(self, speed: float):
@@ -85,15 +85,15 @@ class Shoulder(commands2.SubsystemBase):
         '''
         #angle += wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) / 180 * math.pi
         
-        kp = self.pid_settings_kp.getDouble(self.shoulderPID_kP)
-        ki = self.pid_settings_ki.getDouble(self.shoulderPID_kI)
-        kd = self.pid_settings_kd.getDouble(self.shoulderPID_kD)
+        # kp = self.pid_settings_kp.getDouble(self.shoulderPID_kP)
+        # ki = self.pid_settings_ki.getDouble(self.shoulderPID_kI)
+        # kd = self.pid_settings_kd.getDouble(self.shoulderPID_kD)
         
-        # angle = self.setpoint.getDouble(angle)
+        # # angle = self.setpoint.getDouble(angle)
         
-        self.shoulderPID = PIDController(kp,ki,kd)
+        # self.shoulderPID = PIDController(kp,ki,kd)
         
-        self.graph.setDouble(self.s_shoulderAlternateEncoder.getPosition())
+        # self.graph.setDouble(self.s_shoulderAlternateEncoder.getPosition())
         
         
         self.at_pos = False
