@@ -40,7 +40,7 @@ class IntakeIn(commands2.CommandBase):
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
-        if Keymap.Intake.SHOOTER.value > .05 and self.app.setIntakeSpeed(-1):
+        if self.app.setIntakeSpeed(-1):
             self.finished = True
         #print("Intake In")
     
@@ -91,7 +91,7 @@ class TransferNote(commands2.CommandBase):
         """Called every time the scheduler runs while the command is scheduled."""
         #print("Transfer")
         
-        if self.app.setTransferSpeed(1, self.overide):
+        if Keymap.Intake.SHOOTER.value > .05 and self.app.setTransferSpeed(1, self.overide):
             self.finished = True
             
     def isFinished(self) -> bool:
