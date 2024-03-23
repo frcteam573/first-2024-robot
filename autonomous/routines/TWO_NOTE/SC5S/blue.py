@@ -73,13 +73,15 @@ auto = SequentialCommandGroup(
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos),
   ),
+  commands.IntakeIn(Robot.intake),
   ParallelCommandGroup( # go to speaker while shooting
     path_2,
     SequentialCommandGroup(
       WaitCommand(1.5),
-      commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+      commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
     ),
   ),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNoteAuto(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
