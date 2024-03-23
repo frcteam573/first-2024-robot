@@ -24,7 +24,7 @@ shoulder_amp_pos = 0
 shoulder_human_pos = .436
 shoulder_trap_pos = .145
 
-shoulder_front_speaker = 0.7
+shoulder_front_speaker = 0.9
 
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
     new_pose = Pose2d(

@@ -180,6 +180,10 @@ auto = SequentialCommandGroup(
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
   ),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  ParallelCommandGroup(
+    WaitCommand(0.25),
+    commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  ),
   commands.TransferNoteAuto(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
    ParallelDeadlineGroup( # go to note 2 to take in note
@@ -198,6 +202,10 @@ auto = SequentialCommandGroup(
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
   ),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  ParallelCommandGroup(
+    WaitCommand(0.25),
+    commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  ),
   commands.TransferNoteAuto(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
    ParallelDeadlineGroup( # go to note 2 to take in note
@@ -216,6 +224,10 @@ auto = SequentialCommandGroup(
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
   ),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  ParallelCommandGroup(
+    WaitCommand(0.25),
+    commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  ),
   commands.TransferNoteAuto(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
