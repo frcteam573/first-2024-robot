@@ -16,7 +16,7 @@ initial: coord = (pose.X(), pose.Y(), pose.rotation().radians())
 note_c5: path = (
     initial,
     [(initial[0] + 1, initial[1] - 2)],
-    (np["center_5"].X() - robot_length / 2, np["center_5"].Y() - robot_length / 2, 0),
+    (np["center_5"].X() - robot_length / 4, np["center_5"].Y(), 0),
 )
 
 speaker: path = (
