@@ -65,7 +65,7 @@ auto = SequentialCommandGroup(
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   WaitCommand(0.5),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
-  commands.TransferNote(Robot.intake),
+  commands.TransferNoteAuto(Robot.intake),
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos_auto),
   ParallelDeadlineGroup( # go to note 2 to take in note
@@ -80,7 +80,7 @@ auto = SequentialCommandGroup(
       commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
     ),
   ),
-  commands.TransferNote(Robot.intake),
+  commands.TransferNoteAuto(Robot.intake),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
 )

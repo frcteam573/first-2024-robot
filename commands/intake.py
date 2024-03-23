@@ -71,6 +71,37 @@ class IntakeOut(commands2.CommandBase):
         self.app.setIntakeSpeed(0)
         #print("Intake Out End")
         
+class TransferNoteAuto(commands2.CommandBase):
+    def __init__(
+        self, 
+        app: Intake,
+        overide: bool = False
+    ) -> None:
+        super().__init__()
+
+        self.app = app
+        self.addRequirements(app)
+
+        self.overide = overide
+
+    def initialize(self) -> None:
+        self.finished = False
+
+    def execute(self) -> None:
+        """Called every time the scheduler runs while the command is scheduled."""
+        #print("Transfer")
+        
+        if self.app.setTransferSpeed(1, self.overide):
+            self.finished = True
+            
+    def isFinished(self) -> bool:
+        return self.finished
+        
+    def end(self, interrupted=False) -> None:
+        self.app.setTransferSpeed(0)
+        #print("Transfer End")
+        
+
 class TransferNote(commands2.CommandBase):
     def __init__(
         self, 

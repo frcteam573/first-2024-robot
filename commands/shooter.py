@@ -37,7 +37,7 @@ class ShootNote(commands2.CommandBase):
         self.shooter_good = True
         #print("Note Excute " + str(self.should_pos)+" | "+str(self.shooter_good))
         if self.should_pos and self.shooter_good:
-            if commands.intake.TransferNote(Robot.intake).isFinished():
+            if commands.intake.TransferNoteAuto(Robot.intake).isFinished():
                 #print("Note Shoot")
                 self.finished = True
 

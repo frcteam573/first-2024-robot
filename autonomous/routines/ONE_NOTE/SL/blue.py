@@ -49,7 +49,7 @@ auto = SequentialCommandGroup(
   WaitCommand(0.5),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
-  commands.TransferNote(Robot.intake),
+  commands.TransferNoteAuto(Robot.intake),
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
