@@ -61,11 +61,12 @@ path_2 = FollowPathCustom(
 )
 
 auto = SequentialCommandGroup(
-  WaitCommand(SmartDashboard.getNumber("Auto Delay",0)), #Not the best way but it works for now.
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   WaitCommand(0.5),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNoteAuto(Robot.intake),
+  WaitCommand(0.1),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
   # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos_auto),
   ParallelDeadlineGroup( # go to note 2 to take in note
@@ -81,10 +82,13 @@ auto = SequentialCommandGroup(
       commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
     ),
   ),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  WaitCommand(0.5),
   commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
   commands.TransferNoteAuto(Robot.intake),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  WaitCommand(0.1),
   InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos_auto),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)
