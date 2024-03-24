@@ -21,6 +21,6 @@ note_c5: path = (
 
 speaker: path = (
     note_c5[2],
-    note_c5[1],
+    [(initial[0] + 1 + robot_length, initial[1] - 2)],
     initial,
 )
