@@ -74,13 +74,17 @@ class SetShoulderAngleSpeakerAuto(commands2.CommandBase):
     self.finished = False
     self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d() # Have to do this here so it updates if robot is moving
     self.app.setShoulderLocks(False)
+    self.memory = 1.5
     #self.target = ApriltagPositionDictBlue[7].toPose2d() if config.blue_team else ApriltagPositionDictRed[4].toPose2d()
   
   def execute(self) -> bool:
     """Called every time the scheduler runs while the command is scheduled."""
     distance = Sensors.odometry.getDistanceAprilTag()
-    if not distance or distance == 0:
-      distance = Sensors.odometry.getDistance(self.target)
+    
+    if distance:
+      self.memory = distance
+    else:
+      distance = self.memory
   
     self.finished = self.app.setShoulderAngle(self.app.calculateShoulderAngle(
       distance
