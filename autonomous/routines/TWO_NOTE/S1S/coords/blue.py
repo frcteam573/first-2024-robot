@@ -25,3 +25,15 @@ speaker: path = (
     initial,
 )
 
+note_c1: path = (
+    initial,
+    [(np['blue_1'].X() - robot_length / 2, np['blue_1'].Y())],
+    (np['center_1'].X() - robot_length / 4, np['center_1'].Y(), 0)
+)
+
+speaker_2: path = (
+    note_c1[2],
+    note_c1[1],
+    initial,
+)
+

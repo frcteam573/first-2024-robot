@@ -4,6 +4,8 @@ from autonomous.routines.TWO_NOTE.S1S.coords.red import (
   initial,
   note_1,
   speaker,
+  note_c1,
+  speaker_2,
   blue_team
 )
 
@@ -59,6 +61,36 @@ path_2 = FollowPathCustom(
     period=constants.period,
 )
 
+path_3 = FollowPathCustom(
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*note_c1[0]),
+        waypoints=[Translation2d(*x) for x in note_c1[1]],
+        end_pose=Pose2d(*note_c1[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+        rev=False,
+    ),
+    period=constants.period,
+)
+
+path_4 = FollowPathCustom(
+    subsystem=Robot.drivetrain,
+    trajectory=CustomTrajectory(
+        start_pose=Pose2d(*speaker_2[0]),
+        waypoints=[Translation2d(*x) for x in speaker_2[1]],
+        end_pose=Pose2d(*speaker_2[2]),
+        max_velocity=max_vel,
+        max_accel=max_accel,
+        start_velocity=0,
+        end_velocity=0,
+        rev=True,
+    ),
+    period=constants.period,
+)
+
 auto = SequentialCommandGroup(
   InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   WaitCommand(0.5),
@@ -74,6 +106,23 @@ auto = SequentialCommandGroup(
   ),
   ParallelDeadlineGroup( # go speaker front
     path_2,
+    commands.IntakeIn(Robot.intake),
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
+  ),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  WaitCommand(0.5),
+  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
+  commands.TransferNoteAuto(Robot.intake),
+  WaitCommand(0.1),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
+  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  ParallelDeadlineGroup( # go to note 2 to take in note
+    path_3,
+    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos_auto),
+    commands.IntakeIn(Robot.intake),
+  ),
+  ParallelDeadlineGroup( # go speaker front
+    path_4,
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
   ),
