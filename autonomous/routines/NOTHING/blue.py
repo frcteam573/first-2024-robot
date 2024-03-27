@@ -20,6 +20,7 @@ from wpilib.shuffleboard import Shuffleboard
 import commands
 import config
 import constants
+import commands.autonomous.collections as collections
 from commands.autonomous.custom_pathing import FollowPathCustom, FollowPathCustomAprilTag
 from commands.autonomous.trajectory import CustomTrajectory
 from autonomous.auto_routine import AutoRoutine

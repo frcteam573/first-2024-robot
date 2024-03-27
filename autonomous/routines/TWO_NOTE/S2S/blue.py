@@ -20,6 +20,7 @@ from wpilib import SmartDashboard, Field2d
 import commands
 import config
 import constants
+import commands.autonomous.collections as collections
 from commands.autonomous.custom_pathing import FollowPathCustom, FollowPathCustomAprilTag
 from commands.autonomous.trajectory import CustomTrajectory
 from autonomous.auto_routine import AutoRoutine
@@ -60,14 +61,7 @@ path_2 = FollowPathCustom(
 )
 
 auto = SequentialCommandGroup(
-  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
-  WaitCommand(0.5),
-  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
-  commands.TransferNoteAuto(Robot.intake),
-  WaitCommand(0.1),
-  InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
-  # InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  collections.AlignAndShoot(),
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_1,
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_floor_pos_auto),
@@ -78,13 +72,7 @@ auto = SequentialCommandGroup(
     commands.IntakeIn(Robot.intake),
     commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
   ),
-  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
-  WaitCommand(0.5),
-  commands.SetShoulderAngleSpeakerAuto(Robot.shoulder),
-  commands.TransferNoteAuto(Robot.intake),
-  WaitCommand(0.1),
-  InstantCommand(lambda: Robot.shooter.setShooterRPM(0)),
-  commands.SetShoulderAngleAuto(Robot.shoulder, config.shoulder_floor_pos),
+  collections.AlignAndShoot(),
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)

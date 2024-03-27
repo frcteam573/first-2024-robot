@@ -54,10 +54,10 @@ class Shooter(commands2.SubsystemBase):
         # self.pid_settings_kd = self.pid_graphs.add("kd", self.kd).getEntry()
         
     def setShooterRPM(self, speed: float) -> bool:
-        '''Sets the RPM of the shooter motors.
+        '''Sets the shooter to full speed. Will return True if the shooter is at parameter speed, False if not.
         
         Args:
-            speed: The RPM to set the motors to, -5000 to 5000.
+            speed: The speed target for the shooter.
         '''
         # kp = self.pid_settings_kp.getDouble(self.kp)
         # ki = self.pid_settings_ki.getDouble(self.ki)

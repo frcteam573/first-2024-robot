@@ -19,6 +19,7 @@ from wpilib import SmartDashboard, Field2d
 import commands
 import config
 import constants
+import commands.autonomous.collections as collections
 from commands.autonomous.custom_pathing import FollowPathCustom
 from commands.autonomous.trajectory import CustomTrajectory
 from autonomous.auto_routine import AutoRoutine

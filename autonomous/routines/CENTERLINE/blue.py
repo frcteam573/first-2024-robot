@@ -25,6 +25,7 @@ from wpilib.shuffleboard import Shuffleboard
 import commands
 import config
 import constants
+import commands.autonomous.collections as collections
 from commands.autonomous.custom_pathing import FollowPathCustom, FollowPathCustomAprilTag
 from commands.autonomous.trajectory import CustomTrajectory
 from autonomous.auto_routine import AutoRoutine
@@ -125,7 +126,7 @@ path_6 = FollowPathCustom(
 )
 
 auto = SequentialCommandGroup(
-    InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
+  InstantCommand(lambda: Robot.shooter.setShooterRPM(4000)),
   ParallelDeadlineGroup( # go to note 2 to take in note
     path_1,
     commands.IntakeIn(Robot.intake),

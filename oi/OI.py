@@ -29,43 +29,43 @@ class OI:
 		logger.info("Mapping controls...")
 
 #------------------------ Intake -----------------------#
-		Keymap.Intake.INTAKE_IN.whileTrue(command=commands.IntakeIn(Robot.intake))
-	#	Keymap.Intake.INTAKE_IN.whileTrue(command=commands.ShootNote(Robot.shooter,5600))
-		Keymap.Intake.INTAKE_OUT.whileTrue(command=commands.IntakeOut(Robot.intake))
+		Keymap.Intake.INTAKE_IN.whileTrue(commands.IntakeIn(Robot.intake))
+	#	Keymap.Intake.INTAKE_IN.whileTrue(commands.ShootNote(Robot.shooter,5600))
+		Keymap.Intake.INTAKE_OUT.whileTrue(commands.IntakeOut(Robot.intake))
 
 #------------------------ Transfer -----------------------#
 		commands2.button.Trigger(lambda: Keymap.Intake.TRANSFER.value > .05).whileTrue(
-			command=commands.TransferNote(Robot.intake, True))
+			commands.TransferNote(Robot.intake, True))
 #------------------------ Shooter -----------------------#
 		#Speaker Shooter Settings
 		commands2.button.Trigger(lambda: Keymap.Intake.SHOOTER.value > .05).whileTrue(
-			command=commands.ShooterSpeed(Robot.shooter,4000))
+			commands.ShooterSpeed(Robot.shooter,4000))
 		
 		Keymap.Intake.TRAP_HOOD.whileTrue(
-			command=commands.ExtendTrap(Robot.trap)
+			commands.ExtendTrap(Robot.trap)
 		)
 #------------------------ Climber -----------------------#
-		Keymap.Climber.CLIMBER_UP.whileTrue(command=commands.ClimberJolt)
+		Keymap.Climber.CLIMBER_UP.whileTrue(commands.ClimberJolt)
 	
-		Keymap.Climber.CLIMBER_DOWN.whileTrue(command=commands.ClimberDown(Robot.climber))
+		Keymap.Climber.CLIMBER_DOWN.whileTrue(commands.ClimberDown(Robot.climber))
 
 #------------------------ Shoulder -----------------------#
 		commands2.button.Trigger(lambda: abs(Keymap.Shoulder.SHOULDER_AXIS.value) > .05).whileTrue(
-			command=commands.JoystickMoveShoulder(Robot.shoulder))
+			commands.JoystickMoveShoulder(Robot.shoulder))
 		
 		#Shoulder Setpoint Commands
-		Keymap.Intake.FLOOR_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos)) 
+		Keymap.Intake.FLOOR_POSITION.whileTrue(commands.SetShoulderAngle(Robot.shoulder,config.shoulder_floor_pos)) 
 
-		Keymap.Intake.HUMAN_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_human_pos)) 
+		Keymap.Intake.HUMAN_POSITION.whileTrue(commands.SetShoulderAngle(Robot.shoulder,config.shoulder_human_pos)) 
 
-		Keymap.Intake.AMP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_amp_pos)) 
+		Keymap.Intake.AMP_POSITION.whileTrue(commands.SetShoulderAngle(Robot.shoulder,config.shoulder_amp_pos)) 
 
-		Keymap.Intake.TRAP_POSITION.whileTrue(command=commands.SetShoulderAngle(Robot.shoulder,config.shoulder_trap_pos)) 
+		Keymap.Intake.TRAP_POSITION.whileTrue(commands.SetShoulderAngle(Robot.shoulder,config.shoulder_trap_pos)) 
 
-		Keymap.Intake.SPEAKER_POSITION.whileTrue(command=commands.SetShoulderAngleSpeaker(Robot.shoulder))
+		Keymap.Intake.SPEAKER_POSITION.whileTrue(commands.SetShoulderAngleSpeaker(Robot.shoulder))
 		
-		Keymap.Shoulder.SHOULDER_TRIM_UP.whileTrue(command=commands.ChangeShoulderTrim(Robot.shoulder,0.05))
-		Keymap.Shoulder.SHOULDER_TRIM_DOWN.whileTrue(command=commands.ChangeShoulderTrim(Robot.shoulder,-0.05))
+		Keymap.Shoulder.SHOULDER_TRIM_UP.whileTrue(commands.ChangeShoulderTrim(Robot.shoulder,0.05))
+		Keymap.Shoulder.SHOULDER_TRIM_DOWN.whileTrue(commands.ChangeShoulderTrim(Robot.shoulder,-0.05))
   
  #------------------------------- Drivetrain --------------------------------------# 
 		Keymap.Drivetrain.DRIVE_STRAIGHTEN_WHEELS.onTrue(commands.DrivetrainAlignStraight(Robot.drivetrain))

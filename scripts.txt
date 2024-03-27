@@ -1,9 +1,9 @@
 run code
-python robot.py run
+robotpy run
 
 deploy code
-python robot.py deploy --skip-tests
-python robot.py deploy --nc
+robotpy deploy --skip-tests
+robotpy deploy --nc
 
 sim code
-python robot.py sim
+robotpy sim

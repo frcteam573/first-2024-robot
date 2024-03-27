@@ -20,6 +20,7 @@ from wpilib.shuffleboard import Shuffleboard
 import commands
 import config
 import constants
+import commands.autonomous.collections as collections
 from commands.autonomous.custom_pathing import FollowPathCustom, FollowPathCustomAprilTag
 from commands.autonomous.trajectory import CustomTrajectory
 from autonomous.auto_routine import AutoRoutine
@@ -48,7 +49,6 @@ path_1 = FollowPathCustom(
 auto = SequentialCommandGroup(
   WaitCommand(SmartDashboard.getNumber("Auto Delay",10)), #Not the best way but it works for now.
   path_1,
-  
 )
 
 routine = AutoRoutine(Pose2d(*initial), auto, blue_team=blue_team)
