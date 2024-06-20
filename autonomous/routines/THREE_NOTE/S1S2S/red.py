@@ -179,7 +179,7 @@ auto = SequentialCommandGroup(
   ParallelDeadlineGroup( # go speaker front
     path_2_to_speaker,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
+    commands.SetShoulderAngle(Robot.shoulder, config.auton_middle_note_shoulder),
   ),
   collections.AlignAndShoot(),
   ParallelDeadlineGroup( # go to note 2 to take in note
@@ -190,7 +190,7 @@ auto = SequentialCommandGroup(
   ParallelDeadlineGroup( # go speaker front
     path_1_to_speaker,
     commands.IntakeIn(Robot.intake),
-    commands.SetShoulderAngle(Robot.shoulder, config.shoulder_front_speaker),
+    commands.SetShoulderAngle(Robot.shoulder, config.auton_middle_note_shoulder),
   ),
   collections.AlignAndShoot(),
 )

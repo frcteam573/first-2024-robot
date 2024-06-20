@@ -18,13 +18,14 @@ robot_length = 35.5 * inches_to_meters
 robot_width = 35.5 * inches_to_meters
 
 shoulder_floor_pos = 1.44
-shoulder_floor_pos_auto = 1.44
+shoulder_floor_pos_auto = 1.39 # changed from 1.44 to 1.39, might change again later (coach lisa told me to change pls dont get mad)
 shoulder_mid_pos = 0.7
 shoulder_amp_pos = 0
 shoulder_human_pos = .436
 shoulder_trap_pos = .145
 
-shoulder_front_speaker = 0.9  # Change this Value to affect auto shots from front of speaker.
+shoulder_front_speaker = 0.9 # Change this Value to affect auto shots from front of speaker.
+auton_middle_note_shoulder = 0.8 # Change this to affect the auto shots for ONLY middle autons (where we start in the middle position)
 
 def get_perpendicular_pose(pose: Pose2d, distance: float, new_angle: float) -> Pose2d:
     new_pose = Pose2d(
