@@ -136,7 +136,7 @@ class Shoulder(commands2.SubsystemBase):
             radians
         '''
         # improve this
-        return 1.22 + -0.3 * distance_to_speaker + 0.0347 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) + 0.05 # 0.05 trim
+        return 1.22 + -0.3 * distance_to_speaker + 0.0347 * distance_to_speaker**2 + wpilib.SmartDashboard.getNumber("Shoulder Trim", 0) + 0.1 # 0.05 trim
     
     def changeShoulderTrim(self, value: float) -> None:
         '''Changes the trim of the shoulder.
