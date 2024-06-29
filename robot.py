@@ -85,7 +85,10 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection.addOption("TWO NOTE TOP BLUE", autonomous.two_note_top_blue)
         self.auto_selection.addOption("TWO NOTE MIDDLE BLUE", autonomous.two_note_middle_blue)
         self.auto_selection.addOption("TWO NOTE BOTTOM BLUE", autonomous.two_note_bottom_center_blue)
-        self.auto_selection.addOption("ONE NOTE BLUE", autonomous.one_note_blue)
+        self.auto_selection.addOption("ONE NOTE SIDE BLUE", autonomous.one_note_side_blue)
+        self.auto_selection.addOption("ONE NOTE TOP BLUE", autonomous.one_note_top_blue)
+        self.auto_selection.addOption("ONE NOTE MIDDLE BLUE", autonomous.one_note_middle_blue)
+        self.auto_selection.addOption("ONE NOTE BOTTOM BLUE", autonomous.one_note_bottom_blue)
         self.auto_selection.addOption("NOTHING BLUE", autonomous.nothing_blue)
         self.auto_selection.addOption("CENTERLINE BLUE", autonomous.centerline_blue)
     # else:
@@ -95,7 +98,10 @@ class MyRobot(commands2.TimedCommandRobot):
         self.auto_selection.addOption("TWO NOTE TOP RED", autonomous.two_note_top_red)
         self.auto_selection.addOption("TWO NOTE MIDDLE RED", autonomous.two_note_middle_red)
         self.auto_selection.addOption("TWO NOTE BOTTOM RED", autonomous.two_note_bottom_center_red)
-        self.auto_selection.addOption("ONE NOTE RED", autonomous.one_note_red)
+        self.auto_selection.addOption("ONE NOTE SIDE RED", autonomous.one_note_side_red)
+        self.auto_selection.addOption("ONE NOTE TOP RED", autonomous.one_note_top_red)
+        self.auto_selection.addOption("ONE NOTE MIDDLE RED", autonomous.one_note_middle_red)
+        self.auto_selection.addOption("ONE NOTE BOTTOM RED", autonomous.one_note_bottom_red)
         self.auto_selection.addOption("NOTHING RED", autonomous.nothing_red)
         self.auto_selection.addOption("CENTERLINE RED", autonomous.centerline_red)
             
