@@ -1,5 +1,5 @@
 from units.SI import meters, radians
-from autonomous.routines.ONE_NOTE.SM.coords.blue import initial, note_1, speaker, note_c1, speaker_2
+from autonomous.routines.ONE_NOTE.SM.coords.blue import initial
 from autonomous.auto_routine import mirror_path, mirror_pose
 
 coord = (meters, meters, radians)
